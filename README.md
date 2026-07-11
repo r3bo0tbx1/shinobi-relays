@@ -91,18 +91,82 @@ Bridge records include:
 
 ### Live data
 
-At page load, and whenever the refresh button is used, the browser queries:
+When the page loads or the refresh button is clicked, the browser sends an HTTP GET request to the Tor Project Onionoo API.
 
-```text
-https://onionoo.torproject.org/details?lookup=<comma-separated-fingerprints>
+The same request can be tested from a terminal using `curl` and `jq`:
+
+```bash
+curl --fail \
+  --silent \
+  --show-error \
+  --compressed \
+  --get \
+  --data-urlencode \
+  "lookup=7F28C3E41DA9FD4A2B8143CB6038304634EDC396,A6A2A807338167A5E58F4DD2D4CD0817AF3DD562,0EEE0B1EED5E35E1E3F2575CD0AFF160925FA63F" \
+  "https://onionoo.torproject.org/details" |
+jq
 ```
 
-The response is used to update:
+The `lookup` parameter contains a comma-separated list of relay fingerprints. Onionoo returns a JSON details document containing matching public relays under the `relays` array.
+
+A shortened response looks like this:
+
+```json
+{
+  "relays_published": "2026-07-11 19:00:00",
+  "relays": [
+    {
+      "nickname": "ShinobiKaimon",
+      "fingerprint": "0EEE0B1EED5E35E1E3F2575CD0AFF160925FA63F",
+      "running": true,
+      "flags": [
+        "Fast",
+        "HSDir",
+        "Running",
+        "Stable",
+        "V2Dir",
+        "Valid"
+      ],
+      "country_name": "Singapore",
+      "advertised_bandwidth": 2510144
+    }
+  ],
+  "bridges_published": "2026-07-11 18:53:48",
+  "bridges": []
+}
+```
+
+The website matches each returned record to a configured relay using its fingerprint and updates:
 
 - `running`
 - `flags`
 - `advertised_bandwidth`
 - `first_seen`
+- `last_seen`
+- Country and autonomous-system information
+- Tor version and platform
+- Verified hostnames
+- IPv4 and IPv6 OR addresses
+
+The `relays_published` value shows when the public relay data was generated. The `bridges_published` value shows when the bridge data was generated.
+
+An empty `bridges` array is expected when the request contains only public relay fingerprints.
+
+Bridges must be queried using their hashed bridge fingerprints:
+
+```bash
+curl --fail \
+  --silent \
+  --show-error \
+  --compressed \
+  --get \
+  --data-urlencode \
+  "lookup=<hashed-bridge-fingerprint>" \
+  "https://onionoo.torproject.org/details" |
+jq
+```
+
+Never publish or query a bridge using its unhashed identity fingerprint.
 
 If Onionoo is unavailable, the static inventory remains visible and live fields are shown as unavailable instead of removing relay cards.
 
