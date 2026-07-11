@@ -1,0 +1,33 @@
+# .:: 🥷 We operate these Tor relays 🧅 ::.
+# ShinobiMamori 🛡️ - jp-relay.brokenbotnet.com
+ypvOIELa7D27TVYzULysgV/9TEYBrxmvkt/ukkiWGQM
+# ShinobiTora 🐯 - kr-relay.brokenbotnet.com
+nmmlJpWupRY7vYB07xs8ZjLQcM9yDlKUvU5QfKB973c
+# ShinobiKaimon ⛩️ - sg-relay.brokenbotnet.com
+IMmJDRQONXZuyYCD9jMx6VkwlcV0HaBusscEKuZR1f8
+# ShinobiBusouge 🌺 - my-relay.brokenbotnet.com
+SWEeUs6aCWCUgGUH2ltGI9g92bFPbOvg13pRHaGxtRY
+# ShinobiHouou 🐦‍🔥 - id-relay.brokenbotnet.com
+9HgLoAh4i7RdRCflN37EeWXweife8ZGpwpRkh8PpgVs
+# ShinobiHasu 🪷 - vn-relay.brokenbotnet.com
+AD776dOrvLwRwXKPE1CPlIRHDtYtfOGKEJjJ1WXxzbc
+# ShinobiKyuuryuu 🐉 - hk-relay.brokenbotnet.com
+0DJYKORU9igmWrG9DuJybnEITMKCsPCSJ3rUHUwh6x4
+# ShinobiKuma 🐻 - ru-relay.brokenbotnet.com
+RTr5Y3sfRnW+mokp1n+BN+Nyq0PoAKbSP1aa4C3S0v0
+# ShinobiOkami 🐺 - tr-relay.brokenbotnet.com
+UMBClfmocxVP/IpWTmdFUuUB6TfHIMz69I2i1hmRcoM
+# ShinobiShishi 🦁 - za-relay.brokenbotnet.com
+V+lCdUnxhg703eSgn5o5XpZJFCtBtwhAUbep1hVfwPk
+# ShinobiHishoken 🪃 - au-relay.brokenbotnet.com
+lldawMDfVdNMjHYsDwyAUVwMbu2a2P85rJ4RoDd77bk
+# ShinobiKenshin ⚔️ - tor-exit.brokenbotnet.com
+J5LYV3rMwLTRf/uLyxmnUxqSjOzkVp8jQLbN2iK3nYs
+# ShinobiKaede 🍁 - ca-relay.brokenbotnet.com
+FYUlzFcpaK0ZG1LGC8GegThskJfCE1tHHvnDEi5vGDU
+# ShinobiWashi 🦅 - us-relay.brokenbotnet.com
+2aTZsdOT3jM6DW3iUtnENSerz6lQShw4wsxPtQnmy94
+# ShinobiSaboten 🌵 - mx-relay.brokenbotnet.com
+OQEDULkXNE/RcgbKr3eHds4nQrz+EA2+iis6g5sEcio
+# ShinobiMidori 🌳 - br-relay.brokenbotnet.com
+XzQ0USM6XXvlpMknYkaVppbiJ9UE1BU2zkQJc08Ofbw

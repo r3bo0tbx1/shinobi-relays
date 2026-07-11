@@ -1,0 +1,350 @@
+# .:: Shinobi Relays 🥷🧅 ::.
+
+A privacy-focused, static transparency dashboard for the Tor relays and bridges operated by **rE-Bo0t.bx1**.
+
+The site presents operator-owned bridge fingerprints, public relay identities, network locations, platforms, autonomous systems, and live Tor network status in a responsive single-page interface.
+
+<p align="center">
+  <a href="https://relays.brokenbotnet.com/">
+    <img src="./src/og-shinobi.png" alt="Shinobi Relays dashboard preview" width="900">
+  </a>
+</p>
+
+## Live dashboard
+
+- **Website:** [relays.brokenbotnet.com](https://relays.brokenbotnet.com/)
+- **Extended metrics:** [metrics.1aeo.com/relays.brokenbotnet.com](https://metrics.1aeo.com/relays.brokenbotnet.com/)
+- **AIO Docker Relay deployment stack:** [r3bo0tbx1/tor-guard-relay](https://github.com/r3bo0tbx1/tor-guard-relay/)
+
+## Overview
+
+The repository contains a build-free static website. Relay inventory is stored directly in `index.html`, then enriched in the browser with live data from the Tor Project Onionoo API.
+
+Current inventory represented by the source:
+
+| Category | Count |
+| --- | ---: |
+| Bridge relays | 8 |
+| Public relays | 16 |
+| Total relay records | 24 |
+| Public relay countries | 15 |
+| Operating-system families | 6 |
+| Autonomous systems | 11 |
+
+The public inventory currently contains one configured exit relay and fifteen non-exit relays. Guard and middle roles are resolved dynamically from the current Onionoo flags, rather than being treated as permanently fixed roles.
+
+## Features
+
+- Live relay and bridge status from Tor Project Onionoo
+- Running, Guard, Exit, Fast, Stable, Valid, HSDir, V2Dir, and StaleDesc flag display
+- Live advertised-bandwidth total
+- First-seen age and last-seen status handling
+- Automatic Guard, Middle, and Exit role classification
+- Regional health summaries
+- Search by relay name, hostname, country, location, ASN, or fingerprint
+- Sorting by configured region, live status, relay type, or country
+- Copy buttons for fingerprints, addresses, and relay identity lines
+- Responsive relay cards and touch-friendly tooltips
+- Tor circuit flow visualization
+- Tor terminology glossary and FAQ
+- Operator contact, abuse contact, PGP identity, and no-logs statement
+- Public relay ownership proofs under `/.well-known/tor-relay/`
+- Installable web-app manifest and local icon assets
+- Custom cyber-themed `404.html`
+- Static-host security headers through `_headers`
+
+## How it works
+
+```text
+Browser
+  |
+  |-- loads static HTML, CSS, JavaScript, icons, and proof files
+  |
+  |-- reads configured relay inventory from index.html
+  |
+  `-- requests live relay data from Onionoo
+          |
+          `-- updates flags, status, bandwidth, age, and role badges
+```
+
+### Static data
+
+The `relays` array inside `index.html` contains the operator-maintained inventory.
+
+Public relay records include:
+
+- Nickname and display identity
+- Hostname
+- RSA identity fingerprint
+- IPv4 and IPv6 addresses
+- Location and country
+- Operating system
+- ASN
+- Display region
+
+Bridge records include:
+
+- Nickname and display identity
+- Hashed bridge fingerprint
+- Distribution method
+- Bridge capability labels
+
+### Live data
+
+At page load, and whenever the refresh button is used, the browser queries:
+
+```text
+https://onionoo.torproject.org/details?lookup=<comma-separated-fingerprints>
+```
+
+The response is used to update:
+
+- `running`
+- `flags`
+- `advertised_bandwidth`
+- `first_seen`
+
+If Onionoo is unavailable, the static inventory remains visible and live fields are shown as unavailable instead of removing relay cards.
+
+Onionoo documentation: [Tor Metrics Onionoo](https://metrics.torproject.org/onionoo.html)
+
+## Repository structure
+
+```text
+.
+├── .well-known/
+│   └── tor-relay/
+│       ├── ed25519-family-id.txt
+│       ├── ed25519-master-pubkey.txt
+│       ├── hashed-bridge-rsa-fingerprint.txt
+│       └── rsa-fingerprint.txt
+├── src/
+│   ├── js/
+│   │   └── lucide.min.js
+│   ├── apple-touch-icon.png
+│   ├── favicon-96x96.png
+│   ├── favicon.ico
+│   ├── favicon.svg
+│   ├── og-shinobi.png
+│   ├── site.webmanifest
+│   ├── web-app-manifest-192x192.png
+│   └── web-app-manifest-512x512.png
+├── 404.html
+├── index.html
+├── LICENSE
+├── README.md
+└── _headers
+```
+
+## Local development
+
+No package manager, framework, build command, or backend is required.
+
+Clone the repository and serve its root with any static HTTP server:
+
+```bash
+git clone https://github.com/r3bo0tbx1/shinobi-relays.git && cd shinobi-relays
+python3 -m http.server 1337
+```
+
+Open:
+
+```text
+http://localhost:1337/
+```
+
+Using a local HTTP server is recommended instead of opening `index.html` through `file://`. Clipboard access and browser security behavior are more reliable on `localhost` or HTTPS.
+
+## Deployment
+
+The repository can be deployed to any static host. Cloudflare Pages is a natural fit because the project already includes a compatible `_headers` file.
+
+### Cloudflare Pages
+
+1. Connect the repository or upload the static files directly.
+2. Leave the build command empty.
+3. Publish the repository root as the static asset directory.
+4. Confirm that `_headers` is included in the deployed output.
+5. Attach the intended custom domain.
+6. Verify the response headers and Onionoo request in browser developer tools.
+
+Cloudflare Pages documentation: [Custom headers](https://developers.cloudflare.com/pages/configuration/headers/)
+
+### Other static hosts
+
+The HTML and assets work on other static servers, but `_headers` is platform-specific. Recreate the same headers in the chosen web server or CDN configuration when the host does not process this file.
+
+## Updating the relay inventory
+
+Relay cards are generated from the `relays` array near the beginning of the inline JavaScript in `index.html`.
+
+### Public relay example
+
+```js
+{
+    kind: 'public',
+    type: 'middle',
+    region: 'asia-oceania',
+    name: 'Example',
+    emoji: '🧅',
+    tooltip: 'Display description',
+    host: 'relay.example.com',
+    fingerprint: '40_CHARACTER_RSA_FINGERPRINT',
+    ipv4: '192.0.2.10',
+    ipv6: '2001:db8::10',
+    mobileIpv6: '...::10',
+    location: 'City, Country',
+    country: 'Country',
+    os: '🐧 Linux',
+    asn: 'AS64500'
+}
+```
+
+### Bridge example
+
+```js
+{
+    kind: 'bridge',
+    type: 'bridge',
+    name: 'Example',
+    emoji: '🌉',
+    tooltip: 'Display description',
+    fingerprint: '40_CHARACTER_HASHED_BRIDGE_FINGERPRINT',
+    distribution: '📧 Email'
+}
+```
+
+After changing the inventory:
+
+1. Update the matching proof files under `.well-known/tor-relay/`.
+2. Confirm that each public RSA fingerprint appears exactly once in `rsa-fingerprint.txt`.
+3. Confirm that each bridge hashed fingerprint appears exactly once in `hashed-bridge-rsa-fingerprint.txt`.
+4. Update the Ed25519 public-key list when public relays are added or removed.
+5. Update the family ID file only when the public family identity changes.
+6. Review fallback count labels in `fetchRelayFlags()` if the bridge or exit totals change.
+7. Load the site locally and verify search, sorting, copy buttons, metrics links, and Onionoo results.
+
+## Relay proof files
+
+The following public files provide operator ownership and family information:
+
+| File | Purpose |
+| --- | --- |
+| `rsa-fingerprint.txt` | Public RSA identity fingerprints for listed public relays |
+| `ed25519-master-pubkey.txt` | Ed25519 master public keys for listed public relays |
+| `ed25519-family-id.txt` | Public Tor relay family identifier |
+| `hashed-bridge-rsa-fingerprint.txt` | Hashed RSA fingerprints for operated bridges |
+
+These files intentionally contain public identifiers only.
+
+Never commit:
+
+- Relay identity private keys
+- Bridge connection lines
+- Obfs4 private state
+- Family secret signing keys
+- Control-port cookies or passwords
+- Host credentials or provider API tokens
+
+Tor family documentation: [Configure relay FamilyID](https://community.torproject.org/relay/setup/post-install/family-ids/)
+
+## Security and privacy
+
+The dashboard is designed as a static transparency page with a small client-side attack surface.
+
+### Current protections
+
+The `_headers` file configures:
+
+- HTTP Strict Transport Security
+- Frame embedding denial
+- MIME-sniffing protection
+- Referrer restrictions
+- Search-engine exclusion
+- Permissions Policy restrictions
+- Content Security Policy
+- No-cache handling for relay proof files
+- Cross-origin read access for `/.well-known/*`
+
+The application itself:
+
+- Has no backend
+- Has no authentication system
+- Stores no cookies
+- Uses no `localStorage` or `sessionStorage`
+- Contains no forms
+- Does not persist visitor searches
+- Escapes relay-controlled display values before inserting generated card markup
+- Adds `noopener noreferrer` to links opened in a new tab
+- Vendors the Lucide icon library locally
+
+### External connections
+
+The page can connect to:
+
+- `onionoo.torproject.org` for live relay data
+- Cloudflare Insights endpoints when analytics are enabled by the deployment platform
+
+Metrics, Tor Project, GitHub, PGP, Mastodon, and email links are only contacted after the visitor follows them.
+
+### Content Security Policy note
+
+The current page keeps most CSS and JavaScript inline inside `index.html`, so the CSP permits `'unsafe-inline'` for styles and scripts. A stricter future design should move the inline CSS and JavaScript into versioned local files, then remove those allowances or replace them with hashes.
+
+## Maintenance notes
+
+- Relay addresses, locations, platforms, ASNs, and configured regions are static and must be updated manually.
+- Guard status is dynamic. A relay configured as a non-exit may receive or lose the Guard flag without a source-code change.
+- Some bridge and exit fallback labels are currently hardcoded in `fetchRelayFlags()`.
+- Bridge IPv6 capability is represented as enabled by the UI rather than stored as a per-bridge field.
+- The page depends on Onionoo for live state, but degrades gracefully when the API cannot be reached.
+- The Open Graph URLs and canonical deployment metadata are specific to `relays.brokenbotnet.com` and should be changed by forks.
+
+## Basic validation
+
+Check the inline JavaScript syntax:
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import re
+
+html = Path('index.html').read_text(encoding='utf-8')
+scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html, re.I | re.S)
+Path('/tmp/shinobi-inline.js').write_text(scripts[-1], encoding='utf-8')
+PY
+
+node --check /tmp/shinobi-inline.js
+```
+
+Check the deployed security headers:
+
+```bash
+curl -sSI https://relays.brokenbotnet.com/
+```
+
+Check the public proof files:
+
+```bash
+curl -fsSL https://relays.brokenbotnet.com/.well-known/tor-relay/rsa-fingerprint.txt
+curl -fsSL https://relays.brokenbotnet.com/.well-known/tor-relay/ed25519-master-pubkey.txt
+curl -fsSL https://relays.brokenbotnet.com/.well-known/tor-relay/ed25519-family-id.txt
+curl -fsSL https://relays.brokenbotnet.com/.well-known/tor-relay/hashed-bridge-rsa-fingerprint.txt
+```
+
+## Abuse and operator contact
+
+- **👤 Operator:** `r3bo0tbx1@brokenbotnet.com`
+- **🚫 Abuse:** `abuse@brokenbotnet.com`
+- **🔑 PGP fingerprint:** `3372 7F53 77D2 96C3 20AF 704A B3BD 6196 E1CF BFB4`
+
+Traffic observed from a listed Tor exit address may originate from a Tor user rather than the relay operator. The operator cannot identify the original user from normal Tor exit traffic and states that relay activity is not logged.
+
+## Disclaimer
+
+This project is an independent relay-operator dashboard. It is not an official Tor Project website and is not endorsed by or affiliated with The Tor Project.
+
+
+## License
+
+Licensed under the [Apache License 2.0](./LICENSE).
