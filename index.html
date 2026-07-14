@@ -555,66 +555,71 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 2px;
-            left: 2px;
+            right: 0;
             height: 3px;
-            opacity: 0.9;
+            opacity: 0.92;
             border-radius: var(--radius-lg) var(--radius-lg) 0 0;
             z-index: 1;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.08));
         }
 
         .relay-card.bridge::before {
-            background: linear-gradient(90deg, var(--bridge-blue), transparent);
+            background: linear-gradient(90deg, rgba(88, 166, 255, 0.96), rgba(88, 166, 255, 0.42) 58%, transparent);
+            box-shadow: 0 0 12px rgba(88, 166, 255, 0.24);
         }
 
         #relays .relay-card.live-guard::before {
-            background: linear-gradient(90deg, var(--safe-light), transparent);
+            background: linear-gradient(90deg, rgba(86, 211, 100, 0.96), rgba(86, 211, 100, 0.42) 58%, transparent);
+            box-shadow: 0 0 12px rgba(86, 211, 100, 0.22);
         }
 
         #relays .relay-card.live-middle::before {
-            background: linear-gradient(90deg, var(--middle-purple), transparent);
+            background: linear-gradient(90deg, rgba(188, 140, 255, 0.96), rgba(188, 140, 255, 0.42) 58%, transparent);
+            box-shadow: 0 0 12px rgba(188, 140, 255, 0.22);
         }
 
         #relays .relay-card.live-exit::before {
-            background: linear-gradient(90deg, var(--danger-bright), transparent);
+            background: linear-gradient(90deg, rgba(255, 99, 99, 0.96), rgba(255, 99, 99, 0.42) 58%, transparent);
+            box-shadow: 0 0 12px rgba(255, 99, 99, 0.22);
         }
 
         .relay-card.offline::before {
-            background: var(--offline);
-            opacity: 0.3;
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.72), rgba(255, 107, 107, 0.28) 58%, transparent);
+            opacity: 0.55;
+            box-shadow: 0 0 12px rgba(255, 107, 107, 0.16);
         }
 
         .relay-card::after {
             content: '';
             position: absolute;
-            top: 18px;
+            top: 0;
+            left: 0;
             right: 0;
-            bottom: 18px;
-            width: 3px;
-            border-radius: 999px 0 0 999px;
+            height: 3px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
             opacity: 0;
             background: rgba(255, 255, 255, 0.12);
             transition: var(--transition);
             pointer-events: none;
+            z-index: 2;
         }
 
         .relay-card.running::after {
-            opacity: 0.72;
-            background: linear-gradient(180deg, rgba(86, 211, 100, 0.95), rgba(124, 199, 255, 0.28));
-            box-shadow: 0 0 16px rgba(86, 211, 100, 0.16);
+            opacity: 0.9;
+            background: linear-gradient(90deg, rgba(86, 211, 100, 0.94), rgba(124, 199, 255, 0.5) 54%, transparent);
+            box-shadow: 0 0 14px rgba(88, 166, 255, 0.24);
         }
 
         .relay-card.lookup-pending::after {
-            opacity: 0.68;
-            background: linear-gradient(180deg, rgba(255, 209, 102, 0.92), rgba(255, 184, 107, 0.22));
-            box-shadow: 0 0 16px rgba(255, 209, 102, 0.14);
+            opacity: 0.82;
+            background: linear-gradient(90deg, rgba(255, 209, 102, 0.9), rgba(124, 199, 255, 0.38) 54%, transparent);
+            box-shadow: 0 0 14px rgba(88, 166, 255, 0.18);
         }
 
         .relay-card.offline::after {
-            opacity: 0.72;
-            background: linear-gradient(180deg, rgba(255, 107, 107, 0.88), rgba(255, 155, 140, 0.18));
-            box-shadow: 0 0 16px rgba(255, 107, 107, 0.14);
+            opacity: 0.78;
+            background: linear-gradient(90deg, rgba(255, 107, 107, 0.86), rgba(124, 199, 255, 0.28) 54%, transparent);
+            box-shadow: 0 0 14px rgba(88, 166, 255, 0.14);
         }
 
         .relay-header {
