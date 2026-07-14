@@ -1,0 +1,361 @@
+      :root {
+        --bg: #000000;
+        --g: #00ff41;
+        --g-dim: #008f11;
+        --r: #ff3333;
+        --r-dim: #5c0000;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg);
+        color: var(--g);
+        font-family: 'Courier New', monospace;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .scanlines {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10;
+        background:
+          repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0, 255, 65, 0.1) 2px, rgba(0, 255, 65, 0.1) 3px),
+          radial-gradient(circle at center, transparent 50%, #000 120%);
+        animation: flicker 0.15s infinite;
+      }
+
+      .mesh {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9;
+        opacity: 0.15;
+        background-image: radial-gradient(var(--g-dim) 1px, transparent 1px);
+        background-size: 10px 10px;
+      }
+
+      .box {
+        position: relative;
+        width: 800px;
+        max-width: 90%;
+        z-index: 20;
+        padding: 40px;
+        border: 1px solid var(--g-dim);
+        background: rgba(0, 10, 0, 0.9);
+        box-shadow: 0 0 30px rgba(0, 255, 65, 0.05);
+      }
+
+      .glitch-header {
+        position: relative;
+        border-bottom: 2px solid var(--g-dim);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+      }
+
+      h1 {
+        font-size: 5rem;
+        margin: 0;
+        font-weight: 900;
+        text-transform: uppercase;
+        position: relative;
+        color: var(--g);
+        text-shadow: 2px 0 var(--r), -2px 0 var(--g-dim);
+        animation: shift 0.3s infinite;
+        word-break: break-all;
+      }
+
+      h1::before,
+      h1::after {
+        content: attr(data-t);
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.8;
+        pointer-events: none;
+      }
+
+      h1::before {
+        color: var(--r);
+        z-index: -1;
+        animation: glitch-a 2.5s infinite linear alternate-reverse;
+      }
+
+      h1::after {
+        color: var(--g-dim);
+        z-index: -2;
+        animation: glitch-b 2s infinite linear alternate-reverse;
+      }
+
+      .logs {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: var(--g-dim);
+        min-height: 180px;
+        margin-bottom: 20px;
+      }
+
+      .log-line {
+        opacity: 0;
+        animation: appear 0.1s forwards;
+        margin: 3px 0;
+      }
+
+      .log-line:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+
+      .log-line:nth-child(2) {
+        animation-delay: 0.6s;
+      }
+
+      .log-line:nth-child(3) {
+        animation-delay: 1.0s;
+      }
+
+      .log-line:nth-child(4) {
+        animation-delay: 1.8s;
+      }
+
+      .log-line:nth-child(5) {
+        animation-delay: 2.5s;
+      }
+
+      .log-line:nth-child(6) {
+        animation-delay: 3.2s;
+      }
+
+      .log-line:nth-child(7) {
+        animation-delay: 4.0s;
+      }
+
+      .log-line:nth-child(8) {
+        animation-delay: 4.8s;
+      }
+
+      .log-line:nth-child(9) {
+        animation-delay: 5.5s;
+      }
+
+      .err {
+        color: var(--r);
+        font-weight: bold;
+        text-shadow: 0 0 5px var(--r-dim);
+      }
+
+      .hlt {
+        color: var(--g);
+      }
+
+      .blink {
+        animation: b 1s step-end infinite;
+      }
+
+      .ui {
+        opacity: 0;
+        animation: appear 0.5s forwards;
+        animation-delay: 6s;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .redirect-label {
+        color: var(--g-dim);
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+      }
+
+      .btn {
+        display: inline-block;
+        background: transparent;
+        color: var(--g);
+        border: 2px solid var(--g);
+        padding: 12px 25px;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: 0.2s;
+        cursor: pointer;
+        margin-bottom: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn:hover {
+        background: var(--g);
+        color: #000;
+        box-shadow: 0 0 20px var(--g);
+      }
+
+      .progress-container {
+        width: 100%;
+        height: 4px;
+        background: var(--g-dim);
+        margin-top: 5px;
+        position: relative;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: var(--g);
+        width: 0%;
+        animation: load 6s linear forwards;
+        animation-delay: 6s;
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .box {
+          padding: 20px;
+        }
+
+        .logs {
+          font-size: 0.8rem;
+          min-height: 150px;
+        }
+
+        .btn {
+          padding: 10px 20px;
+          font-size: 0.9rem;
+        }
+      }
+
+      @keyframes appear {
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes flicker {
+        0% {
+          opacity: 0.95
+        }
+
+        50% {
+          opacity: 1
+        }
+
+        100% {
+          opacity: 0.96
+        }
+      }
+
+      @keyframes b {
+        50% {
+          opacity: 0
+        }
+      }
+
+      @keyframes load {
+        0% {
+          width: 0%;
+          background: var(--g);
+        }
+
+        80% {
+          background: var(--g);
+        }
+
+        100% {
+          width: 100%;
+          background: var(--r);
+        }
+      }
+
+      @keyframes shift {
+        0% {
+          text-shadow: 2px 0 var(--r), -2px 0 var(--g)
+        }
+
+        50% {
+          text-shadow: -2px 2px var(--r), 1px -1px var(--g)
+        }
+
+        100% {
+          text-shadow: 1px -2px var(--r), -2px 1px var(--g)
+        }
+      }
+
+      @keyframes glitch-a {
+        0% {
+          clip-path: inset(10% 0 80% 0);
+          transform: translate(-2px, 1px)
+        }
+
+        20% {
+          clip-path: inset(80% 0 10% 0);
+          transform: translate(2px, -1px)
+        }
+
+        40% {
+          clip-path: inset(40% 0 50% 0);
+          transform: translate(-2px, 2px)
+        }
+
+        60% {
+          clip-path: inset(20% 0 70% 0);
+          transform: translate(1px, -2px)
+        }
+
+        80% {
+          clip-path: inset(60% 0 20% 0);
+          transform: translate(2px, 1px)
+        }
+
+        100% {
+          clip-path: inset(5% 0 90% 0);
+          transform: translate(-1px, -1px)
+        }
+      }
+
+      @keyframes glitch-b {
+        0% {
+          clip-path: inset(70% 0 20% 0);
+          transform: translate(2px, -2px)
+        }
+
+        20% {
+          clip-path: inset(20% 0 60% 0);
+          transform: translate(-2px, 1px)
+        }
+
+        40% {
+          clip-path: inset(60% 0 30% 0);
+          transform: translate(2px, 1px)
+        }
+
+        60% {
+          clip-path: inset(10% 0 80% 0);
+          transform: translate(-1px, -1px)
+        }
+
+        80% {
+          clip-path: inset(50% 0 40% 0);
+          transform: translate(1px, 2px)
+        }
+
+        100% {
+          clip-path: inset(80% 0 5% 0);
+          transform: translate(-2px, -1px)
+        }
+      }

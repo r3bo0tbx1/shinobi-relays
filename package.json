@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "check:js": "node --check src/js/shinobi.js && node --check scripts/security-check.js",
+    "test:security": "node scripts/security-check.js"
+  }
+}

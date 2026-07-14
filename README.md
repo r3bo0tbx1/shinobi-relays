@@ -183,8 +183,12 @@ Onionoo documentation: [Tor Metrics Onionoo](https://metrics.torproject.org/onio
 │       ├── hashed-bridge-rsa-fingerprint.txt
 │       └── rsa-fingerprint.txt
 ├── src/
+│   ├── css/
+│   │   ├── 404.css
+│   │   └── shinobi.css
 │   ├── js/
-│   │   └── lucide.min.js
+│   │   ├── lucide.min.js
+│   │   └── shinobi.js
 │   ├── apple-touch-icon.png
 │   ├── favicon-96x96.png
 │   ├── favicon.ico
@@ -196,13 +200,18 @@ Onionoo documentation: [Tor Metrics Onionoo](https://metrics.torproject.org/onio
 ├── 404.html
 ├── index.html
 ├── LICENSE
+├── package.json
 ├── README.md
+├── SECURITY.md
+├── scripts/
+│   ├── build.js
+│   └── security-check.js
 └── _headers
 ```
 
 ## Local development
 
-No package manager, framework, build command, or backend is required.
+No framework, build command, backend, or package install is required. `package.json` only provides helper scripts for syntax and security checks.
 
 Clone the repository and serve its root with any static HTTP server:
 
@@ -225,12 +234,25 @@ The repository can be deployed to any static host. Cloudflare Pages is a natural
 
 ### Cloudflare Pages
 
-1. Connect the repository or upload the static files directly.
-2. Leave the build command empty.
-3. Publish the repository root as the static asset directory.
-4. Confirm that `_headers` is included in the deployed output.
-5. Attach the intended custom domain.
-6. Verify the response headers and Onionoo request in browser developer tools.
+1. Connect the repository.
+2. Set **Framework preset** to `None`.
+3. Set **Build command** to `npm run build`.
+4. Set **Build output directory** to `shinobi`.
+5. Leave **Root directory** empty/default unless the repository is checked out from a subdirectory.
+6. Confirm that `_headers` is included in the deployed output.
+7. Attach the intended custom domain.
+8. Verify the response headers and Onionoo request in browser developer tools.
+
+The build script copies only deployable public files into `shinobi`:
+
+- `index.html`
+- `404.html`
+- `_headers`
+- `_redirects`
+- `src/`
+- `.well-known/`
+
+Repository files such as `README.md`, `SECURITY.md`, `package.json`, and `scripts/` are intentionally not published.
 
 Cloudflare Pages documentation: [Custom headers](https://developers.cloudflare.com/pages/configuration/headers/)
 
@@ -240,7 +262,7 @@ The HTML and assets work on other static servers, but `_headers` is platform-spe
 
 ## Updating the relay inventory
 
-Relay cards are generated from the `relays` array near the beginning of the inline JavaScript in `index.html`.
+Relay cards are generated from the `relays` array near the beginning of `src/js/shinobi.js`.
 
 ### Public relay example
 
@@ -316,6 +338,8 @@ Tor family documentation: [Configure relay FamilyID](https://community.torprojec
 
 The dashboard is designed as a static transparency page with a small client-side attack surface.
 
+See [`SECURITY.md`](SECURITY.md) for reporting details, CSP notes, and the DOM-XSS hardening checklist.
+
 ### Current protections
 
 The `_headers` file configures:
@@ -338,22 +362,25 @@ The application itself:
 - Uses no `localStorage` or `sessionStorage`
 - Contains no forms
 - Does not persist visitor searches
-- Escapes relay-controlled display values before inserting generated card markup
+- Builds generated relay cards with DOM APIs such as `createElement`, `textContent`, and `replaceChildren`
+- Treats Onionoo JSON values as untrusted text before rendering them
 - Adds `noopener noreferrer` to links opened in a new tab
 - Vendors the Lucide icon library locally
+- Includes an automated security regression check in `scripts/security-check.js`
 
 ### External connections
 
 The page can connect to:
 
 - `onionoo.torproject.org` for live relay data
-- Cloudflare Insights endpoints when analytics are enabled by the deployment platform
 
 Metrics, Tor Project, GitHub, PGP, Mastodon, and email links are only contacted after the visitor follows them.
 
 ### Content Security Policy note
 
-The current page keeps most CSS and JavaScript inline inside `index.html`, so the CSP permits `'unsafe-inline'` for styles and scripts. A stricter future design should move the inline CSS and JavaScript into versioned local files, then remove those allowances or replace them with hashes.
+The site loads first-party CSS and JavaScript from local files. The deployed CSP in `_headers` does not allow inline scripts, inline event handlers, `unsafe-eval`, or inline style attributes. It also enables Trusted Types enforcement for script sinks in browsers that support it.
+
+`X-XSS-Protection` is set to `0` intentionally. The legacy browser XSS Auditor is deprecated, ignored by modern browsers, and has historically caused compatibility and bypass issues. CSP and removal of unsafe DOM sinks are the primary XSS controls.
 
 ## Maintenance notes
 
@@ -366,19 +393,12 @@ The current page keeps most CSS and JavaScript inline inside `index.html`, so th
 
 ## Basic validation
 
-Check the inline JavaScript syntax:
+Build the deployable `shinobi/` directory, then check JavaScript syntax and DOM-sink guardrails:
 
 ```bash
-python3 - <<'PY'
-from pathlib import Path
-import re
-
-html = Path('index.html').read_text(encoding='utf-8')
-scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html, re.I | re.S)
-Path('/tmp/shinobi-inline.js').write_text(scripts[-1], encoding='utf-8')
-PY
-
-node --check /tmp/shinobi-inline.js
+npm run build
+npm run check:js
+npm run test:security
 ```
 
 Check the deployed security headers:

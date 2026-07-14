@@ -1,2 +1,5 @@
-/LICENSE /404.html 302
-/README.md /404.html 302
+/LICENSE /404.html 404
+/README.md /404.html 404
+/SECURITY.md /404.html 404
+/package.json /404.html 404
+/scripts/* /404.html 404
