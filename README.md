@@ -349,6 +349,7 @@ The `_headers` file configures:
 - MIME-sniffing protection
 - Referrer restrictions
 - Search-engine exclusion
+- CDN transform opt-out with `Cache-Control: no-transform`
 - Permissions Policy restrictions
 - Content Security Policy
 - No-cache handling for relay proof files
@@ -366,6 +367,8 @@ The application itself:
 - Treats Onionoo JSON values as untrusted text before rendering them
 - Adds `noopener noreferrer` to links opened in a new tab
 - Vendors the Lucide icon library locally
+- Opts first-party scripts out of Cloudflare Rocket Loader with `data-cfasync="false"`
+- Wraps static email links in Cloudflare `email_off` comments so Email Address Obfuscation does not inject decode scripts
 - Includes an automated security regression check in `scripts/security-check.js`
 
 ### External connections
@@ -379,6 +382,8 @@ Metrics, Tor Project, GitHub, PGP, Mastodon, and email links are only contacted 
 ### Content Security Policy note
 
 The site loads first-party CSS and JavaScript from local files. The deployed CSP in `_headers` does not allow inline scripts, inline event handlers, `unsafe-eval`, or inline style attributes. It also enables Trusted Types enforcement for script sinks in browsers that support it.
+
+Cloudflare Rocket Loader and Email Address Obfuscation should stay disabled or bypassed for this page. Those features inject or rewrite JavaScript/HTML, which conflicts with the site's Trusted Types policy in Chromium browsers.
 
 `X-XSS-Protection` is set to `0` intentionally. The legacy browser XSS Auditor is deprecated, ignored by modern browsers, and has historically caused compatibility and bypass issues. CSP and removal of unsafe DOM sinks are the primary XSS controls.
 

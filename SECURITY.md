@@ -52,6 +52,9 @@ Implemented controls:
   - `src/js/shinobi.js`
 - Lucide is vendored locally as `src/js/lucide.min.js`.
 - The SVG favicon is static and does not contain script, event handlers, or embedded style blocks.
+- `_headers` sends `Cache-Control: no-transform` to opt out of CDN HTML rewriting.
+- First-party script tags include `data-cfasync="false"` so Cloudflare Rocket Loader does not defer or rewrite them.
+- Static email links are wrapped with Cloudflare `email_off` comments so Email Address Obfuscation does not inject its decode script.
 
 ## Content Security Policy
 
@@ -71,6 +74,8 @@ Cloudflare Pages reads `_headers`, which currently sets a restrictive CSP:
 - `require-trusted-types-for 'script'`
 
 Do not add `unsafe-eval`. Do not add `unsafe-inline` unless a security review documents why there is no safer option.
+
+Cloudflare Rocket Loader and Email Address Obfuscation are not compatible with this Trusted Types policy when they inject or rewrite page scripts in Chromium browsers. Keep those features disabled in Cloudflare, or keep the local opt-outs in place.
 
 ## X-XSS-Protection
 
@@ -100,8 +105,10 @@ npm run test:security
 - inline `<script>` or `<style>` blocks
 - `javascript:` URLs
 - unapproved script sources
+- first-party scripts without `data-cfasync="false"`
 - `target="_blank"` links without `noopener noreferrer`
 - CSP weakening such as `script-src 'unsafe-inline'` or `unsafe-eval`
+- removal of the global `Cache-Control: no-transform` header
 
 The check intentionally excludes `src/js/lucide.min.js` because it is vendored third-party code. Review that file separately before updating it.
 

@@ -68,6 +68,9 @@ function scanFile(file) {
       if (src && !allowedScriptSrc.has(src.replace(/^\//, ''))) {
         fail(file, lineNumber(content, match.index), `unapproved script source: ${src}`);
       }
+      if (src && allowedScriptSrc.has(src.replace(/^\//, '')) && !/\bdata-cfasync\s*=\s*["']false["']/i.test(attrs)) {
+        fail(file, lineNumber(content, match.index), 'first-party script must opt out of Cloudflare Rocket Loader with data-cfasync="false"');
+      }
     }
 
     for (const match of content.matchAll(/<style\b[^>]*>[\s\S]*?<\/style>/gi)) {
@@ -116,6 +119,9 @@ function scanHeaders() {
   }
   if (/\bscript-src\b[^;]*'unsafe-inline'/.test(csp)) fail(file, 1, "CSP script-src must not allow 'unsafe-inline'");
   if (/\bscript-src\b[^;]*'unsafe-eval'/.test(csp)) fail(file, 1, "CSP script-src must not allow 'unsafe-eval'");
+  if (!/^\/\*\s*[\s\S]*?^\s*Cache-Control:\s*[^\n]*\bno-transform\b/im.test(content)) {
+    fail(file, 1, 'global headers must include Cache-Control: no-transform to prevent CDN HTML rewrites');
+  }
 }
 
 walk(root);
