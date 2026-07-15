@@ -141,10 +141,31 @@
             }, iconNode('copy', 'button-icon'));
         }
 
-        function copyValue(value, label, display = value) {
+        function copyValue(value, label, display = value, displayClass = 'copy-text') {
             return createEl('span', { className: 'copy-value' },
-                createEl('span', { className: 'copy-text', text: display }),
+                createEl('span', { className: displayClass, title: value }, display instanceof Node ? display : document.createTextNode(String(display))),
                 copyButton(value, label)
+            );
+        }
+
+        function ipv6Display(value = '') {
+            const address = String(value || 'N/A');
+            if (!address.includes(':') || address === 'N/A') return address;
+
+            const compressedIndex = address.indexOf('::');
+            if (compressedIndex >= 0) {
+                return fragment(
+                    createEl('span', { className: 'ipv6-head', text: address.slice(0, compressedIndex) }),
+                    createEl('span', { className: 'ipv6-tail', text: address.slice(compressedIndex) })
+                );
+            }
+
+            const parts = address.split(':');
+            const tail = parts.slice(-2).join(':');
+            const head = parts.slice(0, -2).join(':');
+            return fragment(
+                createEl('span', { className: 'ipv6-head', text: head ? `${head}:` : '' }),
+                createEl('span', { className: 'ipv6-tail', text: tail })
             );
         }
 
@@ -327,7 +348,7 @@
                     iconName: 'satellite',
                     label: 'IPv6',
                     value: fragment(
-                        createEl('span', { className: 'desktop-ip' }, copyValue(relay.ipv6 || 'N/A', 'IPv6 address')),
+                        createEl('span', { className: 'desktop-ip' }, copyValue(relay.ipv6 || 'N/A', 'IPv6 address', ipv6Display(relay.ipv6 || 'N/A'), 'copy-text ipv6-address')),
                         createEl('span', { className: 'mobile-ip' }, copyValue(relay.ipv6 || 'N/A', 'IPv6 address', relay.mobileIpv6 || relay.ipv6 || 'N/A'))
                     ),
                     className: 'ipv6'

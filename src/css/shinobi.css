@@ -1604,6 +1604,25 @@
             overflow-wrap: normal;
         }
 
+        .detail-value .ipv6-address {
+            display: inline-flex;
+            align-items: baseline;
+            max-width: 100%;
+        }
+
+        .detail-value .ipv6-head {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .detail-value .ipv6-tail {
+            flex: 0 0 auto;
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(124, 199, 255, 0.26);
+        }
+
         .detail-value .copy-btn {
             margin-left: auto;
         }
