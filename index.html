@@ -32,7 +32,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="src/apple-touch-icon.png">
     <link rel="manifest" href="src/site.webmanifest">
     <link rel="me" href="https://infosec.exchange/@r3bo0tbx1">
-    <script data-cfasync="false" src="src/js/lucide.min.js"></script>
+    <script data-cfasync="false" src="src/js/lucide.min.js" defer></script>
+    <script data-cfasync="false" src="src/js/shinobi.js" defer></script>
 
     <link rel="stylesheet" href="src/css/shinobi.css">
 </head>
@@ -43,15 +44,15 @@
     <div class="bg-orb orb-2"></div>
     <div class="bg-mesh"></div>
     <div class="bg-noise"></div>
-    <nav class="scroll-nav" id="scrollNav">
-        <div class="scroll-nav-item" data-label="Overview" data-section="header"></div>
-        <div class="scroll-nav-item" data-label="Network Flow" data-section="network-flow"></div>
-        <div class="scroll-nav-item" data-label="Bridges" data-section="bridges"></div>
-        <div class="scroll-nav-item" data-label="Relays" data-section="relays"></div>
-        <div class="scroll-nav-item" data-label="Contact" data-section="contact"></div>
-        <div class="scroll-nav-item" data-label="Glossary" data-section="glossary"></div>
-        <div class="scroll-nav-item" data-label="FAQ" data-section="faq"></div>
-        <div class="scroll-nav-item" data-label="AIO Stack" data-section="aio-stack"></div>
+    <nav class="scroll-nav" id="scrollNav" aria-label="Page sections">
+        <button type="button" class="scroll-nav-item" data-label="Overview" data-section="header" aria-label="Go to overview"></button>
+        <button type="button" class="scroll-nav-item" data-label="Network Flow" data-section="network-flow" aria-label="Go to network flow"></button>
+        <button type="button" class="scroll-nav-item" data-label="Bridges" data-section="bridges" aria-label="Go to bridges"></button>
+        <button type="button" class="scroll-nav-item" data-label="Relays" data-section="relays" aria-label="Go to relays"></button>
+        <button type="button" class="scroll-nav-item" data-label="Contact" data-section="contact" aria-label="Go to contact"></button>
+        <button type="button" class="scroll-nav-item" data-label="Glossary" data-section="glossary" aria-label="Go to glossary"></button>
+        <button type="button" class="scroll-nav-item" data-label="FAQ" data-section="faq" aria-label="Go to FAQ"></button>
+        <button type="button" class="scroll-nav-item" data-label="AIO Stack" data-section="aio-stack" aria-label="Go to AIO stack"></button>
     </nav>
     <div class="container">
         <header>
@@ -76,7 +77,7 @@
                 <div class="meta-item health">
                     <span class="meta-icon"><i data-lucide="heart-pulse"></i></span>
                     <span>Network:</span>
-                    <span class="meta-value" id="networkHealth"><span class="health-dot"></span> Checking...</span>
+                    <span class="meta-value" id="networkHealth" role="status" aria-live="polite"><span class="health-dot"></span> Checking...</span>
                 </div>
                 <div class="meta-item bandwidth">
                     <span class="meta-icon"><i data-lucide="radio-tower"></i></span>
@@ -219,21 +220,21 @@
             <div class="filter-bar">
                 <div class="search-wrapper" id="searchWrapper">
                     <span class="search-icon"><i data-lucide="search"></i></span>
-                    <input type="text" class="search-input" id="relaySearch" placeholder="Search relays by name, location, or fingerprint..." aria-label="Search relays">
+                    <input type="text" class="search-input" id="relaySearch" placeholder="Search relays by name, location, or fingerprint..." aria-label="Search relays" maxlength="120" autocomplete="off" spellcheck="false">
                     <button class="search-clear" id="searchClear" type="button" title="Clear search" aria-label="Clear search"><span class="button-icon"><i data-lucide="x"></i></span></button>
                 </div>
-                <div class="filter-chips">
-                    <button class="filter-chip active" data-filter="all" aria-label="Show all relays">All</button>
-                    <button class="filter-chip guard" data-filter="guard" aria-label="Show guard relays only"><span class="chip-icon"><i data-lucide="shield"></i></span>Guard</button>
-                    <button class="filter-chip middle" data-filter="middle" aria-label="Show middle relays only"><span class="chip-icon"><i data-lucide="shuffle"></i></span>Middle</button>
-                    <button class="filter-chip exit" data-filter="exit" aria-label="Show exit relays only"><span class="chip-icon"><i data-lucide="door-open"></i></span>Exit</button>
+                <div class="filter-chips" role="group" aria-label="Filter relays">
+                    <button type="button" class="filter-chip active" data-filter="all" aria-label="Show all relays" aria-pressed="true">All</button>
+                    <button type="button" class="filter-chip guard" data-filter="guard" aria-label="Show guard relays only" aria-pressed="false"><span class="chip-icon"><i data-lucide="shield"></i></span>Guard</button>
+                    <button type="button" class="filter-chip middle" data-filter="middle" aria-label="Show middle relays only" aria-pressed="false"><span class="chip-icon"><i data-lucide="shuffle"></i></span>Middle</button>
+                    <button type="button" class="filter-chip exit" data-filter="exit" aria-label="Show exit relays only" aria-pressed="false"><span class="chip-icon"><i data-lucide="door-open"></i></span>Exit</button>
                 </div>
-                <div class="sort-controls" aria-label="Sort relays">
+                <div class="sort-controls" role="group" aria-label="Sort relays">
                     <span class="sort-label"><span class="chip-icon"><i data-lucide="arrow-up-down"></i></span>Sort</span>
-                    <button class="filter-chip sort-chip active" data-sort="region" type="button">Region</button>
-                    <button class="filter-chip sort-chip" data-sort="status" type="button">Status</button>
-                    <button class="filter-chip sort-chip" data-sort="type" type="button">Type</button>
-                    <button class="filter-chip sort-chip" data-sort="country" type="button">Country</button>
+                    <button class="filter-chip sort-chip active" data-sort="region" type="button" aria-pressed="true">Region</button>
+                    <button class="filter-chip sort-chip" data-sort="status" type="button" aria-pressed="false">Status</button>
+                    <button class="filter-chip sort-chip" data-sort="type" type="button" aria-pressed="false">Type</button>
+                    <button class="filter-chip sort-chip" data-sort="country" type="button" aria-pressed="false">Country</button>
                 </div>
                 <div class="search-feedback" id="searchFeedback" aria-live="polite"></div>
             </div>
@@ -441,66 +442,66 @@
             </h2>
             <div class="faq-section">
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" id="faq-bridge-question" type="button" aria-expanded="false" aria-controls="faq-bridge-answer">
                         <span class="faq-question-text">
                             <span class="row-icon"><i data-lucide="git-branch"></i></span>
                             <span>What is a Tor Bridge?</span>
                         </span>
                         <span class="faq-toggle">+</span>
                     </button>
-                    <div class="faq-answer"> A Bridge is an unlisted Tor relay that doesn't appear in the public directory. It uses obfuscation techniques (like Obfs4) to disguise Tor traffic, helping users bypass censorship in countries where Tor is blocked. </div>
+                    <div class="faq-answer" id="faq-bridge-answer" role="region" aria-labelledby="faq-bridge-question" aria-hidden="true"> A Bridge is an unlisted Tor relay that doesn't appear in the public directory. It uses obfuscation techniques (like Obfs4) to disguise Tor traffic, helping users bypass censorship in countries where Tor is blocked. </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" id="faq-guard-question" type="button" aria-expanded="false" aria-controls="faq-guard-answer">
                         <span class="faq-question-text">
                             <span class="row-icon"><i data-lucide="shield"></i></span>
                             <span>What's the difference between Guard and Middle relays?</span>
                         </span>
                         <span class="faq-toggle">+</span>
                     </button>
-                    <div class="faq-answer">
+                    <div class="faq-answer" id="faq-guard-answer" role="region" aria-labelledby="faq-guard-question" aria-hidden="true">
                         <strong>Guard relays</strong> are your first hop with proven stability and uptime, protecting against timing attacks by maintaining long-term connections. <strong>Middle relays</strong> are intermediate hops that can't see both source and destination, providing additional anonymity layers without special requirements.
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" id="faq-exit-question" type="button" aria-expanded="false" aria-controls="faq-exit-answer">
                         <span class="faq-question-text">
                             <span class="row-icon"><i data-lucide="door-open"></i></span>
                             <span>Why run an Exit node?</span>
                         </span>
                         <span class="faq-toggle">+</span>
                     </button>
-                    <div class="faq-answer"> Exit nodes are the final hop before traffic reaches the internet. They're critical for network health but require careful management, proper abuse handling, and legal understanding. Running an exit provides maximum impact for internet freedom but comes with higher responsibility. </div>
+                    <div class="faq-answer" id="faq-exit-answer" role="region" aria-labelledby="faq-exit-question" aria-hidden="true"> Exit nodes are the final hop before traffic reaches the internet. They're critical for network health but require careful management, proper abuse handling, and legal understanding. Running an exit provides maximum impact for internet freedom but comes with higher responsibility. </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" id="faq-privacy-question" type="button" aria-expanded="false" aria-controls="faq-privacy-answer">
                         <span class="faq-question-text">
                             <span class="row-icon"><i data-lucide="lock"></i></span>
                             <span>How is privacy protected?</span>
                         </span>
                         <span class="faq-toggle">+</span>
                     </button>
-                    <div class="faq-answer"> Tor uses onion routing with exactly three hops: either Guard → Middle → Exit, or Bridge → Middle → Exit for censored users. Each relay only knows the previous and next hop, never the full path. All traffic between relays is encrypted, and we maintain a strict no-logs policy. We cannot and do not track user activity. </div>
+                    <div class="faq-answer" id="faq-privacy-answer" role="region" aria-labelledby="faq-privacy-question" aria-hidden="true"> Tor uses onion routing with exactly three hops: either Guard → Middle → Exit, or Bridge → Middle → Exit for censored users. Each relay only knows the previous and next hop, never the full path. All traffic between relays is encrypted, and we maintain a strict no-logs policy. We cannot and do not track user activity. </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" id="faq-obfs4-question" type="button" aria-expanded="false" aria-controls="faq-obfs4-answer">
                         <span class="faq-question-text">
                             <span class="row-icon"><i data-lucide="globe"></i></span>
                             <span>What is Obfs4 transport?</span>
                         </span>
                         <span class="faq-toggle">+</span>
                     </button>
-                    <div class="faq-answer"> Obfs4 (Obfuscation 4) is a pluggable transport that makes Tor traffic look like random data instead of identifiable Tor connections. It helps users bypass Deep Packet Inspection (DPI) and censorship systems that block Tor. </div>
+                    <div class="faq-answer" id="faq-obfs4-answer" role="region" aria-labelledby="faq-obfs4-question" aria-hidden="true"> Obfs4 (Obfuscation 4) is a pluggable transport that makes Tor traffic look like random data instead of identifiable Tor connections. It helps users bypass Deep Packet Inspection (DPI) and censorship systems that block Tor. </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" id="faq-traffic-question" type="button" aria-expanded="false" aria-controls="faq-traffic-answer">
                         <span class="faq-question-text">
                             <span class="row-icon"><i data-lucide="eye"></i></span>
                             <span>Can you see my traffic?</span>
                         </span>
                         <span class="faq-toggle">+</span>
                     </button>
-                    <div class="faq-answer"> No. Guard and Middle relays see encrypted traffic they cannot decrypt. Only Exit nodes see unencrypted traffic to final destinations (use HTTPS!), but never the original source. We maintain zero logs, even if compelled, we have nothing to provide. </div>
+                    <div class="faq-answer" id="faq-traffic-answer" role="region" aria-labelledby="faq-traffic-question" aria-hidden="true"> No. Guard and Middle relays see encrypted traffic they cannot decrypt. Only Exit nodes see unencrypted traffic to final destinations (use HTTPS!), but never the original source. We maintain zero logs, even if compelled, we have nothing to provide. </div>
                 </div>
             </div>
         </section>
@@ -530,7 +531,6 @@
         </footer>
     </div>
     <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top"></button>
-    <script data-cfasync="false" src="src/js/shinobi.js"></script>
 </body>
 
 </html>

@@ -59,6 +59,12 @@ function scanFile(file) {
     }
   }
 
+  if (!isSkipped && ['.js', '.html', '.css', '.svg'].includes(ext)) {
+    for (const match of content.matchAll(/\bjavascript\s*:/gi)) {
+      fail(file, lineNumber(content, match.index), 'javascript: URL is not allowed');
+    }
+  }
+
   if (ext === '.html' || ext === '.svg') {
     for (const match of content.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
       const attrs = match[1];
@@ -85,9 +91,6 @@ function scanFile(file) {
       fail(file, lineNumber(content, match.index), 'inline style attribute is not allowed');
     }
 
-    for (const match of content.matchAll(/\b(?:href|src|action)\s*=\s*["']\s*javascript:/gi)) {
-      fail(file, lineNumber(content, match.index), 'javascript: URL is not allowed');
-    }
   }
 
   if (ext === '.html') {

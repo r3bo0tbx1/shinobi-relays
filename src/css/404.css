@@ -198,10 +198,16 @@
         overflow: hidden;
       }
 
-      .btn:hover {
+      .btn:hover,
+      .btn:focus-visible {
         background: var(--g);
         color: #000;
         box-shadow: 0 0 20px var(--g);
+      }
+
+      .btn:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 4px;
       }
 
       .progress-container {
@@ -237,6 +243,31 @@
         .btn {
           padding: 10px 20px;
           font-size: 0.9rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .log-line,
+        .ui {
+          opacity: 1;
+        }
+
+        .progress-bar {
+          width: 100%;
+        }
+
+        .glitch-header h1::before,
+        .glitch-header h1::after {
+          display: none;
         }
       }
 

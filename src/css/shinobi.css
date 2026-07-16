@@ -3335,6 +3335,9 @@
         }
 
         .scroll-nav-item {
+            appearance: none;
+            padding: 0;
+            border: 0;
             width: 10px;
             height: 10px;
             border-radius: 50%;
@@ -3363,11 +3366,13 @@
             font-weight: 600;
         }
 
-        .scroll-nav-item:hover::after {
+        .scroll-nav-item:hover::after,
+        .scroll-nav-item:focus-visible::after {
             opacity: 1;
         }
 
-        .scroll-nav-item:hover {
+        .scroll-nav-item:hover,
+        .scroll-nav-item:focus-visible {
             background: var(--link);
             transform: scale(1.3);
         }

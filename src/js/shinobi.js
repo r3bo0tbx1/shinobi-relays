@@ -37,6 +37,11 @@
             middle: { iconName: 'shuffle', label: 'Middle' },
             exit: { iconName: 'door-open', label: 'Exit' }
         };
+        const reducedMotionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+
+        function prefersReducedMotion() {
+            return reducedMotionQuery?.matches === true;
+        }
 
         function refreshIcons() {
             if (window.lucide) {
@@ -119,16 +124,6 @@
             const el = document.getElementById(id);
             if (!el) return;
             el.replaceChildren(iconNode(iconName, 'chip-icon'), document.createTextNode(String(text)));
-            refreshIcons();
-        }
-
-        function escapeHTML(value = '') {
-            return String(value)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
         }
 
         function copyButton(value, label) {
@@ -242,7 +237,6 @@
                 );
             });
             summary.replaceChildren(...chips);
-            refreshIcons();
         }
 
         function parseOnionooTime(value) {
@@ -545,7 +539,7 @@
             const element = id === 'header' ? document.querySelector('header') : document.getElementById(id);
             if (element) {
                 element.scrollIntoView({
-                    behavior: 'smooth',
+                    behavior: prefersReducedMotion() ? 'auto' : 'smooth',
                     block: 'start'
                 });
             }
@@ -570,8 +564,21 @@
             }
 
             navItems.forEach((item, index) => {
-                item.classList.toggle('active', index === currentSection);
+                const isActive = index === currentSection;
+                item.classList.toggle('active', isActive);
+                if (isActive) {
+                    item.setAttribute('aria-current', 'location');
+                } else {
+                    item.removeAttribute('aria-current');
+                }
             });
+        }
+
+        function setFaqExpanded(item, expanded) {
+            if (!item) return;
+            item.classList.toggle('active', expanded);
+            item.querySelector('.faq-question')?.setAttribute('aria-expanded', String(expanded));
+            item.querySelector('.faq-answer')?.setAttribute('aria-hidden', String(!expanded));
         }
 
         function flagIcon(flag) {
@@ -671,7 +678,6 @@
                 container.replaceChildren(statusChip('🔴 Temporarily offline', 'offline-chip', lastSeen));
                 applyRelayBadges(card, flags);
                 card.classList.add('offline', 'is-muted');
-                refreshIcons();
                 return;
             }
             const displayFlags = flags.filter(flag => isRunning || flag !== 'Running');
@@ -684,7 +690,6 @@
             if (!isRunning) {
                 card.classList.add('offline', 'is-muted');
             }
-            refreshIcons();
         }
 
         function formatBandwidth(bytes) {
@@ -914,6 +919,7 @@
                     setTimeout(() => exitEl.classList.remove('fade-in'), 600);
                 }
                 window.applyRelayFilters?.();
+                refreshIcons();
                 if (refreshBtn) {
                     refreshBtn.disabled = false;
                     refreshBtn.classList.remove('spinning');
@@ -942,44 +948,45 @@
                 if (middleEl) setStatusPill('middleCount', 'shuffle', '-- Middles');
                 if (bridgeEl) setStatusPill('bridgeCount', 'git-branch', '8 Bridges');
                 if (exitEl) setStatusPill('exitCount', 'door-open', '1 Exit');
+                refreshIcons();
                 if (refreshBtn) {
                     refreshBtn.disabled = false;
                     refreshBtn.classList.remove('spinning');
                 }
             }
         }
-        let scrollTimeout;
+        let scrollFrame;
         window.addEventListener('scroll', () => {
-            if (scrollTimeout) clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(updateActiveNav, 50);
-            const scrollBtn = document.getElementById('scrollToTop');
-            const scrollPosition = window.scrollY + window.innerHeight;
-            const pageHeight = document.documentElement.scrollHeight;
-            const bottomThreshold = pageHeight - 500;
-            if (scrollPosition >= bottomThreshold) {
-                scrollBtn.classList.add('visible');
-            } else {
-                scrollBtn.classList.remove('visible');
-            }
-        });
+            if (scrollFrame) return;
+            scrollFrame = requestAnimationFrame(() => {
+                updateActiveNav();
+                const scrollBtn = document.getElementById('scrollToTop');
+                const scrollPosition = window.scrollY + window.innerHeight;
+                const bottomThreshold = document.documentElement.scrollHeight - 500;
+                scrollBtn?.classList.toggle('visible', scrollPosition >= bottomThreshold);
+                scrollFrame = null;
+            });
+        }, { passive: true });
         document.getElementById('scrollToTop').addEventListener('click', () => {
             const scrollBtn = document.getElementById('scrollToTop');
-            scrollBtn.classList.add('rocket-launch');
-            setTimeout(() => {
-                scrollBtn.classList.remove('rocket-launch');
-            }, 800);
+            if (!prefersReducedMotion()) {
+                scrollBtn.classList.add('rocket-launch');
+                setTimeout(() => {
+                    scrollBtn.classList.remove('rocket-launch');
+                }, 800);
+            }
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth'
+                behavior: prefersReducedMotion() ? 'auto' : 'smooth'
             });
         });
         document.addEventListener('DOMContentLoaded', () => {
             renderRelayCards();
             syncDerivedCounts();
             updateRegionHealth('loading');
-            refreshIcons();
             updateActiveNav();
             fetchRelayFlags();
+            refreshIcons();
 
             document.querySelectorAll('a[target="_blank"]').forEach(link => {
                 link.setAttribute('rel', 'noopener noreferrer');
@@ -994,10 +1001,11 @@
             document.querySelectorAll('.faq-question').forEach(button => {
                 button.addEventListener('click', () => {
                     const currentItem = button.closest('.faq-item');
+                    const shouldExpand = !currentItem?.classList.contains('active');
                     document.querySelectorAll('.faq-item.active').forEach(item => {
-                        if (item !== currentItem) item.classList.remove('active');
+                        setFaqExpanded(item, false);
                     });
-                    currentItem?.classList.toggle('active');
+                    setFaqExpanded(currentItem, shouldExpand);
                 });
             });
 
@@ -1160,7 +1168,7 @@
                             chip.className = 'match-chip';
                             chip.textContent = `Shinobi${card.dataset.relayName || ''}`;
                             chip.addEventListener('click', () => {
-                                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                card.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
                                 card.classList.add('pulse');
                                 setTimeout(() => card.classList.remove('pulse'), 900);
                             });
@@ -1227,8 +1235,12 @@
 
             filterChips.forEach(chip => {
                 chip.addEventListener('click', () => {
-                    filterChips.forEach(c => c.classList.remove('active'));
+                    filterChips.forEach(c => {
+                        c.classList.remove('active');
+                        c.setAttribute('aria-pressed', 'false');
+                    });
                     chip.classList.add('active');
+                    chip.setAttribute('aria-pressed', 'true');
                     activeFilter = chip.getAttribute('data-filter');
                     window.applyRelayFilters();
                 });
@@ -1236,8 +1248,12 @@
 
             sortChips.forEach(chip => {
                 chip.addEventListener('click', () => {
-                    sortChips.forEach(c => c.classList.remove('active'));
+                    sortChips.forEach(c => {
+                        c.classList.remove('active');
+                        c.setAttribute('aria-pressed', 'false');
+                    });
                     chip.classList.add('active');
+                    chip.setAttribute('aria-pressed', 'true');
                     activeSort = chip.getAttribute('data-sort') || 'region';
                     window.applyRelayFilters();
                 });
@@ -1247,12 +1263,16 @@
         });
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.faq-item')) {
-                document.querySelectorAll('.faq-item.active').forEach(item => item.classList.remove('active'));
+                document.querySelectorAll('.faq-item.active').forEach(item => setFaqExpanded(item, false));
             }
         });
 
         function animateCounter(element) {
             const target = element.getAttribute('data-count');
+            if (prefersReducedMotion()) {
+                element.textContent = target;
+                return;
+            }
             const isRatio = target.includes('/');
 
             if (isRatio) {
