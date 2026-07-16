@@ -1,7 +1,7 @@
 # .:: Shinobi Relays 🥷🧅 ::.
 
 <p align="center">
-  <a href="https://relays.brokenbotnet.com/"><img alt="Dashboard status" src="https://img.shields.io/website?url=https%3A%2F%2Frelays.brokenbotnet.com%2F&amp;up_message=online&amp;down_message=offline&amp;style=for-the-badge&amp;logo=torproject&amp;logoColor=white&amp;label=Dashboard&amp;labelColor=0a0a0a&amp;color=7d4698&amp;down_color=d9534f"></a>
+  <a href="https://relays.brokenbotnet.com/"><img alt="Dashboard status" src="https://img.shields.io/website?url=https%3A%2F%2Frelays.brokenbotnet.com%2F&amp;up_message=online&amp;down_message=offline&amp;style=for-the-badge&amp;logo=torproject&amp;logoColor=white&amp;label=Dashboard&amp;labelColor=0a0a0a&amp;color=7d4698&amp;down_color=d73a49"></a>
   <a href="https://github.com/r3bo0tbx1/shinobi-relays#cloudflare-pages"><img alt="Hosted on Cloudflare Pages" src="https://img.shields.io/badge/Host-Cloudflare_Pages-F38020?style=for-the-badge&amp;logo=cloudflarepages&amp;logoColor=white&amp;labelColor=0a0a0a"></a>
   <a href="https://github.com/r3bo0tbx1/shinobi-relays/blob/main/LICENSE"><img alt="Apache 2.0 license" src="https://img.shields.io/github/license/r3bo0tbx1/shinobi-relays?style=for-the-badge&amp;logo=apache&amp;logoColor=white&amp;label=License&amp;labelColor=0a0a0a&amp;color=3da639"></a>
   <a href="https://github.com/r3bo0tbx1/shinobi-relays/security/policy"><img alt="Security policy" src="https://img.shields.io/badge/Security-Policy-58a6ff?style=for-the-badge&amp;logo=letsencrypt&amp;logoColor=white&amp;labelColor=0a0a0a"></a>
