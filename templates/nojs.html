@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shinobi Relays - No JavaScript</title>
+    <meta name="description" content="Static no-JavaScript directory for the Shinobi Tor bridge and relay fleet.">
+    <meta name="author" content="rE-Bo0t.bx1">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="referrer" content="no-referrer">
+    <meta name="theme-color" content="#080a0f">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="https://relays.brokenbotnet.com/nojs/">
+    <link rel="icon" type="image/png" href="/src/favicon-96x96.png" sizes="96x96">
+    <link rel="shortcut icon" href="/src/favicon.ico">
+    <link rel="stylesheet" href="/src/css/nojs.css?v=__NOJS_CSS_VERSION__">
+</head>
+
+<body>
+    <a class="skip-link" href="#fleet">Skip to relay fleet</a>
+    <div class="top-anchor" id="top"></div>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="brand-lockup">
+                <img class="noscript-logo" src="/src/icons/noscript.svg" width="92" height="92" alt="NoScript">
+                <div class="hero-copy">
+                    <p class="eyebrow">No-JavaScript dashboard</p>
+                    <h1>rE-Bo0t.bx1 <span aria-hidden="true">🧅</span> Shinobi Relays</h1>
+                    <p>Static Tor bridge and relay information for strict browser modes.</p>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <a class="standard-link" href="/" title="Requires JavaScript for live dashboard features">Live dashboard</a>
+                <a class="fleet-link" href="#fleet">Browse fleet</a>
+            </div>
+            <div class="fleet-strip" aria-label="Configured fleet roles">
+                <span class="bridge-count"><strong>__BRIDGE_COUNT__</strong> Bridges</span>
+                <span class="middle-count"><strong>__MIDDLE_COUNT__</strong> Middles</span>
+                <span class="exit-count"><strong>__EXIT_COUNT__</strong> Exit</span>
+                <span class="ipv6-count"><strong>__IPV6_COUNT__/__TOTAL_COUNT__</strong> IPv6</span>
+            </div>
+        </header>
+
+        <aside class="mode-notice" aria-label="No JavaScript mode limitations">
+            <span class="mode-badge" aria-hidden="true">NO JS</span>
+            <div>
+                <strong>Static by design</strong>
+                <span>No executable browser code or live Onionoo requests run here. Running status, bandwidth, Guard flags, search, and sorting remain available on the live dashboard.</span>
+            </div>
+        </aside>
+
+        <nav class="section-nav" aria-label="Static dashboard sections">
+            <a href="#overview">Overview</a>
+            <a href="#bridges">Bridges</a>
+            <a href="#asia-oceania">Asia-Oceania</a>
+            <a href="#africa">Africa</a>
+            <a href="#north-america">North America</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <main id="fleet">
+            <section class="summary" id="overview" aria-labelledby="summary-title">
+                <div class="section-heading">
+                    <p class="eyebrow">Repository inventory</p>
+                    <h2 id="summary-title">Fleet Overview <span>Build-time data</span></h2>
+                    <p>Counts reflect the relay configuration packaged with this deployment, without making any network requests.</p>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-item total-stat">
+                        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h6v6H4zM14 7h6v6h-6zM9 17h6v3H9zM7 13v2h10v-2M12 15v2"/></svg>
+                        <strong>__TOTAL_COUNT__</strong><span>Total relays</span>
+                    </div>
+                    <div class="summary-item public-stat">
+                        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 4v5M18 4v5M12 15v5M6 9h12M6 9v3h6v3M18 9v3h-6"/></svg>
+                        <strong>__PUBLIC_COUNT__</strong><span>Public relays</span>
+                    </div>
+                    <div class="summary-item country-stat">
+                        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4a13 13 0 0 1 0 16M12 4a13 13 0 0 0 0 16"/></svg>
+                        <strong>__COUNTRY_COUNT__</strong><span>Countries</span>
+                    </div>
+                    <div class="summary-item platform-stat">
+                        <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1"/><path d="M8 20h8M12 16v4"/></svg>
+                        <strong>__PLATFORM_COUNT__</strong><span>Platforms</span>
+                    </div>
+                    <div class="summary-item asn-stat">
+                        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="m8 11 8-4M8 13l8 4"/></svg>
+                        <strong>__ASN_COUNT__</strong><span>ASNs</span>
+                    </div>
+                    <div class="summary-item ipv6-stat">
+                        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 7-4 5 4 5M17 7l4 5-4 5M3 12h18"/></svg>
+                        <strong>__IPV6_COUNT__/__TOTAL_COUNT__</strong><span>IPv6 enabled</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="fleet-section bridge-section" id="bridges" aria-labelledby="bridges-title">
+                <div class="section-heading">
+                    <p class="eyebrow">Censorship-resistant entry</p>
+                    <h2 id="bridges-title">Bridge Relays <span>__BRIDGE_COUNT__</span></h2>
+                    <p>Bridge fingerprints are displayed as Onionoo hashes. Open a card's technical details for distribution and transport information.</p>
+                </div>
+                <div class="relay-grid bridge-grid">
+                    <!-- BRIDGE_CARDS -->
+                </div>
+            </section>
+
+            <section class="fleet-section" aria-labelledby="public-title">
+                <div class="section-heading">
+                    <p class="eyebrow">Public Tor directory</p>
+                    <h2 id="public-title">Primary Relays <span>__PUBLIC_COUNT__</span></h2>
+                    <p>Roles shown here are configured defaults. Live Guard assignment and Running status require Onionoo and are intentionally omitted from this static view.</p>
+                </div>
+                <!-- PUBLIC_REGIONS -->
+            </section>
+
+            <section class="support-section" id="contact" aria-labelledby="contact-title">
+                <div class="section-heading">
+                    <p class="eyebrow">Operator and verification</p>
+                    <h2 id="contact-title">Contact &amp; Support</h2>
+                </div>
+                <div class="support-grid">
+                    <div class="support-card contact-card">
+                        <span class="support-icon" aria-hidden="true">@</span>
+                        <h3>Contact</h3>
+                        <a href="mailto:r3bo0tbx1@brokenbotnet.com">r3bo0tbx1@brokenbotnet.com</a>
+                        <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/33727F5377D296C320AF704AB3BD6196E1CFBFB4" target="_blank" rel="noopener noreferrer">PGP 0xB3BD6196E1CFBFB4</a>
+                    </div>
+                    <div class="support-card proof-card">
+                        <span class="support-icon" aria-hidden="true">✓</span>
+                        <h3>Relay Proof</h3>
+                        <a href="/.well-known/tor-relay/rsa-fingerprint.txt" target="_blank" rel="noopener noreferrer">RSA fingerprints</a>
+                        <a href="/.well-known/tor-relay/ed25519-master-pubkey.txt" target="_blank" rel="noopener noreferrer">ed25519 keys</a>
+                        <a href="/.well-known/tor-relay/ed25519-family-id.txt" target="_blank" rel="noopener noreferrer">Family ID</a>
+                    </div>
+                    <div class="support-card project-card">
+                        <span class="support-icon" aria-hidden="true">↗</span>
+                        <h3>Project Links</h3>
+                        <a href="https://metrics.1aeo.com/relays.brokenbotnet.com/" target="_blank" rel="noopener noreferrer">1AEO Metrics</a>
+                        <a href="https://github.com/r3bo0tbx1/tor-guard-relay/" target="_blank" rel="noopener noreferrer">AIO Tor stack</a>
+                        <a href="https://brokenbotnet.com/donate/" target="_blank" rel="noopener noreferrer">Donate with BTC/XMR</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Operated by <strong>rE-Bo0t.bx1</strong> for privacy and internet freedom.</p>
+            <p>This static view performs no Onionoo requests and runs no JavaScript. <a href="#top">Back to top</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>

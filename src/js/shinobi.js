@@ -1,29 +1,21 @@
-        const relays = [
-            { kind: 'bridge', type: 'bridge', name: 'Kage', emoji: '👤', tooltip: '影 (Kage) - Shadow: Moves unseen, concealing your path into the network', fingerprint: 'FD986C182E6F2797E2B87A31401866FAC8DD5B0F', distribution: '⚙️ Settings' },
-            { kind: 'bridge', type: 'bridge', name: 'Boshin', emoji: '🐲', tooltip: '暴神 (Boshin) - Fierce God: Storm deity, unstoppable force breaking through censorship', fingerprint: '52BA0AFE63B44BEEB855E714212624409A539FE3', distribution: '💬 Telegram' },
-            { kind: 'bridge', type: 'bridge', name: 'Kasumi', emoji: '🌫️', tooltip: '霞 (Kasumi) - Mist: Obscures vision, cloaking traffic in haze', fingerprint: '61EB69AC435D0C33EF5FB33FDBB47E8692F139DF', distribution: '🔒 HTTPS' },
-            { kind: 'bridge', type: 'bridge', name: 'Yami', emoji: '🌘', tooltip: '闇 (Yami) - Darkness: Embraces the void, invisible to censors', fingerprint: 'C523B28E0E6BE86E472A957A2F7FCD5864ACA18F', distribution: '📧 Email' },
-            { kind: 'bridge', type: 'bridge', name: 'Kitsune', emoji: '🦊', tooltip: '狐 (Kitsune) - Fox: Nine-tailed shapeshifter, disguising every packet that passes through', fingerprint: '8357F444438EDC6662525114AA6EF8FA869BFA40', distribution: '📧 Email' },
-            { kind: 'bridge', type: 'bridge', name: 'Tsuki', emoji: '🌙', tooltip: "月 (Tsuki) - Moon: Visible in the dark, revealing nothing of where you're headed", fingerprint: '4D743DF0D22DFB60EE732DF48C7773443FF19297', distribution: '📧 Email' },
-            { kind: 'bridge', type: 'bridge', name: 'Hikari', emoji: '⚡', tooltip: '光 (Hikari) - Light: A way through the blackout, seen only by those who need it', fingerprint: '448B752F66A55644A7414F34B7644BCCB74DA4FF', distribution: '📧 Email' },
-            { kind: 'bridge', type: 'bridge', name: 'Jiro', emoji: '⚓', tooltip: "次郎 (Jiro) - The Standby: Doesn't chase the spotlight, just keeps the line open", fingerprint: '1CE312AC255EE3AEA778ABCE94552F3C42C21A69', distribution: '📧 Email' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Mamori', emoji: '🛡️', tooltip: '守り (Mamori) - Guardian: Protects your entry into the network', host: 'jp-relay.brokenbotnet.com', fingerprint: '7F28C3E41DA9FD4A2B8143CB6038304634EDC396', ipv4: '158.51.109.143', ipv6: '2602:fd6f:100:1f::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Tokyo, Japan 🇯🇵', country: 'Japan', os: '🐧 Linux', asn: 'AS18526' },
-            { kind: 'public', type: 'exit', region: 'asia-oceania', name: 'Kenshin', emoji: '⚔️', tooltip: '剣心 (Kenshin) - Sword Heart: Cuts through to your destination', host: 'tor-exit.brokenbotnet.com', fingerprint: '64CE119D87F0A28F31D74280FB9675D880CA4BFA', ipv4: '172.234.92.148', ipv6: '2400:8905:e001:10f::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Osaka, Japan 🇯🇵', country: 'Japan', os: '🐧 Linux', asn: 'AS63949' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Tora', emoji: '🐯', tooltip: "虎 (Tora) - Tiger: Korea's national animal, prowling unseen through the network", host: 'kr-relay.brokenbotnet.com', fingerprint: 'A6A2A807338167A5E58F4DD2D4CD0817AF3DD562', ipv4: '158.247.199.231', ipv6: '2401:c080:1c01:68e::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Seoul, South Korea 🇰🇷', country: 'South Korea', os: '🐡 OpenBSD', asn: 'AS20473' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Kaimon', emoji: '⛩️', tooltip: '開門 (Kaimon) - Opening Gate: Unlocking paths through the network to Asia', host: 'sg-relay.brokenbotnet.com', fingerprint: '0EEE0B1EED5E35E1E3F2575CD0AFF160925FA63F', ipv4: '149.28.132.118', ipv6: '2401:c080:1400:10fa::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Singapore, Singapore 🇸🇬', country: 'Singapore', os: '😈 FreeBSD', asn: 'AS20473' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Busouge', emoji: '🌺', tooltip: "扶桑花 (Busouge) - Hibiscus: Malaysia's national flower, blooming across encrypted paths", host: 'my-relay.brokenbotnet.com', fingerprint: 'CA7E23C44E6D6F1D8A52A4E1F6CAA11F18108A02', ipv4: '124.217.248.240', ipv6: '2001:470:36:597::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Kuala Lumpur, Malaysia 🇲🇾', country: 'Malaysia', os: '🐧 Linux', asn: 'AS45839' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Houou', emoji: '🐦‍🔥', tooltip: "鳳凰 (Houou / Hōō) - Phoenix: Rising with each restart, carrying traffic through the archipelago's digital skies", host: 'id-relay.brokenbotnet.com', fingerprint: '7E87EC2F20A371E32E6672A6D04B55471BC5D369', ipv4: '157.10.253.140', ipv6: '2001:470:36:6d8::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Jakarta, Indonesia 🇮🇩', country: 'Indonesia', os: '🐧 Linux', asn: 'AS136052' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Hasu', emoji: '🪷', tooltip: "蓮 (Hasu) - Lotus: Vietnam's symbol of purity, rising clean through onion layers", host: 'vn-relay.brokenbotnet.com', fingerprint: '586AD06CB8BCE3625D6CC88772CDE4FE56477EE2', ipv4: '103.70.115.20', ipv6: '2001:470:19:2b9::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Hanoi, Vietnam 🇻🇳', country: 'Vietnam', os: '🐧 Linux', asn: 'AS151873' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Kyuuryuu', emoji: '🐉', tooltip: "九龍 (Kyuuryuu) - Nine Dragons: Kowloon's power guarding your circuit paths", host: 'hk-relay.brokenbotnet.com', fingerprint: 'D184F8140F3357F84E64BCF51094EA13B18FDD25', ipv4: '216.250.97.105', ipv6: '2406:ef80:1:14a7::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Hong Kong, China 🇭🇰', country: 'China', os: '🐧 Linux', asn: 'AS63473' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Hishoken', emoji: '🪃', tooltip: '飛翔剣 (Hishoken) - Flying Blade: Like a boomerang, your packets always find their way back', host: 'au-relay.brokenbotnet.com', fingerprint: '5F926760730D0229C2F2D16D0DE0E8A3C2682ED1', ipv4: '103.73.65.146', ipv6: '2406:ef80:3:9bc6::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Sydney, Australia 🇦🇺', country: 'Australia', os: '🚩 NetBSD', asn: 'AS63473' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Kuma', emoji: '🐻', tooltip: '熊 (Kuma) - Bear: Mighty and enduring, guarding circuits across the Russian wilds', host: 'ru-relay.brokenbotnet.com', fingerprint: '576E77EE584906041FF504592E5C51EE471707A2', ipv4: '195.133.23.252', ipv6: '2001:470:1f15:16b::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'St.-Petersburg, Russia 🇷🇺', country: 'Russia', os: '🐧 Linux', asn: 'AS51659' },
-            { kind: 'public', type: 'middle', region: 'asia-oceania', name: 'Okami', emoji: '🐺', tooltip: '狼 (Okami) - Wolf: The grey wolf (Bozkurt), guiding your traffic through Turkish relay paths', host: 'tr-relay.brokenbotnet.com', fingerprint: '38FF19F5014E110F196D4AEB81189B375EDA4530', ipv4: '45.141.148.185', ipv6: '2001:470:1f0b:c3::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Istanbul, Türkiye 🇹🇷', country: 'Türkiye', os: '🐉 DragonFlyBSD', asn: 'AS44382', layout: 'centred-relay' },
-            { kind: 'public', type: 'middle', region: 'africa', name: 'Shishi', emoji: '🦁', tooltip: '獅子 (Shishi) - Lion: South African pride, roaring through the relay network', host: 'za-relay.brokenbotnet.com', fingerprint: 'A24D263E817AA29F4E1F210AC519EF590DB443CD', ipv4: '139.84.241.19', ipv6: '2a05:f480:3000:2fa6::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Johannesburg, South Africa 🇿🇦', country: 'South Africa', os: '☀️ SunOS', asn: 'AS20473', layout: 'centred-relay' },
-            { kind: 'public', type: 'middle', region: 'north-america', name: 'Kaede', emoji: '🍁', tooltip: "楓 (Kaede) - Maple: Canada's emblem, steady through changing seasons", host: 'ca-relay.brokenbotnet.com', fingerprint: 'B05A4E4AEB2E5AD92CF882D57162F9EDAAA51815', ipv4: '38.49.219.113', ipv6: '2602:ffd5:767:3::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Montréal, Canada 🇨🇦', country: 'Canada', os: '🐧 Linux', asn: 'AS26832' },
-            { kind: 'public', type: 'middle', region: 'north-america', name: 'Washi', emoji: '🦅', tooltip: '鷲 (Washi) - Eagle: Resolute flight across American relay paths', host: 'us-relay.brokenbotnet.com', fingerprint: '9F085BE2414BEAD86BF590800528A55A857F21C8', ipv4: '173.224.219.133', ipv6: '2604:6600:8:3::2df', mobileIpv6: '...:8:3::2df', location: 'Los Angeles, United States 🇺🇸', country: 'United States', os: '🐧 Linux', asn: 'AS40676' },
-            { kind: 'public', type: 'middle', region: 'north-america', name: 'Saboten', emoji: '🌵', tooltip: "仙人掌 (Saboten) - Cactus: Standing firm through the network's desert paths", host: 'mx-relay.brokenbotnet.com', fingerprint: 'BE4BC9C6B08AA3124D1ABFA2B1DBE08755D8719B', ipv4: '64.177.80.2', ipv6: '2001:19f0:b400:118e::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'Mexico City, Mexico 🇲🇽', country: 'Mexico', os: '😈 FreeBSD', asn: 'AS20473' },
-            { kind: 'public', type: 'middle', region: 'north-america', name: 'Midori', emoji: '🌳', tooltip: "緑 (Midori) - Green: The dense Amazonian jungle, obscuring your digital footprint in endless foliage", host: 'br-relay.brokenbotnet.com', fingerprint: '01DBD999270E5F730AF584BAA89E8328E0F3947F', ipv4: '216.238.126.113', ipv6: '2001:19f0:b800:15bf::1337:c0de', mobileIpv6: '...:1337:c0de', location: 'São Paulo, Brazil 🇧🇷', country: 'Brazil', os: '🐉 DragonFlyBSD', asn: 'AS20473' }
-        ];
+        let relays = [];
+
+        async function loadRelayData() {
+            const configuredVersion = document.querySelector('meta[name="shinobi-relay-data-version"]')?.content || '';
+            const version = /^[a-f0-9]{12}$/i.test(configuredVersion) ? `?v=${configuredVersion}` : '';
+            const response = await fetch(`src/data/relays.json${version}`, {
+                cache: 'no-cache',
+                credentials: 'same-origin'
+            });
+            if (!response.ok) {
+                throw new Error(`Relay data request failed with HTTP ${response.status}`);
+            }
+            const data = await response.json();
+            if (!Array.isArray(data)) {
+                throw new TypeError('Relay data must be an array');
+            }
+            return data;
+        }
 
         const relayRegions = [
             { id: 'asia-oceania', title: '🌏 Asia-Oceania' },
@@ -980,12 +972,30 @@
                 behavior: prefersReducedMotion() ? 'auto' : 'smooth'
             });
         });
-        document.addEventListener('DOMContentLoaded', () => {
-            renderRelayCards();
-            syncDerivedCounts();
-            updateRegionHealth('loading');
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                relays = await loadRelayData();
+                renderRelayCards();
+                syncDerivedCounts();
+                updateRegionHealth('loading');
+                fetchRelayFlags();
+            } catch (err) {
+                console.error('Failed to load relay inventory', err);
+                const message = createEl('p', {
+                    className: 'no-results',
+                    text: 'Relay inventory unavailable. Please try the static no-JavaScript view.'
+                });
+                const fallback = createEl('a', {
+                    className: 'proof-link',
+                    text: 'Open static view',
+                    href: '/nojs/'
+                });
+                document.getElementById('bridgeGrid')?.replaceChildren(message.cloneNode(true));
+                document.getElementById('relayRegionContainer')?.replaceChildren(message, fallback);
+                const health = document.getElementById('networkHealth');
+                if (health) health.textContent = 'Inventory unavailable';
+            }
             updateActiveNav();
-            fetchRelayFlags();
             refreshIcons();
 
             document.querySelectorAll('a[target="_blank"]').forEach(link => {

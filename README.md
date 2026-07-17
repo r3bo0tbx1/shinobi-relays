@@ -192,7 +192,12 @@ Onionoo documentation: [Tor Metrics Onionoo](https://metrics.torproject.org/onio
 ├── src/
 │   ├── css/
 │   │   ├── 404.css
+│   │   ├── nojs.css
 │   │   └── shinobi.css
+│   ├── data/
+│   │   └── relays.json
+│   ├── icons/
+│   │   └── noscript.svg
 │   ├── js/
 │   │   ├── lucide.min.js
 │   │   └── shinobi.js
@@ -205,6 +210,10 @@ Onionoo documentation: [Tor Metrics Onionoo](https://metrics.torproject.org/onio
 │   ├── site.webmanifest
 │   ├── web-app-manifest-192x192.png
 │   └── web-app-manifest-512x512.png
+├── templates/
+│   └── nojs.html
+├── nojs/
+│   └── index.html             # Local source-root redirect
 ├── 404.html
 ├── index.html
 ├── LICENSE
@@ -236,6 +245,19 @@ http://localhost:1337/
 
 Using a local HTTP server is recommended instead of opening `index.html` through `file://`. Clipboard access and browser security behavior are more reliable on `localhost` or HTTPS.
 
+The no-JavaScript page is generated from `src/data/relays.json`. Build and serve the deployment directory to test it:
+
+```bash
+npm run build
+python3 -m http.server 1337 --directory shinobi
+```
+
+Open `http://localhost:1337/nojs/`, or disable JavaScript and open the root page to test the automatic fallback.
+
+When VS Code Live Server serves the repository root instead, run `npm run build` first and open
+`http://127.0.0.1:5500/nojs/`. The local redirect and the source root's no-JavaScript fallback both
+open `/shinobi/nojs/`. The generated Cloudflare Pages build continues to use `/nojs/`.
+
 ## Deployment
 
 The repository can be deployed to any static host. Cloudflare Pages is a natural fit because the project already includes a compatible `_headers` file.
@@ -260,6 +282,8 @@ The build script copies only deployable public files into `shinobi`:
 - `src/`
 - `.well-known/`
 
+The build also generates `nojs/index.html` from `templates/nojs.html` and the shared relay inventory.
+
 Repository files such as `README.md`, `SECURITY.md`, `package.json`, and `scripts/` are intentionally not published.
 
 Cloudflare Pages documentation: [Custom headers](https://developers.cloudflare.com/pages/configuration/headers/)
@@ -270,41 +294,41 @@ The HTML and assets work on other static servers, but `_headers` is platform-spe
 
 ## Updating the relay inventory
 
-Relay cards are generated from the `relays` array near the beginning of `src/js/shinobi.js`.
+Both the standard dashboard and generated no-JavaScript page use `src/data/relays.json` as their single relay inventory.
 
 ### Public relay example
 
-```js
+```json
 {
-    kind: 'public',
-    type: 'middle',
-    region: 'asia-oceania',
-    name: 'Example',
-    emoji: '🧅',
-    tooltip: 'Display description',
-    host: 'relay.example.com',
-    fingerprint: '40_CHARACTER_RSA_FINGERPRINT',
-    ipv4: '192.0.2.10',
-    ipv6: '2001:db8::10',
-    mobileIpv6: '...::10',
-    location: 'City, Country',
-    country: 'Country',
-    os: '🐧 Linux',
-    asn: 'AS64500'
+    "kind": "public",
+    "type": "middle",
+    "region": "asia-oceania",
+    "name": "Example",
+    "emoji": "🧅",
+    "tooltip": "Display description",
+    "host": "relay.example.com",
+    "fingerprint": "40_CHARACTER_RSA_FINGERPRINT",
+    "ipv4": "192.0.2.10",
+    "ipv6": "2001:db8::10",
+    "mobileIpv6": "...::10",
+    "location": "City, Country",
+    "country": "Country",
+    "os": "🐧 Linux",
+    "asn": "AS64500"
 }
 ```
 
 ### Bridge example
 
-```js
+```json
 {
-    kind: 'bridge',
-    type: 'bridge',
-    name: 'Example',
-    emoji: '🌉',
-    tooltip: 'Display description',
-    fingerprint: '40_CHARACTER_HASHED_BRIDGE_FINGERPRINT',
-    distribution: '📧 Email'
+    "kind": "bridge",
+    "type": "bridge",
+    "name": "Example",
+    "emoji": "🌉",
+    "tooltip": "Display description",
+    "fingerprint": "40_CHARACTER_HASHED_BRIDGE_FINGERPRINT",
+    "distribution": "📧 Email"
 }
 ```
 
@@ -316,7 +340,8 @@ After changing the inventory:
 4. Update the Ed25519 public-key list when public relays are added or removed.
 5. Update the family ID file only when the public family identity changes.
 6. Review fallback count labels in `fetchRelayFlags()` if the bridge or exit totals change.
-7. Load the site locally and verify search, sorting, copy buttons, metrics links, and Onionoo results.
+7. Run `npm run build` and confirm the generated `/nojs/` inventory matches the standard dashboard.
+8. Load the site locally and verify search, sorting, copy buttons, metrics links, and Onionoo results.
 
 ## Relay proof files
 

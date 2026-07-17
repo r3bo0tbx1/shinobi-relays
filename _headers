@@ -21,6 +21,12 @@
 /src/js/*
   Cache-Control: no-cache, must-revalidate, no-transform
 
+/src/data/*
+  Cache-Control: no-cache, must-revalidate, no-transform
+
+/nojs/*
+  Cache-Control: no-cache, must-revalidate, no-transform
+
 /.well-known/*
   Access-Control-Allow-Origin: *
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0, no-transform

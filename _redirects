@@ -3,3 +3,4 @@
 /SECURITY.md /404.html 404
 /package.json /404.html 404
 /scripts/* /404.html 404
+/nojs /nojs/ 301
