@@ -196,8 +196,6 @@ Onionoo documentation: [Tor Metrics Onionoo](https://metrics.torproject.org/onio
 │   │   └── shinobi.css
 │   ├── data/
 │   │   └── relays.json
-│   ├── icons/
-│   │   └── noscript.svg
 │   ├── js/
 │   │   ├── lucide.min.js
 │   │   └── shinobi.js

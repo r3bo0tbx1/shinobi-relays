@@ -115,10 +115,34 @@ code {
     align-items: center;
 }
 
-.noscript-logo {
+.static-mode-mark {
+    display: grid;
     width: 72px;
     height: 72px;
     flex: none;
+    place-items: center;
+    border: 1px solid rgba(88, 166, 255, 0.34);
+    border-radius: 10px;
+    background: var(--blue-soft);
+    color: var(--blue);
+}
+
+.static-mode-mark svg {
+    width: 34px;
+    height: 34px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.65;
+}
+
+.static-mode-mark span {
+    margin-top: -11px;
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
 }
 
 .eyebrow {
@@ -643,6 +667,14 @@ h1 {
     font-weight: 750;
 }
 
+.official-link {
+    color: #d2b2ff;
+}
+
+.official-link:hover {
+    color: #e6d2ff;
+}
+
 .support-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -777,9 +809,19 @@ footer p {
         align-items: flex-start;
     }
 
-    .noscript-logo {
+    .static-mode-mark {
         width: 52px;
         height: 52px;
+    }
+
+    .static-mode-mark svg {
+        width: 27px;
+        height: 27px;
+    }
+
+    .static-mode-mark span {
+        margin-top: -9px;
+        font-size: 0.5rem;
     }
 
     h1 {

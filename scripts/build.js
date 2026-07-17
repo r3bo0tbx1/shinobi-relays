@@ -132,7 +132,9 @@ function renderRelayCard(relay) {
         ['ASN', relay.asn, true],
       ];
   const metrics = relay.fingerprint
-    ? `<a class="metrics-link" href="https://metrics.1aeo.com/relay/${encodeURIComponent(relay.fingerprint)}/" target="_blank" rel="noopener noreferrer">View on 1AEO Metrics</a>`
+    ? isBridge
+      ? `<a class="metrics-link official-link" href="https://metrics.torproject.org/rs.html#details/${encodeURIComponent(relay.fingerprint)}" target="_blank" rel="noopener noreferrer">Check on Tor Relay Search</a>`
+      : `<a class="metrics-link" href="https://metrics.1aeo.com/relay/${encodeURIComponent(relay.fingerprint)}/" target="_blank" rel="noopener noreferrer">View on 1AEO Metrics</a>`
     : '';
 
   return [
