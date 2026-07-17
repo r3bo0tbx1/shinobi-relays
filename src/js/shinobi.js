@@ -546,7 +546,7 @@
         }
 
         function updateActiveNav() {
-            const sections = ['header', 'network-flow', 'bridges', 'relays', 'contact', 'glossary', 'faq', 'aio-stack'];
+            const sections = ['header', 'network-flow', 'bridges', 'relays', 'contact', 'glossary', 'faq', 'donate', 'aio-stack'];
             const navItems = document.querySelectorAll('.scroll-nav-item');
             let currentSection = 0;
             const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 100);

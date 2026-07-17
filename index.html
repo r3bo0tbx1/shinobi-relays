@@ -52,6 +52,7 @@
         <button type="button" class="scroll-nav-item" data-label="Contact" data-section="contact" aria-label="Go to contact"></button>
         <button type="button" class="scroll-nav-item" data-label="Glossary" data-section="glossary" aria-label="Go to glossary"></button>
         <button type="button" class="scroll-nav-item" data-label="FAQ" data-section="faq" aria-label="Go to FAQ"></button>
+        <button type="button" class="scroll-nav-item" data-label="Donate" data-section="donate" aria-label="Go to donation options"></button>
         <button type="button" class="scroll-nav-item" data-label="AIO Stack" data-section="aio-stack" aria-label="Go to AIO stack"></button>
     </nav>
     <div class="container">
@@ -66,12 +67,34 @@
                 <span class="status-pill middle" id="middleCount"><span class="chip-icon"><i data-lucide="shuffle"></i></span>-- Middles</span>
                 <span class="status-pill exit" id="exitCount"><span class="chip-icon"><i data-lucide="door-open"></i></span>1 Exit</span>
             </div>
-            <div class="metrics-capsule">
-                <div class="metrics-title">
-                    <span class="meta-icon"><i data-lucide="bar-chart-3"></i></span> METRICS DASHBOARD
+            <div class="hero-actions">
+                <div class="metrics-capsule">
+                    <div class="metrics-title">
+                        <span class="meta-icon"><i data-lucide="bar-chart-3"></i></span> METRICS DASHBOARD
+                    </div>
+                    <a href="https://metrics.1aeo.com/relays.brokenbotnet.com/" target="_blank" rel="noopener noreferrer" class="metrics-link">
+                        <span class="meta-icon"><i data-lucide="zap"></i></span> 1AEO </a>
                 </div>
-                <a href="https://metrics.1aeo.com/relays.brokenbotnet.com/" target="_blank" rel="noopener noreferrer" class="metrics-link">
-                    <span class="meta-icon"><i data-lucide="zap"></i></span> metrics.1AEO.com </a>
+                <a class="aio-flare" href="#aio-stack" aria-label="Jump to AIO Stack Docker image">
+                    <span class="aio-flare__label">
+                        <span class="aio-flare__icon"><i data-lucide="package-check" aria-hidden="true"></i></span>
+                        <span>AIO Stack</span>
+                    </span>
+                    <strong>
+                        <span class="aio-flare__value-icon"><i data-lucide="container" aria-hidden="true"></i></span>
+                        <span>Docker</span>
+                    </strong>
+                </a>
+                <a class="donate-flare" href="#donate" aria-label="Jump to donation options">
+                    <span class="donate-flare__label">
+                        <span class="donate-flare__icon"><i data-lucide="hand-heart" aria-hidden="true"></i></span>
+                        <span>Support Relays</span>
+                    </span>
+                    <strong>
+                        <span class="donate-flare__value-icon"><i data-lucide="coins" aria-hidden="true"></i></span>
+                        <span>Donate</span>
+                    </strong>
+                </a>
             </div>
             <div class="network-meta">
                 <div class="meta-item health">
@@ -504,6 +527,24 @@
                     <div class="faq-answer" id="faq-traffic-answer" role="region" aria-labelledby="faq-traffic-question" aria-hidden="true"> No. Guard and Middle relays see encrypted traffic they cannot decrypt. Only Exit nodes see unencrypted traffic to final destinations (use HTTPS!), but never the original source. We maintain zero logs, even if compelled, we have nothing to provide. </div>
                 </div>
             </div>
+        </section>
+        <section class="card donation-cta" id="donate" aria-labelledby="donation-title">
+            <div class="donation-cta__logos" aria-hidden="true">
+                <span class="crypto-logo crypto-logo--bitcoin">
+                    <img src="src/icons/donations/bitcoin.svg" alt="" width="28" height="28">
+                </span>
+                <span class="crypto-logo crypto-logo--monero">
+                    <img src="src/icons/donations/monero.svg" alt="" width="28" height="28">
+                </span>
+            </div>
+            <div class="donation-cta__content">
+                <h2 id="donation-title">Support Shinobi Relays</h2>
+                <p>Help cover server, bandwidth, monitoring, and maintenance costs.</p>
+            </div>
+            <a class="donation-cta__button" href="https://brokenbotnet.com/donate/" target="_blank" rel="noopener noreferrer">
+                <span>Donate with BTC/XMR</span>
+                <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
         </section>
         <section class="card cta-card compact-mode" id="aio-stack">
             <div class="cta-content">
