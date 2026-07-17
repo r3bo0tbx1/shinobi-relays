@@ -71,10 +71,11 @@ function scanFile(file) {
       const body = match[2].trim();
       const src = attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i)?.[1];
       if (!src && body) fail(file, lineNumber(content, match.index), 'inline script block is not allowed');
-      if (src && !allowedScriptSrc.has(src.replace(/^\//, ''))) {
+      const scriptPath = src?.replace(/^\//, '').split(/[?#]/, 1)[0];
+      if (src && !allowedScriptSrc.has(scriptPath)) {
         fail(file, lineNumber(content, match.index), `unapproved script source: ${src}`);
       }
-      if (src && allowedScriptSrc.has(src.replace(/^\//, '')) && !/\bdata-cfasync\s*=\s*["']false["']/i.test(attrs)) {
+      if (src && allowedScriptSrc.has(scriptPath) && !/\bdata-cfasync\s*=\s*["']false["']/i.test(attrs)) {
         fail(file, lineNumber(content, match.index), 'first-party script must opt out of Cloudflare Rocket Loader with data-cfasync="false"');
       }
     }

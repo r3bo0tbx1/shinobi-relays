@@ -9,6 +9,18 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), display-capture=(), document-domain=(), encrypted-media=(), fullscreen=(), picture-in-picture=()
   Content-Security-Policy: default-src 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; img-src 'self' data: https://relays.brokenbotnet.com/src/og-shinobi.png https://relays.brokenbotnet.com/src/favicon-96x96.png; font-src 'self'; connect-src 'self' https://onionoo.torproject.org; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; trusted-types default; require-trusted-types-for 'script'; upgrade-insecure-requests;
 
+/
+  Cache-Control: no-cache, must-revalidate, no-transform
+
+/*.html
+  Cache-Control: no-cache, must-revalidate, no-transform
+
+/src/css/*
+  Cache-Control: no-cache, must-revalidate, no-transform
+
+/src/js/*
+  Cache-Control: no-cache, must-revalidate, no-transform
+
 /.well-known/*
   Access-Control-Allow-Origin: *
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0, no-transform
