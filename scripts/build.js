@@ -106,6 +106,10 @@ function renderRelayCard(relay) {
   const role = isBridge ? 'Hidden bridge' : `Configured ${relay.type || 'middle'}`;
   const className = isBridge ? 'bridge' : relay.type === 'exit' ? 'exit' : 'middle';
   const title = `Shinobi${relay.name || 'Unknown'} ${relay.emoji || ''}`.trim();
+  const kindLabel = isBridge ? 'Bridge' : relay.type === 'exit' ? 'Exit' : 'Middle/Guard';
+  const relaySlug = String(relay.name || 'unknown').toLowerCase().replaceAll(/[^a-z0-9]+/g, '-');
+  const detailsId = `relay-details-${relaySlug}`;
+  const detailsTitleId = `${detailsId}-title`;
   const quickFacts = isBridge
     ? [
         stripLeadingEmoji(relay.distribution) || 'Unknown distribution',
@@ -144,17 +148,21 @@ function renderRelayCard(relay) {
     `<h4>${escapeHTML(title)}</h4>`,
     `<span class="role">${escapeHTML(role)}</span>`,
     '</div>',
-    `<span class="relay-kind" aria-hidden="true">${isBridge ? 'BR' : relay.type === 'exit' ? 'EX' : 'MR'}</span>`,
+    `<span class="relay-kind">${kindLabel}</span>`,
     '</header>',
     `<p class="relay-description">${escapeHTML(relay.tooltip || 'Tor relay operated by the Shinobi fleet.')}</p>`,
     '<div class="quick-facts">',
     ...quickFacts.map(fact => `<span>${escapeHTML(fact)}</span>`),
     '</div>',
-    '<details class="relay-details">',
-    '<summary>Technical details</summary>',
+    `<button class="relay-details-trigger" type="button" popovertarget="${detailsId}" aria-label="Show technical details for ${escapeHTML(title)}">Technical details</button>`,
+    `<div class="relay-details-popover" id="${detailsId}" popover="auto" role="dialog" aria-labelledby="${detailsTitleId}">`,
+    '<div class="relay-details-heading">',
+    `<h5 id="${detailsTitleId}">${escapeHTML(title)}</h5>`,
+    `<button class="relay-details-close" type="button" popovertarget="${detailsId}" popovertargetaction="hide" aria-label="Close technical details for ${escapeHTML(title)}"><span aria-hidden="true">×</span></button>`,
+    '</div>',
     `<dl>${renderDetails(rows)}</dl>`,
     metrics,
-    '</details>',
+    '</div>',
     '</article>',
   ].join('');
 }
@@ -177,7 +185,7 @@ function generateNoJsPage(relays) {
     return [
       `<section class="region region-${region.id}" id="${region.id}" aria-labelledby="${region.id}-title">`,
       '<div class="region-heading">',
-      `<h3 id="${region.id}-title">${region.icon} ${region.title}</h3>`,
+      `<h3 id="${region.id}-title"><span class="region-icon" aria-hidden="true">${region.icon}</span><span>${escapeHTML(region.title)}</span></h3>`,
       `<span>${regionRelays.length} relay${regionRelays.length === 1 ? '' : 's'}</span>`,
       '</div>',
       `<div class="relay-grid">${regionRelays.map(renderRelayCard).join('')}</div>`,
@@ -236,6 +244,33 @@ function versionAssets() {
   }
 }
 
+function validateNoJsPage() {
+  const file = path.join('nojs', 'index.html');
+  const pagePath = assertInsideRoot(path.join(outputDir, file));
+  const html = fs.readFileSync(pagePath, 'utf8');
+  const checks = [
+    [/<script\b/i, 'script elements'],
+    [/\bdata-lucide\b/i, 'Lucide placeholders'],
+    [/<svg\b/i, 'inline SVG'],
+    [/\son[a-z]+\s*=/i, 'inline event handlers'],
+    [new RegExp(`\\b${'java'}${'script'}\\s*:`, 'i'), 'script-scheme URLs'],
+  ];
+
+  for (const [pattern, label] of checks) {
+    if (pattern.test(html)) {
+      throw new Error(`Generated ${file} must not contain ${label}`);
+    }
+  }
+
+  if (
+    !html.includes('aria-label="No JavaScript"')
+    || !html.includes('class="nojs-mark__js">JS</span>')
+    || !html.includes('class="nojs-mark__times">×</span>')
+  ) {
+    throw new Error(`Generated ${file} is missing the accessible JS× identity mark`);
+  }
+}
+
 assertInsideRoot(outputDir);
 fs.rmSync(outputDir, { recursive: true, force: true });
 fs.mkdirSync(outputDir, { recursive: true });
@@ -243,5 +278,6 @@ publicEntries.forEach(copyEntry);
 copyNoJsTemplate();
 generateNoJsPage(readRelayData());
 versionAssets();
+validateNoJsPage();
 
 console.log(`Built ${path.relative(root, outputDir)} with ${publicEntries.join(', ')} and generated nojs`);

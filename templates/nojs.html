@@ -23,7 +23,9 @@
     <div class="page-shell">
         <header class="hero">
             <div class="brand-lockup">
-                <span class="static-mode-mark" aria-hidden="true">🔒</span>
+                <span class="nojs-mark" role="img" aria-label="No JavaScript">
+                    <span class="nojs-mark__glyphs" aria-hidden="true"><span class="nojs-mark__js">JS</span><span class="nojs-mark__times">×</span></span>
+                </span>
                 <div class="hero-copy">
                     <p class="eyebrow">No-JavaScript dashboard</p>
                     <h1>rE-Bo0t.bx1 <span aria-hidden="true">🧅</span> Shinobi Relays</h1>
@@ -36,14 +38,17 @@
             </div>
             <div class="fleet-strip" aria-label="Configured fleet roles">
                 <span class="bridge-count"><strong>__BRIDGE_COUNT__</strong> Bridges</span>
-                <span class="middle-count"><strong>__MIDDLE_COUNT__</strong> Middles</span>
+                <span class="middle-count"><strong>__MIDDLE_COUNT__</strong> Middle/Guards</span>
                 <span class="exit-count"><strong>__EXIT_COUNT__</strong> Exit</span>
                 <span class="ipv6-count"><strong>__IPV6_COUNT__/__TOTAL_COUNT__</strong> IPv6</span>
             </div>
         </header>
 
         <aside class="mode-notice" aria-label="No JavaScript mode limitations">
-            <span class="mode-badge" aria-hidden="true">NO JS</span>
+            <span class="nojs-identity">
+                <span class="nojs-mark nojs-mark--small" aria-hidden="true"><span class="nojs-mark__glyphs"><span class="nojs-mark__js">JS</span><span class="nojs-mark__times">×</span></span></span>
+                <span>No-JavaScript</span>
+            </span>
             <div>
                 <strong>Static by design</strong>
                 <span>No executable browser code or live Onionoo requests run here. Running status, bandwidth, Guard flags, search, and sorting remain available on the live dashboard.</span>
@@ -68,27 +73,27 @@
                 </div>
                 <div class="summary-grid">
                     <div class="summary-item total-stat">
-                        <span class="summary-icon" aria-hidden="true">📡</span>
+                        <span class="summary-icon" aria-hidden="true">◈</span>
                         <strong>__TOTAL_COUNT__</strong><span>Total relays</span>
                     </div>
                     <div class="summary-item public-stat">
-                        <span class="summary-icon" aria-hidden="true">🔀</span>
+                        <span class="summary-icon" aria-hidden="true">⇄</span>
                         <strong>__PUBLIC_COUNT__</strong><span>Public relays</span>
                     </div>
                     <div class="summary-item country-stat">
-                        <span class="summary-icon" aria-hidden="true">🗺️</span>
+                        <span class="summary-icon" aria-hidden="true">◎</span>
                         <strong>__COUNTRY_COUNT__</strong><span>Countries</span>
                     </div>
                     <div class="summary-item platform-stat">
-                        <span class="summary-icon" aria-hidden="true">💾</span>
+                        <span class="summary-icon" aria-hidden="true">▣</span>
                         <strong>__PLATFORM_COUNT__</strong><span>Platforms</span>
                     </div>
                     <div class="summary-item asn-stat">
-                        <span class="summary-icon" aria-hidden="true">🔗</span>
+                        <span class="summary-icon" aria-hidden="true">⌁</span>
                         <strong>__ASN_COUNT__</strong><span>ASNs</span>
                     </div>
                     <div class="summary-item ipv6-stat">
-                        <span class="summary-icon" aria-hidden="true">🌐</span>
+                        <span class="summary-icon" aria-hidden="true">↔</span>
                         <strong>__IPV6_COUNT__/__TOTAL_COUNT__</strong><span>IPv6 enabled</span>
                     </div>
                 </div>

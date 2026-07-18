@@ -16,6 +16,10 @@
             --link: #58a6ff;
             --warning: #d29922;
             --offline: #6e7681;
+            --base0C: #72e1e1;
+            --base08: #ff6b7a;
+            --nojs-accent: var(--base0C);
+            --icon-stroke: 2.2;
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 24px;
@@ -47,6 +51,13 @@
 
         a {
             text-decoration: none;
+        }
+
+        .lucide {
+            display: block;
+            width: 1em;
+            height: 1em;
+            stroke-width: var(--icon-stroke);
         }
 
         .bg-mesh {
@@ -260,6 +271,91 @@
             width: 100%;
             min-width: 0;
             min-height: 46px;
+        }
+
+        .mode-switch-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 9px;
+        }
+
+        .nojs-switch {
+            display: inline-flex;
+            min-height: 32px;
+            align-items: center;
+            gap: 7px;
+            padding: 3px 10px 3px 4px;
+            border: 1px solid rgba(94, 234, 212, 0.24);
+            border-radius: 7px;
+            background: rgba(94, 234, 212, 0.045);
+            color: #a9eee3;
+            font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+            font-size: 0.68rem;
+            font-weight: 700;
+            line-height: 1;
+            text-decoration: none;
+            transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .nojs-mark {
+            display: inline-grid;
+            width: 42px;
+            height: 36px;
+            flex: none;
+            place-items: center;
+            border: 1px solid rgba(94, 234, 212, 0.38);
+            border-radius: 6px;
+            background: rgba(94, 234, 212, 0.07);
+            color: var(--nojs-accent);
+            font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0;
+            line-height: 1;
+        }
+
+        .nojs-mark--small {
+            width: 27px;
+            height: 24px;
+            border-radius: 5px;
+            font-size: 0.67rem;
+        }
+
+        .nojs-mark__glyphs {
+            display: inline-flex;
+            align-items: baseline;
+            letter-spacing: 0;
+            line-height: 1;
+        }
+
+        .nojs-mark__js {
+            color: var(--base0C);
+        }
+
+        .nojs-mark__times {
+            color: var(--base08);
+        }
+
+        .nojs-switch:hover {
+            border-color: rgba(94, 234, 212, 0.52);
+            background: rgba(94, 234, 212, 0.09);
+            color: #d2faf4;
+        }
+
+        .nojs-switch:hover .nojs-mark {
+            border-color: rgba(94, 234, 212, 0.66);
+            background: rgba(94, 234, 212, 0.12);
+        }
+
+        .nojs-switch:focus-visible {
+            outline: 2px solid var(--nojs-accent);
+            outline-offset: 3px;
+        }
+
+        .nojs-switch:active {
+            border-color: rgba(94, 234, 212, 0.72);
+            background: rgba(94, 234, 212, 0.14);
+            color: #fff;
         }
 
         .metrics-capsule {
@@ -591,7 +687,7 @@
         .glossary-icon .lucide {
             width: 1em;
             height: 1em;
-            stroke-width: 2.2;
+            stroke-width: var(--icon-stroke);
             display: block;
         }
 
@@ -1183,7 +1279,7 @@
         .relay-card .row-icon .lucide {
             width: 14px;
             height: 14px;
-            stroke-width: 2.4;
+            stroke-width: var(--icon-stroke);
         }
 
         .relay-card.bridge .row-icon {
@@ -1800,7 +1896,7 @@
         .detail-icon .lucide {
             width: 17px;
             height: 17px;
-            stroke-width: 2.3;
+            stroke-width: var(--icon-stroke);
         }
 
         .detail-copy {
@@ -2108,7 +2204,7 @@
         .capability-icon .lucide {
             width: 18px;
             height: 18px;
-            stroke-width: 2.35;
+            stroke-width: var(--icon-stroke);
         }
 
         .capability-copy {

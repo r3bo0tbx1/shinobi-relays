@@ -39,7 +39,8 @@
             if (window.lucide) {
                 window.lucide.createIcons({
                     attrs: {
-                        'aria-hidden': 'true'
+                        'aria-hidden': 'true',
+                        focusable: 'false'
                     }
                 });
             }
@@ -107,7 +108,7 @@
         }
 
         function iconNode(name, className = 'row-icon') {
-            return createEl('span', { className },
+            return createEl('span', { className, attrs: { 'aria-hidden': 'true' } },
                 createEl('i', { attrs: { 'data-lucide': safeIconName(name) } })
             );
         }

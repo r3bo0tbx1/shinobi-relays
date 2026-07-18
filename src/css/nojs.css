@@ -17,6 +17,9 @@
     --red-soft: rgba(255, 141, 131, 0.11);
     --amber: #f2b84b;
     --amber-soft: rgba(242, 184, 75, 0.11);
+    --base0C: #72e1e1;
+    --base08: #ff6b7a;
+    --mint: var(--base0C);
 }
 
 * {
@@ -115,14 +118,44 @@ code {
     align-items: center;
 }
 
-.static-mode-mark {
-    display: block;
-    width: 60px;
+.nojs-mark {
+    display: inline-grid;
+    width: 42px;
+    height: 36px;
     flex: none;
-    font-size: 2.85rem;
+    place-items: center;
+    border: 1px solid rgba(94, 234, 212, 0.42);
+    border-radius: 6px;
+    background: rgba(94, 234, 212, 0.075);
+    color: var(--mint);
+    font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0;
     line-height: 1;
     text-align: center;
-    filter: saturate(0.78);
+}
+
+.nojs-mark--small {
+    width: 28px;
+    height: 25px;
+    border-radius: 5px;
+    font-size: 0.68rem;
+}
+
+.nojs-mark__glyphs {
+    display: inline-flex;
+    align-items: baseline;
+    letter-spacing: 0;
+    line-height: 1;
+}
+
+.nojs-mark__js {
+    color: var(--base0C);
+}
+
+.nojs-mark__times {
+    color: var(--base08);
 }
 
 .eyebrow {
@@ -256,15 +289,16 @@ h1 {
     color: #c9e4ff;
 }
 
-.mode-badge {
+.nojs-identity {
+    display: inline-flex;
     flex: none;
-    padding: 5px 7px;
-    border: 1px solid rgba(88, 166, 255, 0.36);
-    border-radius: 5px;
-    color: var(--blue);
+    align-items: center;
+    gap: 7px;
+    color: #bdf6ed;
     font-family: "Cascadia Code", Consolas, monospace;
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     font-weight: 800;
+    white-space: nowrap;
 }
 
 .section-nav {
@@ -358,14 +392,6 @@ h1 {
     opacity: 0.8;
 }
 
-.summary-icon {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 1.42rem;
-    line-height: 1;
-    filter: saturate(0.82);
-}
-
 .summary-item strong {
     color: var(--text);
     font-family: "Cascadia Code", Consolas, monospace;
@@ -377,6 +403,24 @@ h1 {
     font-size: 0.68rem;
     font-weight: 800;
     text-transform: uppercase;
+}
+
+.summary-item .summary-icon {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 6px;
+    place-items: center;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.025);
+    color: currentColor;
+    font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.9;
+    text-transform: none;
 }
 
 .total-stat,
@@ -434,8 +478,15 @@ h1 {
 }
 
 .region-heading h3 {
+    display: inline-flex;
+    gap: 7px;
+    align-items: center;
     margin: 0;
     font-size: 1.12rem;
+}
+
+.region-icon {
+    line-height: 1;
 }
 
 .region-heading span {
@@ -522,17 +573,18 @@ h1 {
 }
 
 .relay-kind {
-    display: grid;
-    width: 32px;
-    height: 32px;
+    display: inline-flex;
+    min-height: 28px;
     flex: none;
-    place-items: center;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 8px;
     border: 1px solid rgba(188, 140, 255, 0.3);
     border-radius: 7px;
     background: var(--purple-soft);
     color: var(--purple);
     font-family: "Cascadia Code", Consolas, monospace;
-    font-size: 0.64rem;
+    font-size: 0.66rem;
     font-weight: 800;
 }
 
@@ -573,32 +625,85 @@ h1 {
     overflow-wrap: anywhere;
 }
 
-.relay-details {
-    border-top: 1px solid var(--line-soft);
-}
-
-.relay-details summary {
+.relay-details-trigger {
+    width: 100%;
     padding: 10px 2px 0;
+    border: 0;
+    border-top: 1px solid var(--line-soft);
+    background: transparent;
     color: #a9d3fc;
     cursor: pointer;
+    font: inherit;
     font-size: 0.76rem;
     font-weight: 750;
-    list-style: none;
+    text-align: left;
 }
 
-.relay-details summary::-webkit-details-marker {
-    display: none;
-}
-
-.relay-details summary::after {
+.relay-details-trigger::after {
     float: right;
     color: var(--muted);
     content: "+";
     font-family: "Cascadia Code", Consolas, monospace;
 }
 
-.relay-details[open] summary::after {
-    content: "−";
+.relay-details-trigger:hover {
+    color: #d4eaff;
+}
+
+.relay-details-trigger:focus-visible,
+.relay-details-close:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+}
+
+.relay-details-popover {
+    width: min(560px, calc(100vw - 28px));
+    max-height: min(78vh, 680px);
+    margin: auto;
+    padding: 17px;
+    overflow: auto;
+    border: 1px solid rgba(88, 166, 255, 0.42);
+    border-radius: 8px;
+    background: #0d141d;
+    box-shadow: 0 18px 54px rgba(0, 0, 0, 0.55);
+    color: var(--text);
+}
+
+.relay-details-popover::backdrop {
+    background: rgba(2, 6, 12, 0.7);
+}
+
+.relay-details-heading {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.relay-details-heading h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.relay-details-close {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    flex: none;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--muted);
+    cursor: pointer;
+    font-family: "Cascadia Code", Consolas, monospace;
+    font-size: 1rem;
+}
+
+.relay-details-close:hover {
+    border-color: rgba(255, 141, 131, 0.45);
+    color: var(--red);
 }
 
 .relay-card dl {
@@ -786,11 +891,6 @@ footer p {
         align-items: flex-start;
     }
 
-    .static-mode-mark {
-        width: 44px;
-        font-size: 2.2rem;
-    }
-
     h1 {
         font-size: 1.75rem;
     }
@@ -811,7 +911,10 @@ footer p {
     }
 
     .mode-notice {
+        display: grid;
+        grid-template-columns: 1fr;
         align-items: flex-start;
+        gap: 10px;
     }
 
     .section-nav a {
