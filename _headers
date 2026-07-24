@@ -32,3 +32,6 @@
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0, no-transform
   Pragma: no-cache
   Expires: 0
+
+https://relays.brokenbotnet.com/*
+  Onion-Location: http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion/:splat
