@@ -275,10 +275,13 @@
 
         .mode-switch-row {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 7px;
             margin-top: 9px;
         }
 
+        .onion-switch,
         .nojs-switch {
             display: inline-flex;
             min-height: 32px;
@@ -295,6 +298,52 @@
             line-height: 1;
             text-decoration: none;
             transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .onion-switch {
+            padding: 3px 10px 3px 5px;
+            border-color: rgba(197, 91, 227, 0.32);
+            background: rgba(125, 70, 152, 0.1);
+            color: #dfa6ef;
+        }
+
+        .onion-switch__icon {
+            display: inline-grid;
+            width: 25px;
+            height: 24px;
+            flex: none;
+            place-items: center;
+            border: 1px solid rgba(197, 91, 227, 0.4);
+            border-radius: 5px;
+            background: rgba(197, 91, 227, 0.1);
+            color: #c55be3;
+        }
+
+        .onion-switch__icon .lucide {
+            width: 15px;
+            height: 15px;
+        }
+
+        .onion-switch:hover {
+            border-color: rgba(197, 91, 227, 0.62);
+            background: rgba(125, 70, 152, 0.2);
+            color: #f3d9fa;
+        }
+
+        .onion-switch:hover .onion-switch__icon {
+            border-color: rgba(197, 91, 227, 0.72);
+            background: rgba(197, 91, 227, 0.16);
+        }
+
+        .onion-switch:focus-visible {
+            outline: 2px solid #c55be3;
+            outline-offset: 3px;
+        }
+
+        .onion-switch:active {
+            border-color: rgba(197, 91, 227, 0.78);
+            background: rgba(125, 70, 152, 0.26);
+            color: #fff;
         }
 
         .nojs-mark {
@@ -2447,6 +2496,17 @@
             border-color: rgba(88, 166, 255, 0.34);
             background: rgba(88, 166, 255, 0.12);
             transform: translateY(-1px);
+        }
+
+        .proof-link--onion {
+            border-color: rgba(197, 91, 227, 0.22);
+            background: rgba(125, 70, 152, 0.12);
+            color: #dfa6ef;
+        }
+
+        .proof-link--onion:hover {
+            border-color: rgba(197, 91, 227, 0.46);
+            background: rgba(125, 70, 152, 0.22);
         }
 
         .c-label {

@@ -222,6 +222,7 @@ function versionAssets() {
       file: 'index.html',
       versions: {
         __SHINOBI_CSS_VERSION__: contentVersion(path.join('src', 'css', 'shinobi.css')),
+        __LUCIDE_JS_VERSION__: contentVersion(path.join('src', 'js', 'lucide.min.js')),
         __SHINOBI_JS_VERSION__: contentVersion(path.join('src', 'js', 'shinobi.js')),
         __RELAY_DATA_VERSION__: contentVersion(path.join('src', 'data', 'relays.json')),
         'content="0; url=/shinobi/nojs/"': 'content="0; url=/nojs/"',

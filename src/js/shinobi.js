@@ -29,6 +29,16 @@
             middle: { iconName: 'shuffle', label: 'Middle' },
             exit: { iconName: 'door-open', label: 'Exit' }
         };
+        const customLucideIcons = {
+            Onion: [
+                ['circle', { cx: '12', cy: '12', r: '2' }],
+                ['circle', { cx: '12', cy: '12', r: '6' }],
+                ['path', { d: 'M2.8 8.1a10 10 0 1 0 5.3-5.3C5 4 3 2 3 2L2 3s2 2 .8 5.1' }],
+                ['path', { d: 'M18 20v2' }],
+                ['path', { d: 'm21 21-1.9-1.9' }],
+                ['path', { d: 'M22 18h-2' }]
+            ]
+        };
         const reducedMotionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
 
         function prefersReducedMotion() {
@@ -38,6 +48,10 @@
         function refreshIcons() {
             if (window.lucide) {
                 window.lucide.createIcons({
+                    icons: {
+                        ...window.lucide.icons,
+                        ...customLucideIcons
+                    },
                     attrs: {
                         'aria-hidden': 'true',
                         focusable: 'false'

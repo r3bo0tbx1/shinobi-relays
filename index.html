@@ -36,7 +36,7 @@
     <noscript>
         <meta http-equiv="refresh" content="0; url=/shinobi/nojs/">
     </noscript>
-    <script data-cfasync="false" src="src/js/lucide.min.js" defer></script>
+    <script data-cfasync="false" src="src/js/lucide.min.js?v=__LUCIDE_JS_VERSION__" defer></script>
     <script data-cfasync="false" src="src/js/shinobi.js?v=__SHINOBI_JS_VERSION__" defer></script>
 
     <link rel="stylesheet" href="src/css/shinobi.css?v=__SHINOBI_CSS_VERSION__">
@@ -101,6 +101,10 @@
                 </a>
             </div>
             <div class="mode-switch-row">
+                <a class="onion-switch" href="http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion" target="_blank" rel="noopener noreferrer" aria-label="Open the primary Shinobi Relays onion mirror">
+                    <span class="onion-switch__icon"><i data-lucide="onion" aria-hidden="true"></i></span>
+                    <span>Onion mirror</span>
+                </a>
                 <a class="nojs-switch" href="/nojs/" aria-label="Open No-JavaScript dashboard">
                     <span class="nojs-mark nojs-mark--small" aria-hidden="true"><span class="nojs-mark__glyphs"><span class="nojs-mark__js">JS</span><span class="nojs-mark__times">×</span></span></span>
                     <span>No-JavaScript</span>
@@ -301,6 +305,7 @@
                 <a class="proof-link" href=".well-known/tor-relay/rsa-fingerprint.txt" target="_blank" rel="noopener noreferrer"><span class="chip-icon"><i data-lucide="fingerprint"></i></span>RSA fingerprints</a>
                 <a class="proof-link" href=".well-known/tor-relay/ed25519-master-pubkey.txt" target="_blank" rel="noopener noreferrer"><span class="chip-icon"><i data-lucide="key-round"></i></span>ed25519 keys</a>
                 <a class="proof-link" href=".well-known/tor-relay/ed25519-family-id.txt" target="_blank" rel="noopener noreferrer"><span class="chip-icon"><i data-lucide="users"></i></span>Family ID</a>
+                <a class="proof-link proof-link--onion" href="onion-mirror.txt" target="_blank" rel="noopener noreferrer"><span class="chip-icon"><i data-lucide="onion"></i></span>Onion mirrors</a>
             </div>
             <p class="abuse-notice">
                 <strong>Abuse Notice:</strong> If you've received traffic from exit IPs listed here, this originates from a Tor Exit Node. We cannot identify the originating user or source system.
