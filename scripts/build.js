@@ -13,6 +13,7 @@ const publicEntries = [
   '_redirects',
   'src',
   '.well-known',
+  'onion-mirror.txt',
 ];
 
 const relayRegions = [
