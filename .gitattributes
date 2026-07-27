@@ -6,3 +6,4 @@
 *.jpeg binary
 *.gif binary
 *.webp binary
+.well-known/onion-mirror.txt -text
