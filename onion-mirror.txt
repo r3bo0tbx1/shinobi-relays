@@ -16,25 +16,33 @@ Long key ID: 0xB3BD6196E1CFBFB4
 
 The public key can be obtained from:
 
-https://keys.openpgp.org/vks/v1/by-fingerprint/33727F5377D296C320AF704AB3BD6196E1CFBFB4
+Clearnet:
+https://realys.brokenbotnet.com/0xB3BD6196E1CFBFB4.asc
+https://gitlab.torproject.org/r3bo0tbx1.gpg
+https://github.com/r3bo0tbx1.gpg
+
+Tor:
+http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion
+http://relays.brokenbotcukepazwp3zhgxhh5jdklnm4kyxqduqrk5gxmh3xcmt7oad.onion
+http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/r3bo0tbx1.gpg
 
 Messages claiming to be from me that are not signed by this key should be treated as untrusted.
 
 rE-Bo0t.bx1 (r3bo0tbx1)
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpm/VgbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+064kP/jwj9RK8NwOW/fBflsuU
-28FXkNvZWpn0rCg2fTE7WQK8C5Y5GD3gqIKIwxb1DrgOfFKjcgodPAai7sMvqWUt
-MmGTZvvY1nnfFPUjjx1ztY/bEOmXhqB65B5l2BZtSk0yN4WvItaA0O52bYtYdHji
-W7A2tBsaV83jHEUzkCPZzVrv1XpRWRzUL9DVDrt9xnu/P1EN2rlVLsFft5XAgayz
-U/0uWce426rjCDF7m8mCdA9ERL6Br+Hw8v85OTNEGTQPZORhCjVKPh8Pcym0tlV4
-98/N2tFqonQnDu3tIep9G4pNeU2aYI4UcUsP1Hg0zJk5iIzlYXZ+NzW8/8F8/r0b
-1d8XGzOdAD2J3L8azUhFSLDr2tpG1zoYNXrVnKzAKEDCleBH5WDt10FhL7BeBGD/
-PBKjXcOgEyXJPIL3VUBAAxxuPAdVrog5NFJ/e1kYw+DirPTJ6zQp8advFujrIqMf
-4QgaxBgQUkjAYlCgmHBESngTKYb7azNwF9zdyjWf2Kv81QdmZHS82FAf2MHCKhd3
-akKNrKtIxQq587vOBf75UNtmLOXoXs+RaZuiMJX65BxDMHNxv7RMM9TEjwvyAz/c
-JGh9r9dblI0OsgIMbv93vWr3I21+lVTT5vjUGtcFwR6TbN5f10CLxsSW5dlOp4fx
-n5JLWGveUF0Xw5Fng4ACDVLe
-=HR3o
+iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpo/CAbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+0tKsP/3HXmpV1gwyfEFjv7kqW
+kiQhJBTuIsbdHFymwvmlYkuzPFGbsBMwfjPt/3iue3KYNOrS2TEZv/fA+orUevt7
+xyst9HZGO+qPlA76CKo+bwhX99tRzw9vxpHkGnNyJNysIrNLmTHoOMJyH5hgoeqh
+btn+BU+3AYIAV4bzjI6WacCdAUPjTU3h2kRBydp3QrphHA5lgzxhy1EAn3JObPbQ
+yVQAZokWexg8bfnEC4TqMIVF9i4gjaZQK4xxge1pSVRT8k2UGTBe53H825Mo4lR0
+n1WmWzH4ia5IEHWpMFLnO5PVtunmoucUGPph15g9Ig+iydrlFRG33BIMNuJ/ir0H
+GNFP8OBZ/3K2KZhLGu+ufNCgP9UU2/kfYUOWKTsXQlXK8B0KfY7x5sxHDIXrqwkJ
+Dkz8nG+A0y7FzAVdD7rBRCHQus66KSPHtxRMmPZc+K68WUIhhgSMzREUbQbfWH/9
+Do0cbO5exngRIqh6tY/lpM2NMzEi5JUhMm+dC2B28OVzEU5B7DW/FTULhPL3HV/j
+OmmY3uOmXOpxiG5yU394WDmEhILK8+36aUxztnkdu8A50l7Gamxwh44o+e7NAWZz
+mwtDkYMdu2nGlhcwC/+MHvVMPSMXFA20CzaGbX/lXxTvpzQEUHAMiO2Z62jiS8U6
+AYaUu+xKoBqf60E3HiKk7IHk
+=twQT
 -----END PGP SIGNATURE-----
