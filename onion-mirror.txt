@@ -22,8 +22,8 @@ https://gitlab.torproject.org/r3bo0tbx1.gpg
 https://github.com/r3bo0tbx1.gpg
 
 Tor:
-http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion
-http://relays.brokenbotcukepazwp3zhgxhh5jdklnm4kyxqduqrk5gxmh3xcmt7oad.onion
+http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion/0xB3BD6196E1CFBFB4.asc
+http://relays.brokenbotcukepazwp3zhgxhh5jdklnm4kyxqduqrk5gxmh3xcmt7oad.onion/0xB3BD6196E1CFBFB4.asc
 http://eweiibe6tdjsdprb4px6rqrzzcsi22m4koia44kc5pcjr7nec2rlxyad.onion/r3bo0tbx1.gpg
 
 Messages claiming to be from me that are not signed by this key should be treated as untrusted.
@@ -31,18 +31,18 @@ Messages claiming to be from me that are not signed by this key should be treate
 rE-Bo0t.bx1 (r3bo0tbx1)
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpo/CAbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+0tKsP/3HXmpV1gwyfEFjv7kqW
-kiQhJBTuIsbdHFymwvmlYkuzPFGbsBMwfjPt/3iue3KYNOrS2TEZv/fA+orUevt7
-xyst9HZGO+qPlA76CKo+bwhX99tRzw9vxpHkGnNyJNysIrNLmTHoOMJyH5hgoeqh
-btn+BU+3AYIAV4bzjI6WacCdAUPjTU3h2kRBydp3QrphHA5lgzxhy1EAn3JObPbQ
-yVQAZokWexg8bfnEC4TqMIVF9i4gjaZQK4xxge1pSVRT8k2UGTBe53H825Mo4lR0
-n1WmWzH4ia5IEHWpMFLnO5PVtunmoucUGPph15g9Ig+iydrlFRG33BIMNuJ/ir0H
-GNFP8OBZ/3K2KZhLGu+ufNCgP9UU2/kfYUOWKTsXQlXK8B0KfY7x5sxHDIXrqwkJ
-Dkz8nG+A0y7FzAVdD7rBRCHQus66KSPHtxRMmPZc+K68WUIhhgSMzREUbQbfWH/9
-Do0cbO5exngRIqh6tY/lpM2NMzEi5JUhMm+dC2B28OVzEU5B7DW/FTULhPL3HV/j
-OmmY3uOmXOpxiG5yU394WDmEhILK8+36aUxztnkdu8A50l7Gamxwh44o+e7NAWZz
-mwtDkYMdu2nGlhcwC/+MHvVMPSMXFA20CzaGbX/lXxTvpzQEUHAMiO2Z62jiS8U6
-AYaUu+xKoBqf60E3HiKk7IHk
-=twQT
+iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpo/9wbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+0TXsP/13zYSLctmVMlxjtTiFe
+HoSkAksRxliPXfyrwHHh+jaaPHsvznRdztD3xNRYwNl8ELujOQ+EMy7OP2ObE7il
+t+KKCmOEIpv4ooSZX7P/PeUPcuxloMRvf8If5UtdmvpqFeAZ/X2qoEGBgedmFg1W
+SzQ7mLYm7s5qexCpY/awdsiOdZ14MmrHsZ2H6x/VuaniruU0gkcoidxxPHljHZns
+VbFeDiJsyX6S0nah0UQ80kXMtk0WNkPBlBPNNkSoBAKhVO1WTmtAfdHOJ1g6ZYx+
+lmItojvm4xNxSX2NE5cH3VvF1YLIW7cO/ROdnJVi4AcHVIprHhFYRTWkjJhr4JAr
+074bOrtEzVi/jKnHhLkSmfDcUmupeTOzHRSV5nX6lBJc9Pni9Xbz0fugIMc7GZnw
+r0/Z1/WkwJF17Vl6sAqJRsyltEcGX60MOe4QzBNGncyhSxEKFC3uP35CIN65a7cC
+CuDAWAMHrRvCTr/MUiZPEz58cmcN244Xhktrz4sDDuqivgY+Xc/vubjZAXaTh7zN
+F7ctpzvBLSlYJQ7j9WQFp+jiONLPV+62eqGzhZsMMt9YNMIcpdRNK/v684Chv4xP
+QpvYpF9CX8FKedMD70gMi/oQgV/I1ljbghKyby7EcYNiJyhH8uY5TeO3ZdTP7JCg
+08HqHRH3C4U2CMU0TkGbjY4B
+=EuAp
 -----END PGP SIGNATURE-----
