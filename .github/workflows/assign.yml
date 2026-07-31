@@ -1,0 +1,28 @@
+name: 👤🎟️
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+
+permissions:
+  pull-requests: write
+
+jobs:
+  assign:
+    name: Assign repository owner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Assign repository owner
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: ['r3bo0tbx1']
+            });
