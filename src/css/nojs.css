@@ -835,6 +835,18 @@ footer p {
     margin-bottom: 4px;
 }
 
+footer .canary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #e7c15d;
+    font-weight: 750;
+}
+
+footer .canary-link:hover {
+    color: #ffe08a;
+}
+
 :focus-visible {
     outline: 2px solid var(--blue);
     outline-offset: 3px;

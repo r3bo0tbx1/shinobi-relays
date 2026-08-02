@@ -1,0 +1,50 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+.:: Shinobi Relays Warrant Canary ::.
+
+Issued: 2 August 2026
+Valid-Until: 31 October 2026
+
+As of the issued date:
+
+* I continue to operate the Shinobi Relays, its endorsed onion mirrors, and my public Tor infrastructure.
+* I have not received a secret legal demand concerning these services that I am prohibited from disclosing.
+* I have not been compelled to log users, weaken these services, modify their operation, or disclose their private keys.
+* I am not aware of my OpenPGP key or onion-service keys being compromised or seized.
+
+Latest Monero mainnet block:
+
+Height: 3731043
+Hash:   08700bebe5e2bb7809c0e56b4d109fba8f5cb4917e25e2fa5e6339e259b2be38
+
+OpenPGP fingerprint:
+
+3372 7F53 77D2 96C3 20AF 704A B3BD 6196 E1CF BFB4
+
+Canonical URL:
+
+https://brokenbotnet.com/canary.txt
+http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion/canary.txt
+http://relays.brokenbotcukepazwp3zhgxhh5jdklnm4kyxqduqrk5gxmh3xcmt7oad.onion/canary.txt
+
+An expired or missing update is a reason to investigate, not proof that any particular event occurred.
+
+rE-Bo0t.bx1 (r3bo0tbx1)
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpumrYbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+0g0IP/iSu7PE/8cZ8DEcOuJBb
+SnyJEl8obFGQ1SHFfkkfxvT7fe9fgNQ7u1Ayi9eaRZV7awIq9CJ3shfcWwFlE5cn
+iGhcqmw5QlmzO4XHbZRFLdlBb9+AruU3F1qjURNOLCXg97vM1XLa0tKKtVl7aK87
+y15M//Ktc1jzNGUeBW/fvtYTi94qnGYmgEgKMUVvvVbOPgFSbjz1EGQfZvCtJ8eY
+FIo980bKKW/YI+BE1WwxgJvYiyPRCh/ouRv3j8v3U9gsvLfKLOMQ/o9JiDXeChyk
+QIIN0Vln7qCDzZy7QPfvaBr8iPHfy0votlbE0sU+NacZDkpXSOovX9dP80nDqJUB
+sZAFMlFa+QFjgNRb+G7GhDH0/Qb/cTGjrtW/U/VoBpjg6NNPEwjs41hKJ9DCdO3Y
+Hvc8t2tcXjl34MKYlv/3WaIYM34N5Cxz/Dox7HGVtkB4CiBfiyKh+rQP/nOZ8lpl
+VH+R1v+Gs56c9DOduViWEPX4NTpDWGLVVbXuIuYja2bQgkZC3+Qbwns3X0AaLN+G
+FkjF1H4V+Fi9wIfeBc9gwiQZxKndg//qjVxWsZGnscIZsdS1X3L6tR3AIl4rv13Y
+gJ2TsWYycuE37K5KKO40yMM50/sxB5QAX+0oesG7argFR/Gs+TTmuM3hdAChDR2Z
+F1brHl+0MdJpYIgGGrPt/ofZ
+=hMCH
+-----END PGP SIGNATURE-----

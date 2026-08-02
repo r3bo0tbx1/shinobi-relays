@@ -3129,6 +3129,32 @@
             color: #fff;
         }
 
+        footer .canary-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #e7c15d;
+        }
+
+        footer .canary-link:hover {
+            color: #ffe08a;
+        }
+
+        footer .canary-icon {
+            display: inline-grid;
+            width: 15px;
+            height: 15px;
+            place-items: center;
+            color: #f4c95d;
+            vertical-align: -2px;
+        }
+
+        footer .canary-icon .lucide {
+            width: 14px;
+            height: 14px;
+            stroke-width: 2;
+        }
+
         @keyframes blink {
 
             0%,
