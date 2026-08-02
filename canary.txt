@@ -15,8 +15,8 @@ As of the issued date:
 
 Latest Monero mainnet block:
 
-Height: 3731043
-Hash:   08700bebe5e2bb7809c0e56b4d109fba8f5cb4917e25e2fa5e6339e259b2be38
+Height: 3731099
+Hash:   2b0266126c9a4a24b715ecc28b524bd76fbc1e8ae76f15e634353e7e70d8ab6e
 
 OpenPGP fingerprint:
 
@@ -24,7 +24,7 @@ OpenPGP fingerprint:
 
 Canonical URL:
 
-https://brokenbotnet.com/canary.txt
+https://relays.brokenbotnet.com/canary.txt
 http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion/canary.txt
 http://relays.brokenbotcukepazwp3zhgxhh5jdklnm4kyxqduqrk5gxmh3xcmt7oad.onion/canary.txt
 
@@ -33,18 +33,18 @@ An expired or missing update is a reason to investigate, not proof that any part
 rE-Bo0t.bx1 (r3bo0tbx1)
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpumrYbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+0g0IP/iSu7PE/8cZ8DEcOuJBb
-SnyJEl8obFGQ1SHFfkkfxvT7fe9fgNQ7u1Ayi9eaRZV7awIq9CJ3shfcWwFlE5cn
-iGhcqmw5QlmzO4XHbZRFLdlBb9+AruU3F1qjURNOLCXg97vM1XLa0tKKtVl7aK87
-y15M//Ktc1jzNGUeBW/fvtYTi94qnGYmgEgKMUVvvVbOPgFSbjz1EGQfZvCtJ8eY
-FIo980bKKW/YI+BE1WwxgJvYiyPRCh/ouRv3j8v3U9gsvLfKLOMQ/o9JiDXeChyk
-QIIN0Vln7qCDzZy7QPfvaBr8iPHfy0votlbE0sU+NacZDkpXSOovX9dP80nDqJUB
-sZAFMlFa+QFjgNRb+G7GhDH0/Qb/cTGjrtW/U/VoBpjg6NNPEwjs41hKJ9DCdO3Y
-Hvc8t2tcXjl34MKYlv/3WaIYM34N5Cxz/Dox7HGVtkB4CiBfiyKh+rQP/nOZ8lpl
-VH+R1v+Gs56c9DOduViWEPX4NTpDWGLVVbXuIuYja2bQgkZC3+Qbwns3X0AaLN+G
-FkjF1H4V+Fi9wIfeBc9gwiQZxKndg//qjVxWsZGnscIZsdS1X3L6tR3AIl4rv13Y
-gJ2TsWYycuE37K5KKO40yMM50/sxB5QAX+0oesG7argFR/Gs+TTmuM3hdAChDR2Z
-F1brHl+0MdJpYIgGGrPt/ofZ
-=hMCH
+iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpuuzIbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+07LgP+QFz6t6KVjqgG7o109yV
+t0OCapfqQLHrCkSFy0aavApBExg0Ll4lzY7D87J91w2p73Hs30PxzY0ew+n+75Z/
+0IdkwQBiHLKdzsj9Q1eMyuan28mPSyp/x1q0xfHVxhXVSXGZOwrc+sgRfTrV5Gfd
+rRW8FD5fVRvfu2Nap0BVRNLB20C4X7YwX4t2x3hU5BTrSnkFPcoFwzp9qIXAl4Wq
+xx6XqJpRi7QMQ+hspUdR3W5cmcPXW0/bI6QQ7KAyqX2kMEXyToOFiaGiy3cKdNZ4
+bZIav9yCoqq37/KjMkNuf7e92MU/VNpZ2eUG2ac99lkI1tSwK/gVuiZpcldG8PmQ
+IIrLD4phegGR1puDsB09OHRUK8FTGYmpNR+k8btTtdXhp+ZXxY4ayGoyXXvdLL9P
+4efumkfXie5Px8y3gfBpyFLvTAZqInkeG+p7oVcvfkwGyaSEIWl71kQXJKDkAgTI
+LatSgXr7O+SdI45QR+hvkMDjb7QbGj0cEx1T8pQpsZ9Ii2WtFYJv65x8pdctNbdt
+yRFPDBCMh1aoefrGCB3GUhmkGxM1YFwxz4zVj/KaKmDqnb096eJ43EToaV38/LZL
+PDOaFSfkGnJvfuFH9JUReuCowxV/wq95OZHbBbT3ommvqRn0PBrz9QR9Np112jcZ
+RdwNv0qE7uWWpbDOuipRrs1O
+=5w6h
 -----END PGP SIGNATURE-----
