@@ -14,6 +14,7 @@ const publicEntries = [
   'src',
   '.well-known',
   'onion-mirror.txt',
+  'canary.txt',
   '0xB3BD6196E1CFBFB4.asc',
 ];
 
