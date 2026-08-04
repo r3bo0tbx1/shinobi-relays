@@ -287,7 +287,7 @@
     "host": "ca-relay.brokenbotnet.com",
     "fingerprint": "B05A4E4AEB2E5AD92CF882D57162F9EDAAA51815",
     "ipv4": "38.49.219.113",
-    "ipv6": "2001:470:1d:4a1::1337:c0de",
+    "ipv6": "2602:ffd5:767:3::1337:c0de",
     "mobileIpv6": "...:1337:c0de",
     "location": "Montréal, Canada 🇨🇦",
     "country": "Canada",
