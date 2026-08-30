@@ -165,13 +165,13 @@
     "tooltip": "鳳凰 (Houou / Hōō) - Phoenix: Rising with each restart, carrying traffic through the archipelago's digital skies",
     "host": "id-relay.brokenbotnet.com",
     "fingerprint": "7E87EC2F20A371E32E6672A6D04B55471BC5D369",
-    "ipv4": "157.10.253.140",
+    "ipv4": "113.20.30.207",
     "ipv6": "2001:470:36:6d8::1337:c0de",
     "mobileIpv6": "...:1337:c0de",
     "location": "Jakarta, Indonesia 🇮🇩",
     "country": "Indonesia",
     "os": "🐧 Linux",
-    "asn": "AS136052"
+    "asn": "AS45731"
   },
   {
     "kind": "public",
