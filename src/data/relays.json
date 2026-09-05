@@ -233,10 +233,10 @@
     "tooltip": "熊 (Kuma) - Bear: Mighty and enduring, guarding circuits across the Russian wilds",
     "host": "ru-relay.brokenbotnet.com",
     "fingerprint": "576E77EE584906041FF504592E5C51EE471707A2",
-    "ipv4": "195.133.23.252",
-    "ipv6": "2001:470:1f15:16b::1337:c0de",
+    "ipv4": "195.133.53.78",
+    "ipv6": "2001:470:26:885::1337:c0de",
     "mobileIpv6": "...:1337:c0de",
-    "location": "St.-Petersburg, Russia 🇷🇺",
+    "location": "Novosibirsk, Russia 🇷🇺",
     "country": "Russia",
     "os": "🐧 Linux",
     "asn": "AS51659"
