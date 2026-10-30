@@ -3,8 +3,8 @@ Hash: SHA256
 
 .:: Shinobi Relays Warrant Canary ::.
 
-Issued: 2 August 2026
-Valid-Until: 31 October 2026
+Issued: 31 October 2026
+Valid-Until: 29 January 2027
 
 As of the issued date:
 
@@ -15,8 +15,8 @@ As of the issued date:
 
 Latest Monero mainnet block:
 
-Height: 3731099
-Hash:   2b0266126c9a4a24b715ecc28b524bd76fbc1e8ae76f15e634353e7e70d8ab6e
+Height: 3795655
+Hash:   1464605831702addb6453abbd5e910bc3018c1f1e31f82232db13eea5174d0cd
 
 OpenPGP fingerprint:
 
@@ -33,18 +33,18 @@ An expired or missing update is a reason to investigate, not proof that any part
 rE-Bo0t.bx1 (r3bo0tbx1)
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmpuuzIbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+07LgP+QFz6t6KVjqgG7o109yV
-t0OCapfqQLHrCkSFy0aavApBExg0Ll4lzY7D87J91w2p73Hs30PxzY0ew+n+75Z/
-0IdkwQBiHLKdzsj9Q1eMyuan28mPSyp/x1q0xfHVxhXVSXGZOwrc+sgRfTrV5Gfd
-rRW8FD5fVRvfu2Nap0BVRNLB20C4X7YwX4t2x3hU5BTrSnkFPcoFwzp9qIXAl4Wq
-xx6XqJpRi7QMQ+hspUdR3W5cmcPXW0/bI6QQ7KAyqX2kMEXyToOFiaGiy3cKdNZ4
-bZIav9yCoqq37/KjMkNuf7e92MU/VNpZ2eUG2ac99lkI1tSwK/gVuiZpcldG8PmQ
-IIrLD4phegGR1puDsB09OHRUK8FTGYmpNR+k8btTtdXhp+ZXxY4ayGoyXXvdLL9P
-4efumkfXie5Px8y3gfBpyFLvTAZqInkeG+p7oVcvfkwGyaSEIWl71kQXJKDkAgTI
-LatSgXr7O+SdI45QR+hvkMDjb7QbGj0cEx1T8pQpsZ9Ii2WtFYJv65x8pdctNbdt
-yRFPDBCMh1aoefrGCB3GUhmkGxM1YFwxz4zVj/KaKmDqnb096eJ43EToaV38/LZL
-PDOaFSfkGnJvfuFH9JUReuCowxV/wq95OZHbBbT3ommvqRn0PBrz9QR9Np112jcZ
-RdwNv0qE7uWWpbDOuipRrs1O
-=5w6h
+iQJPBAEBCAA5FiEEM3J/U3fSlsMgr3BKs71hluHPv7QFAmrlApAbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwxAAoJELO9YZbhz7+0hhsP/30qrBi4cnFaHM8H5VH/
+yfRxNkTGKREqDfXqFiZ2NTYTjo5EnQ+KqVFlRDvtrHkp1MH53tsySdo+8BvYeMVx
+kJjuGNuZdKvA5PIzjFZQ8CZVFAcLfO/WzZpeB2c4Y5gqPBXY4WFkHd6NXOdNoEjt
+GvE/5BH2mkx9+hsR7VtcxIAk4cXUn0QSp8csfGvrYHjr2hTf6aHw4h0tP3IoCCoP
+2EnNvrejfX/BFM9+sQ3pN40PJQ05gpsYrkgBZ7zlj0xP02nOBGiVs6kw7I1yxxA4
+qUfIA/oVqHOJmzVN2tHrek7u5K/RE51t3qHvCbSdX7Mf0E3jXXXOVaLs/sTpdF15
+Wm5eOiDGNcDnq1imeVqjr4SF/I2JucnwRpMtl2KDT6Omhd6DG24a4Vkz8NnHptL4
+bcWsChmSuIO78xPO8+e42adaHLZj+d93uiBplXFHl8cXPg7LyanBUdJez50E50Fj
+LqW8RHXS8HnEROIdzRzeGzR8G6gZbRPxnzsiEGbwiUBRjQLZffhy1mejoZ1zg3AC
+HQQGkCsp9W1hCa0W69+vRLhRQrOSlnop+8lJAE+TA10r5xZ7IHHJdrJS3KhqdF8d
+5xkIBejgopZUv3BrELHoqpkk8sTX+qifpJIsb5jGnTVikjm30YEfLD5UuFHNInYl
+IeP+bKHh69D0PWw/dE1Wce2S
+=+TqY
 -----END PGP SIGNATURE-----
