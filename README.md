@@ -43,7 +43,7 @@ Guard and middle roles are resolved dynamically from the current Onionoo flags, 
 - Map zoom, drag and keyboard panning, persistent selection, and an expanded atlas dialog
 - Cards and comparison-table views sharing the same search, role filters, and sorting
 - Sortable table headings, pinned relay names and headers, and a locally remembered view preference
-- Separate inventory, running, and upcoming counts, with Onionoo publication time
+- Live running and upcoming counts, with Onionoo publication time
 - Published public relay and bridge family IDs with copy controls on the live dashboard
 - Grouped fingerprints with raw-value copying and visible copy confirmation
 - Search by relay name, hostname, country, location, ASN, or fingerprint
@@ -51,7 +51,7 @@ Guard and middle roles are resolved dynamically from the current Onionoo flags, 
 - Copy buttons for fingerprints, addresses, and relay identity lines
 - Responsive relay cards and touch-friendly tooltips
 - Tor circuit flow visualization
-- Tor terminology glossary and FAQ
+- Expandable Tor terminology glossary and FAQ
 - Operator contact, abuse contact, PGP identity, and no-logs statement
 - Public relay ownership proofs under `/.well-known/tor-relay/`
 - Installable web-app manifest and local icon assets

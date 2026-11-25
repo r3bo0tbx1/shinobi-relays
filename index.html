@@ -141,10 +141,9 @@
                 <span class="emoji-icon"><i data-lucide="chart-no-axes-combined"></i></span>
                 <span class="gradient-text">Relays Overview</span>
             </h2>
-            <div class="fleet-status-strip" aria-label="Configured inventory and live status">
-                <div><span class="explorer-eyebrow">CONFIGURED FLEET</span><strong class="stat-value fleet-total" id="totalRelayStat" data-count="__TOTAL_COUNT__">0</strong><span>Relays and bridges</span></div>
+            <div class="fleet-status-strip" aria-label="Live status and upcoming relays">
                 <div><span class="explorer-eyebrow">RUNNING NOW</span><strong id="fleetRunningCount">Checking</strong><span id="fleetRunningDetail">Awaiting Onionoo</span></div>
-                <div><span class="explorer-eyebrow">COMING SOON</span><strong>__UPCOMING_COUNT__</strong><span>Included in inventory totals</span></div>
+                <div><span class="explorer-eyebrow">COMING SOON</span><strong>__UPCOMING_COUNT__</strong><span>Planned relays and bridges</span></div>
             </div>
             <div class="fleet-data-note" id="fleetDataFreshness">Live status is checked with Onionoo. Upcoming relays are excluded from live checks.</div>
             <div class="stats-grid">
@@ -291,7 +290,8 @@
                 <div class="search-feedback" id="searchFeedback" aria-live="polite"></div>
             </div>
             <div id="relayRegionContainer"></div>
-            <div id="relayTableRegion" class="relay-table-wrap" role="region" aria-label="Public relay comparison" tabindex="0" hidden>
+            <p id="relayTableHint" class="table-scroll-hint" hidden>Scroll sideways for all columns. Relay names stay pinned.</p>
+            <div id="relayTableRegion" class="relay-table-wrap" role="region" aria-label="Public relay comparison" aria-describedby="relayTableHint" tabindex="0" hidden>
                 <table class="relay-comparison-table"><caption>Public relay inventory and live status</caption><thead><tr><th scope="col"><button type="button" data-table-sort="name">Relay</button></th><th scope="col"><button type="button" data-table-sort="country">Location</button></th><th scope="col"><button type="button" data-table-sort="platform">Platform</button></th><th scope="col"><button type="button" data-table-sort="asn">ASN</button></th><th scope="col"><button type="button" data-table-sort="status">Status</button></th><th scope="col"><button type="button" data-table-sort="fingerprint">Fingerprint</button></th><th scope="col">Details</th></tr></thead><tbody id="relayTableBody"></tbody></table>
                 <p id="relayTableEmpty" hidden>No relays match these filters.</p>
             </div>
@@ -340,8 +340,8 @@
             </h2>
             <p class="glossary-intro">Quick reference for Tor network terminology used throughout this dashboard.</p>
             <div class="glossary-sections">
-                <div class="glossary-group">
-                    <h3 class="glossary-group-title">Relay Types</h3>
+                <details class="glossary-group">
+                    <summary class="glossary-group-title">Relay Types</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
                             <div class="glossary-header">
@@ -372,9 +372,9 @@
                             <p class="glossary-text">Final hop that connects Tor traffic to the public internet.</p>
                         </div>
                     </div>
-                </div>
-                <div class="glossary-group">
-                    <h3 class="glossary-group-title">Bridge Terms</h3>
+                </details>
+                <details class="glossary-group">
+                    <summary class="glossary-group-title">Bridge Terms</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
                             <div class="glossary-header">
@@ -391,9 +391,9 @@
                             <p class="glossary-text">Bridge transport that makes Tor traffic look random.</p>
                         </div>
                     </div>
-                </div>
-                <div class="glossary-group">
-                    <h3 class="glossary-group-title">Flags</h3>
+                </details>
+                <details class="glossary-group">
+                    <summary class="glossary-group-title">Flags</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
                             <div class="glossary-header">
@@ -452,9 +452,9 @@
                             <p class="glossary-text">Exit relay is marked unsafe for use.</p>
                         </div>
                     </div>
-                </div>
-                <div class="glossary-group">
-                    <h3 class="glossary-group-title">Network Data</h3>
+                </details>
+                <details class="glossary-group">
+                    <summary class="glossary-group-title">Network Data</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
                             <div class="glossary-header">
@@ -492,7 +492,7 @@
                             <p class="glossary-text">Current shared view of Tor relays and flags.</p>
                         </div>
                     </div>
-                </div>
+                </details>
             </div>
         </section>
         <section class="card" id="faq">

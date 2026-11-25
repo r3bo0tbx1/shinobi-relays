@@ -43,6 +43,8 @@
         if (!cards || !table) return;
         cards.hidden = view !== 'cards';
         table.hidden = view !== 'table';
+        const hint = document.getElementById('relayTableHint');
+        if (hint) hint.hidden = view !== 'table';
         for (const [id, value] of [['relayCardsView', 'cards'], ['relayTableView', 'table']]) {
             const button = document.getElementById(id);
             button?.classList.toggle('active', view === value);
@@ -303,7 +305,8 @@
         const ready = inventory.filter(relay => !relay.comingSoon && relay.fingerprint);
         const checked = ready.filter(relay => ['running', 'offline'].some(value => cardFor(relay)?.classList.contains(value)));
         const running = checked.filter(relay => cardFor(relay)?.classList.contains('running')).length;
-        count.textContent = live.state === 'ready' ? String(running) : live.state === 'failed' ? 'Unavailable' : 'Checking';
+        count.dataset.kind = live.state === 'ready' && checked.length ? 'number' : 'label';
+        count.textContent = live.state === 'ready' ? (checked.length ? String(running) : 'Unknown') : live.state === 'failed' ? 'Unavailable' : 'Checking';
         detail.textContent = live.state === 'ready' ? `${checked.length} checked · ${ready.length - checked.length} lookup pending` : live.state === 'failed' ? 'Inventory remains available' : 'Awaiting Onionoo';
         freshness.replaceChildren();
         if (live.state === 'ready') {
@@ -322,7 +325,7 @@
             } else freshness.append(document.createTextNode('time unavailable'));
             const checkedAt = new Date(live.checked);
             freshness.append(document.createTextNode(` · Checked ${checkedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} · Upcoming excluded`));
-        } else freshness.textContent = live.state === 'failed' ? 'The live lookup failed. Configured and upcoming relay totals are still available.' : 'Checking live status with Onionoo. Upcoming relays are excluded from live checks.';
+        } else freshness.textContent = live.state === 'failed' ? 'The live lookup failed. Relay details remain available.' : 'Checking live status with Onionoo. Upcoming relays are excluded from live checks.';
     }
 
     document.getElementById('relayCardsView')?.addEventListener('click', () => switchView('cards', true));

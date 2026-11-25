@@ -162,27 +162,6 @@
             );
         }
 
-        function ipv6Display(value = '') {
-            const address = String(value || 'N/A');
-            if (!address.includes(':') || address === 'N/A') return address;
-
-            const compressedIndex = address.indexOf('::');
-            if (compressedIndex >= 0) {
-                return fragment(
-                    createEl('span', { className: 'ipv6-head', text: address.slice(0, compressedIndex) }),
-                    createEl('span', { className: 'ipv6-tail', text: address.slice(compressedIndex) })
-                );
-            }
-
-            const parts = address.split(':');
-            const tail = parts.slice(-2).join(':');
-            const head = parts.slice(0, -2).join(':');
-            return fragment(
-                createEl('span', { className: 'ipv6-head', text: head ? `${head}:` : '' }),
-                createEl('span', { className: 'ipv6-tail', text: tail })
-            );
-        }
-
         function stripLeadingEmoji(value = '') {
             return String(value).replace(/^[^\p{L}\p{N}]+/u, '').trim();
         }
@@ -362,10 +341,7 @@
                 relayDetailTile({
                     iconName: 'satellite',
                     label: 'IPv6',
-                    value: fragment(
-                        createEl('span', { className: 'desktop-ip' }, copyValue(relay.ipv6 || 'N/A', 'IPv6 address', ipv6Display(relay.ipv6 || 'N/A'), 'copy-text ipv6-address')),
-                        createEl('span', { className: 'mobile-ip' }, copyValue(relay.ipv6 || 'N/A', 'IPv6 address', relay.mobileIpv6 || relay.ipv6 || 'N/A'))
-                    ),
+                    value: copyValue(relay.ipv6 || 'N/A', 'IPv6 address'),
                     className: 'ipv6'
                 }),
                 relayDetailTile({ iconName: 'map-pin', label: 'Location', value: relay.location, className: 'location' }),
@@ -440,7 +416,7 @@
             );
             if (relay.host) {
                 titleSection.appendChild(createEl('div', { className: 'relay-sub' },
-                    createEl('span', { className: 'host-pill' },
+                    createEl('span', { className: 'relay-host', title: relay.host },
                         iconNode('badge-info', 'host-icon'),
                         createEl('span', { className: 'host-text', text: relay.host })
                     )
@@ -524,7 +500,6 @@
                 el.textContent = el.classList.contains('counted') ? value : text;
             };
 
-            setCount('totalRelayStat', String(counts.total), '0');
             setCount('countryStat', String(counts.countries), '0');
             setCount('relayTypeStat', String(counts.types), '0');
             setCount('ipv6Stat', `${counts.ipv6}/${counts.total}`, `0/${counts.total}`);

@@ -1119,36 +1119,29 @@
             word-break: normal;
         }
 
-        .host-pill {
+        .relay-host {
             display: inline-flex;
             align-items: center;
             gap: 7px;
             max-width: 100%;
-            padding: 5px 9px;
-            border-radius: 999px;
+            padding: 4px 0;
             color: #9bd4ff;
-            background: rgba(88, 166, 255, 0.08);
-            border: 1px solid rgba(88, 166, 255, 0.18);
             font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
             font-size: 0.76rem;
             line-height: 1.2;
-            box-shadow: 0 0 18px rgba(88, 166, 255, 0.04);
         }
 
-        .host-pill .host-icon {
+        .relay-host .host-icon {
             width: 20px;
             height: 20px;
-            border-radius: 999px;
             color: var(--bridge-blue);
-            background: rgba(88, 166, 255, 0.12);
-            border: 1px solid rgba(88, 166, 255, 0.22);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             flex: 0 0 auto;
         }
 
-        .host-pill .host-icon .lucide {
+        .relay-host .host-icon .lucide {
             width: 12px;
             height: 12px;
         }
@@ -1160,30 +1153,22 @@
             white-space: nowrap;
         }
 
-        #relays .relay-card.live-guard .host-pill {
+        #relays .relay-card.live-guard .relay-host {
             color: #a6f3ad;
-            background: rgba(86, 211, 100, 0.08);
-            border-color: rgba(86, 211, 100, 0.18);
         }
 
         #relays .relay-card.live-guard .host-icon {
             color: var(--safe-light);
-            background: rgba(86, 211, 100, 0.12);
-            border-color: rgba(86, 211, 100, 0.24);
         }
 
-        #relays .relay-card.live-exit .host-pill,
-        #relays .relay-card.exit .host-pill {
+        #relays .relay-card.live-exit .relay-host,
+        #relays .relay-card.exit .relay-host {
             color: #ffb4a8;
-            background: rgba(255, 155, 140, 0.08);
-            border-color: rgba(255, 155, 140, 0.2);
         }
 
         #relays .relay-card.live-exit .host-icon,
         #relays .relay-card.exit .host-icon {
             color: var(--danger-bright);
-            background: rgba(255, 155, 140, 0.12);
-            border-color: rgba(255, 155, 140, 0.24);
         }
 
         .relay-badge {
