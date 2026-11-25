@@ -15,6 +15,8 @@
     <link rel="icon" type="image/png" href="/src/favicon-96x96.png" sizes="96x96">
     <link rel="shortcut icon" href="/src/favicon.ico">
     <link rel="stylesheet" href="/src/css/nojs.css?v=__NOJS_CSS_VERSION__">
+    <link rel="stylesheet" href="/src/css/relay-explorer.css?v=__EXPLORER_CSS_VERSION__">
+    <link rel="stylesheet" href="/src/css/relay-positions.css?v=__MAP_POSITIONS_VERSION__">
 </head>
 
 <body>
@@ -58,9 +60,11 @@
         <nav class="section-nav" aria-label="Static dashboard sections">
             <a href="#overview">Overview</a>
             <a href="#bridges">Bridges</a>
+            <a href="#relay-atlas">Map</a>
             <a href="#asia-oceania">Asia-Oceania</a>
             <a href="#africa">Africa</a>
             <a href="#north-america">North America</a>
+            <a href="#south-america">South America</a>
             <a href="#contact">Contact</a>
         </nav>
 
@@ -97,6 +101,11 @@
                         <strong>__IPV6_COUNT__/__TOTAL_COUNT__</strong><span>IPv6 enabled</span>
                     </div>
                 </div>
+            </section>
+
+            <section class="fleet-section relay-atlas" id="relay-atlas" aria-labelledby="atlas-title">
+                <div class="section-heading"><p class="eyebrow">Public relay locations</p><h2 id="atlas-title">Shinobi around the world</h2><p>__UPCOMING_LABEL__ included. This inventory snapshot was built <time datetime="__BUILD_TIMESTAMP__">__BUILD_DATE__</time>; live running status is available on the standard dashboard.</p></div>
+                <!-- RELAY_ATLAS -->
             </section>
 
             <section class="fleet-section bridge-section" id="bridges" aria-labelledby="bridges-title">
@@ -136,7 +145,6 @@
                         <h3>Relay Proof</h3>
                         <a href="/.well-known/tor-relay/rsa-fingerprint.txt" target="_blank" rel="noopener noreferrer">RSA fingerprints</a>
                         <a href="/.well-known/tor-relay/ed25519-master-pubkey.txt" target="_blank" rel="noopener noreferrer">ed25519 keys</a>
-                        <a href="/.well-known/tor-relay/ed25519-family-id.txt" target="_blank" rel="noopener noreferrer">Family ID</a>
                         <a href="/onion-mirror.txt" target="_blank" rel="noopener noreferrer">Signed onion mirrors</a>
                     </div>
                     <div class="support-card project-card">
@@ -146,6 +154,9 @@
                         <a href="https://github.com/r3bo0tbx1/tor-guard-relay/" target="_blank" rel="noopener noreferrer">AIO Tor stack</a>
                         <a href="https://brokenbotnet.com/donate/" target="_blank" rel="noopener noreferrer">Donate</a>
                     </div>
+                </div>
+                <div class="family-embedded" id="relay-family" role="group" aria-label="Family identities">
+                    <!-- RELAY_FAMILIES -->
                 </div>
             </section>
         </main>

@@ -86,7 +86,11 @@
     "location": "Tokyo, Japan 🇯🇵",
     "country": "Japan",
     "os": "🐧 Linux",
-    "asn": "AS18526"
+    "asn": "AS18526",
+    "coordinates": [
+      35.68,
+      139.69
+    ]
   },
   {
     "kind": "public",
@@ -103,7 +107,11 @@
     "location": "Osaka, Japan 🇯🇵",
     "country": "Japan",
     "os": "🐧 Linux",
-    "asn": "AS63949"
+    "asn": "AS63949",
+    "coordinates": [
+      34.69,
+      135.5
+    ]
   },
   {
     "kind": "public",
@@ -120,7 +128,11 @@
     "location": "Seoul, South Korea 🇰🇷",
     "country": "South Korea",
     "os": "🐡 OpenBSD",
-    "asn": "AS20473"
+    "asn": "AS20473",
+    "coordinates": [
+      37.57,
+      126.98
+    ]
   },
   {
     "kind": "public",
@@ -137,7 +149,11 @@
     "location": "Singapore, Singapore 🇸🇬",
     "country": "Singapore",
     "os": "😈 FreeBSD",
-    "asn": "AS20473"
+    "asn": "AS20473",
+    "coordinates": [
+      1.35,
+      103.82
+    ]
   },
   {
     "kind": "public",
@@ -154,7 +170,11 @@
     "location": "Kuala Lumpur, Malaysia 🇲🇾",
     "country": "Malaysia",
     "os": "🐧 Linux",
-    "asn": "AS45839"
+    "asn": "AS45839",
+    "coordinates": [
+      3.14,
+      101.69
+    ]
   },
   {
     "kind": "public",
@@ -171,7 +191,11 @@
     "location": "Jakarta, Indonesia 🇮🇩",
     "country": "Indonesia",
     "os": "🐧 Linux",
-    "asn": "AS45731"
+    "asn": "AS45731",
+    "coordinates": [
+      -6.21,
+      106.85
+    ]
   },
   {
     "kind": "public",
@@ -188,7 +212,11 @@
     "location": "Hanoi, Vietnam 🇻🇳",
     "country": "Vietnam",
     "os": "🐧 Linux",
-    "asn": "AS151873"
+    "asn": "AS151873",
+    "coordinates": [
+      21.03,
+      105.85
+    ]
   },
   {
     "kind": "public",
@@ -205,7 +233,11 @@
     "location": "Hong Kong, China 🇭🇰",
     "country": "China",
     "os": "🐧 Linux",
-    "asn": "AS63473"
+    "asn": "AS63473",
+    "coordinates": [
+      22.32,
+      114.17
+    ]
   },
   {
     "kind": "public",
@@ -222,7 +254,11 @@
     "location": "Sydney, Australia 🇦🇺",
     "country": "Australia",
     "os": "🚩 NetBSD",
-    "asn": "AS63473"
+    "asn": "AS63473",
+    "coordinates": [
+      -33.87,
+      151.21
+    ]
   },
   {
     "kind": "public",
@@ -239,7 +275,11 @@
     "location": "St.-Petersburg, Russia 🇷🇺",
     "country": "Russia",
     "os": "🐧 Linux",
-    "asn": "AS51659"
+    "asn": "AS51659",
+    "coordinates": [
+      59.93,
+      30.34
+    ]
   },
   {
     "kind": "public",
@@ -257,7 +297,11 @@
     "country": "Türkiye",
     "os": "🐉 DragonFlyBSD",
     "asn": "AS44382",
-    "layout": "centred-relay"
+    "layout": "centred-relay",
+    "coordinates": [
+      41.01,
+      28.98
+    ]
   },
   {
     "kind": "public",
@@ -275,7 +319,11 @@
     "country": "South Africa",
     "os": "☀️ SunOS",
     "asn": "AS20473",
-    "layout": "centred-relay"
+    "layout": "centred-relay",
+    "coordinates": [
+      -26.2,
+      28.04
+    ]
   },
   {
     "kind": "public",
@@ -292,7 +340,11 @@
     "location": "Montréal, Canada 🇨🇦",
     "country": "Canada",
     "os": "🐧 Linux",
-    "asn": "AS26832"
+    "asn": "AS26832",
+    "coordinates": [
+      45.5,
+      -73.57
+    ]
   },
   {
     "kind": "public",
@@ -309,7 +361,11 @@
     "location": "Los Angeles, United States 🇺🇸",
     "country": "United States",
     "os": "🐧 Linux",
-    "asn": "AS40676"
+    "asn": "AS40676",
+    "coordinates": [
+      34.05,
+      -118.24
+    ]
   },
   {
     "kind": "public",
@@ -326,12 +382,16 @@
     "location": "Mexico City, Mexico 🇲🇽",
     "country": "Mexico",
     "os": "😈 FreeBSD",
-    "asn": "AS20473"
+    "asn": "AS20473",
+    "coordinates": [
+      19.43,
+      -99.13
+    ]
   },
   {
     "kind": "public",
     "type": "middle",
-    "region": "north-america",
+    "region": "south-america",
     "name": "Midori",
     "emoji": "🌳",
     "tooltip": "緑 (Midori) - Green: The dense Amazonian jungle, obscuring your digital footprint in endless foliage",
@@ -343,6 +403,31 @@
     "location": "São Paulo, Brazil 🇧🇷",
     "country": "Brazil",
     "os": "🐉 DragonFlyBSD",
-    "asn": "AS20473"
+    "asn": "AS20473",
+    "coordinates": [
+      -23.55,
+      -46.63
+    ]
+  },
+  {
+    "kind": "public",
+    "type": "middle",
+    "region": "south-america",
+    "name": "Kondoru",
+    "emoji": "🪶",
+    "tooltip": "コンドル (Kondoru) - Condor: Silent guardian of the Andes, carrying traffic across Chilean skies",
+    "host": "cl-relay.brokenbotnet.com",
+    "fingerprint": "CFF616271A0DD35972178EAADA4EEB7BAD46FB57",
+    "ipv4": "64.176.6.80",
+    "ipv6": "2001:19f0:c800:20f9::1337:c0de",
+    "mobileIpv6": "...:1337:c0de",
+    "location": "Santiago, Chile 🇨🇱",
+    "country": "Chile",
+    "os": "🍃 Haiku",
+    "asn": "AS20473",
+    "coordinates": [
+      -33.45,
+      -70.67
+    ]
   }
 ]

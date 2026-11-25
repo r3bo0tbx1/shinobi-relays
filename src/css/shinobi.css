@@ -835,6 +835,13 @@
                 grid-template-columns: repeat(2, minmax(280px, 1fr));
                 gap: 18px;
             }
+
+            .relay-grid > .relay-card:last-child:nth-child(odd) {
+                grid-column: 1 / -1;
+                justify-self: center;
+                max-width: 560px;
+                width: 100%;
+            }
         }
 
         @media (min-width: 1024px) {
@@ -2189,6 +2196,12 @@
             border-color: rgba(255, 224, 138, 0.22);
         }
 
+        .platform-haiku {
+            color: #a8d98b;
+            background: rgba(168, 217, 139, 0.09);
+            border-color: rgba(168, 217, 139, 0.22);
+        }
+
         .asn-chip {
             color: #9bd4ff;
             background: rgba(88, 166, 255, 0.08);
@@ -3352,6 +3365,10 @@
 
         .region-section.region-north-america {
             --region-accent: rgba(88, 166, 255, 0.45);
+        }
+
+        .region-section.region-south-america {
+            --region-accent: rgba(86, 211, 100, 0.42);
         }
 
         .region-section:last-child {

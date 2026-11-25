@@ -477,6 +477,10 @@ h1 {
     background: linear-gradient(90deg, rgba(255, 141, 131, 0.72), rgba(255, 141, 131, 0.08) 58%, transparent);
 }
 
+.region-south-america .region-heading::after {
+    background: linear-gradient(90deg, rgba(86, 211, 100, 0.72), rgba(86, 211, 100, 0.08) 58%, transparent);
+}
+
 .region-heading h3 {
     display: inline-flex;
     gap: 7px;
@@ -499,6 +503,14 @@ h1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     align-items: start;
+}
+
+@media (min-width: 761px) {
+    .relay-grid:not(.bridge-grid) > .relay-card:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: min(100%, 560px);
+    }
 }
 
 .bridge-grid {

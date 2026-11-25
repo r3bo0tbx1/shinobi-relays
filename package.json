@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.js",
-    "check:js": "node --check src/js/shinobi.js && node --check scripts/security-check.js",
+    "check:js": "node --check src/js/shinobi.js && node --check src/js/relay-stats.js && node --check src/js/relay-explorer.js && node --check scripts/build.js && node --check scripts/explorer-build.js && node --check scripts/security-check.js",
+    "test:stats": "node --test tests/*.test.js",
     "test:security": "node scripts/security-check.js"
   }
 }
