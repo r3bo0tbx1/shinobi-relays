@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const allowedScriptSrc = new Set(['src/js/lucide.min.js', 'src/js/shinobi.js']);
+const allowedScriptSrc = new Set(['src/js/lucide.min.js', 'src/js/relay-stats.js', 'src/js/shinobi.js', 'src/js/relay-explorer.js']);
 const skippedFiles = new Set([
   path.join('src', 'js', 'lucide.min.js'),
   path.join('scripts', 'security-check.js'),

@@ -1,4 +1,7 @@
         let relays = [];
+        const counterTimers = new WeakMap();
+        const copyStates = new WeakMap();
+        let copyFeedbackTimer;
 
         async function loadRelayData() {
             const configuredVersion = document.querySelector('meta[name="shinobi-relay-data-version"]')?.content || '';
@@ -20,7 +23,8 @@
         const relayRegions = [
             { id: 'asia-oceania', title: '🌏 Asia-Oceania' },
             { id: 'africa', title: '🌍 Africa' },
-            { id: 'north-america', title: '🌎 North America' }
+            { id: 'north-america', title: '🌎 North America' },
+            { id: 'south-america', title: '🌎 South America' }
         ];
 
         const relayTypeBadges = {
@@ -158,27 +162,6 @@
             );
         }
 
-        function ipv6Display(value = '') {
-            const address = String(value || 'N/A');
-            if (!address.includes(':') || address === 'N/A') return address;
-
-            const compressedIndex = address.indexOf('::');
-            if (compressedIndex >= 0) {
-                return fragment(
-                    createEl('span', { className: 'ipv6-head', text: address.slice(0, compressedIndex) }),
-                    createEl('span', { className: 'ipv6-tail', text: address.slice(compressedIndex) })
-                );
-            }
-
-            const parts = address.split(':');
-            const tail = parts.slice(-2).join(':');
-            const head = parts.slice(0, -2).join(':');
-            return fragment(
-                createEl('span', { className: 'ipv6-head', text: head ? `${head}:` : '' }),
-                createEl('span', { className: 'ipv6-tail', text: tail })
-            );
-        }
-
         function stripLeadingEmoji(value = '') {
             return String(value).replace(/^[^\p{L}\p{N}]+/u, '').trim();
         }
@@ -198,7 +181,8 @@
                 OpenBSD: 'fish',
                 NetBSD: 'flag',
                 DragonFlyBSD: 'bug',
-                SunOS: 'sun'
+                SunOS: 'sun',
+                Haiku: 'leaf'
             };
             return map[platformName(os)] || 'server-cog';
         }
@@ -322,6 +306,7 @@
         }
 
         function metricsUrl(relay) {
+            if (!relay.fingerprint) return '';
             if (relay.kind === 'bridge') return `https://metrics.torproject.org/rs.html#details/${relay.fingerprint}`;
             return `https://metrics.1aeo.com/relay/${relay.fingerprint}/`;
         }
@@ -356,16 +341,13 @@
                 relayDetailTile({
                     iconName: 'satellite',
                     label: 'IPv6',
-                    value: fragment(
-                        createEl('span', { className: 'desktop-ip' }, copyValue(relay.ipv6 || 'N/A', 'IPv6 address', ipv6Display(relay.ipv6 || 'N/A'), 'copy-text ipv6-address')),
-                        createEl('span', { className: 'mobile-ip' }, copyValue(relay.ipv6 || 'N/A', 'IPv6 address', relay.mobileIpv6 || relay.ipv6 || 'N/A'))
-                    ),
+                    value: copyValue(relay.ipv6 || 'N/A', 'IPv6 address'),
                     className: 'ipv6'
                 }),
                 relayDetailTile({ iconName: 'map-pin', label: 'Location', value: relay.location, className: 'location' }),
                 relayDetailTile({ iconName: 'server-cog', label: 'Platform', value: platformChip(relay.os), className: 'platform' }),
                 relayDetailTile({ iconName: 'network', label: 'ASN', value: asnChip(relay.asn), className: 'asn' }),
-                relayDetailTile({ iconName: 'bar-chart-3', label: 'Metrics', value: 'View →', className: 'metrics', href: metricsUrl(relay) })
+                relayDetailTile({ iconName: 'bar-chart-3', label: 'Metrics', value: relay.fingerprint ? 'View →' : 'Awaiting fingerprint', className: 'metrics', href: metricsUrl(relay) })
             );
         }
 
@@ -417,19 +399,24 @@
                     country: relay.country || '',
                     location: relay.location || '',
                     asn: relay.asn || '',
+                    platform: platformName(relay.os),
                     relayType: relay.type || '',
                     region: relay.region || '',
                     relayIndex
                 }
             });
-            if (relay.comingSoon) card.dataset.comingSoon = 'true';
+            card.id = `relay-${safeClassToken(relay.name)}`;
+            if (relay.comingSoon) {
+                card.dataset.comingSoon = 'true';
+                card.classList.add('is-muted');
+            }
 
             const titleSection = createEl('div', { className: 'relay-title-section' },
                 createEl('div', { className: 'relay-name' }, relayNameHTML(relay))
             );
             if (relay.host) {
                 titleSection.appendChild(createEl('div', { className: 'relay-sub' },
-                    createEl('span', { className: 'host-pill' },
+                    createEl('span', { className: 'relay-host', title: relay.host },
                         iconNode('badge-info', 'host-icon'),
                         createEl('span', { className: 'host-text', text: relay.host })
                     )
@@ -455,10 +442,12 @@
                 : relayDetailGrid(relay);
             card.replaceChildren(
                 createEl('div', { className: 'relay-header' }, titleSection, actions),
-                createEl('div', { className: 'relay-flags', attrs: { 'data-flags': '' } }),
-                createEl('div', { className: 'fingerprint', title: relay.fingerprint },
-                    createEl('span', { className: 'fingerprint-value', text: relay.fingerprint }),
-                    copyButton(relay.fingerprint, 'fingerprint')
+                createEl('div', { className: 'relay-flags', attrs: { 'data-flags': '' } },
+                    relay.comingSoon ? statusChip('Coming soon', 'planned-chip') : null
+                ),
+                createEl('div', { className: 'fingerprint', title: relay.fingerprint || 'Awaiting fingerprint' },
+                    createEl('span', { className: 'fingerprint-value', text: relay.fingerprint ? relay.fingerprint.match(/.{1,4}/g).join(' ') : 'Awaiting fingerprint' }),
+                    relay.fingerprint ? copyButton(relay.fingerprint, 'fingerprint') : null
                 ),
                 createEl('div', { className: 'relay-age-slot', attrs: { 'data-age': '' } }),
                 detail
@@ -497,45 +486,41 @@
         }
 
         function syncDerivedCounts() {
-            const activeRelays = relays.filter(relay => !relay.comingSoon);
-            const bridges = activeRelays.filter(relay => relay.kind === 'bridge');
-            const publicRelays = activeRelays.filter(relay => relay.kind === 'public');
-            const ipv6Count = activeRelays.filter(relay => relay.kind === 'bridge' || relay.ipv6).length;
-            const countryCount = new Set(publicRelays.map(relay => relay.country).filter(Boolean)).size;
-            const platformCount = new Set(publicRelays.map(relay => stripLeadingEmoji(relay.os)).filter(Boolean)).size;
-            const asnCount = new Set(publicRelays.map(relay => relay.asn).filter(Boolean)).size;
-            const typeCount = new Set(activeRelays.map(relay => relay.kind === 'bridge' ? 'bridge' : relay.type)).size;
-            const exitCount = publicRelays.filter(relay => relay.type === 'exit').length;
+            const counts = summarizeRelayInventory(relays);
+            const bridges = relays.filter(relay => relay.kind === 'bridge');
+            const ready = relays.filter(relay => !relay.comingSoon);
+            const readyPublic = ready.filter(relay => relay.kind === 'public');
 
             const setCount = (id, value, text = value) => {
                 const el = document.getElementById(id);
                 if (!el) return;
+                clearInterval(counterTimers.get(el));
+                counterTimers.delete(el);
                 el.dataset.count = value;
-                if (!el.classList.contains('counted')) el.textContent = text;
+                el.textContent = el.classList.contains('counted') ? value : text;
             };
 
-            setCount('totalRelayStat', String(activeRelays.length), '0');
-            setCount('countryStat', String(countryCount), '0');
-            setCount('relayTypeStat', String(typeCount), '0');
-            setCount('ipv6Stat', `${ipv6Count}/${activeRelays.length}`, `0/${activeRelays.length}`);
-            setCount('platformStat', String(platformCount), '0');
-            setCount('asnStat', String(asnCount), '0');
+            setCount('countryStat', String(counts.countries), '0');
+            setCount('relayTypeStat', String(counts.types), '0');
+            setCount('ipv6Stat', `${counts.ipv6}/${counts.total}`, `0/${counts.total}`);
+            setCount('platformStat', String(counts.platforms), '0');
+            setCount('asnStat', String(counts.asns), '0');
             updateBridgeDistributionSummary(bridges);
 
             const bridgeSectionCount = document.getElementById('bridgeSectionCount');
             if (bridgeSectionCount) bridgeSectionCount.textContent = bridges.length;
             const publicRelaySectionCount = document.getElementById('publicRelaySectionCount');
-            if (publicRelaySectionCount) publicRelaySectionCount.textContent = publicRelays.length;
+            if (publicRelaySectionCount) publicRelaySectionCount.textContent = counts.public;
             const bridgeEl = document.getElementById('bridgeCount');
             if (bridgeEl) setStatusPill('bridgeCount', 'git-branch', `${bridges.length} Bridges`);
             const exitEl = document.getElementById('exitCount');
-            if (exitEl) setStatusPill('exitCount', 'door-open', `${exitCount} Exit${exitCount !== 1 ? 's' : ''}`);
+            if (exitEl) setStatusPill('exitCount', 'door-open', `${counts.exits} Exit${counts.exits !== 1 ? 's' : ''}`);
 
             updateTopologyCounts({
-                bridges: bridges.length,
+                bridges: ready.filter(relay => relay.kind === 'bridge').length,
                 guards: 0,
-                middles: publicRelays.length - exitCount,
-                exits: exitCount
+                middles: readyPublic.filter(relay => relay.type !== 'exit').length,
+                exits: readyPublic.filter(relay => relay.type === 'exit').length
             });
         }
 
@@ -778,6 +763,7 @@
         }
 
         async function fetchRelayFlags() {
+            const inventoryCounts = summarizeRelayInventory(relays);
             const relayCards = Array.from(document.querySelectorAll('[data-fp]'));
             const activeRelayCards = relayCards.filter(card => card.dataset.comingSoon !== 'true');
             const fingerprints = activeRelayCards.map(el => el.getAttribute('data-fp')?.trim()).filter(Boolean);
@@ -810,7 +796,7 @@
                 setAgeState(node.closest('.relay-card'), firstSeenStatusChip('First seen loading', 'Fetching first_seen from Onionoo.', 'age-loading', 'loader'));
                 if (node.closest('[data-coming-soon="true"]')) {
                     setAgeState(node.closest('.relay-card'), '');
-                    setFlagStatus(node, 'Coming soon');
+                    setFlagStatus(node, 'Coming soon', 'planned-chip');
                     return;
                 }
                 node.closest('.relay-card')?.classList.remove('lookup-pending');
@@ -819,6 +805,7 @@
             });
             updateRegionHealth('loading');
             const url = `https://onionoo.torproject.org/details?lookup=${fingerprints.map(fingerprint => encodeURIComponent(fingerprint)).join(',')}`;
+            document.dispatchEvent(new CustomEvent('shinobi:status', { detail: { state: 'loading' } }));
             try {
                 const res = await fetch(url);
                 if (!res.ok) throw new Error('Onionoo request failed');
@@ -842,7 +829,7 @@
                 document.querySelectorAll('[data-fp]').forEach(card => {
                     if (card.dataset.comingSoon === 'true') {
                         const container = card.querySelector('[data-flags]');
-                        setFlagStatus(container, 'Coming soon');
+                        setFlagStatus(container, 'Coming soon', 'planned-chip');
                         setAgeState(card, '');
                         card.classList.remove('lookup-pending', 'offline', 'running');
                         card.classList.add('is-muted');
@@ -924,7 +911,8 @@
                 const bridgeEl = document.getElementById('bridgeCount');
                 const exitEl = document.getElementById('exitCount');
                 if (bridgeEl) {
-                    setStatusPill('bridgeCount', 'git-branch', '8 Bridges');
+                    const configuredBridges = inventoryCounts.bridges;
+                    setStatusPill('bridgeCount', 'git-branch', `${configuredBridges} Bridge${configuredBridges === 1 ? '' : 's'}`);
                     bridgeEl.classList.add('fade-in');
                     setTimeout(() => bridgeEl.classList.remove('fade-in'), 600);
                 }
@@ -934,6 +922,7 @@
                     setTimeout(() => exitEl.classList.remove('fade-in'), 600);
                 }
                 window.applyRelayFilters?.();
+                document.dispatchEvent(new CustomEvent('shinobi:status', { detail: { state: 'ready', published: data.relays_published, checked: new Date().toISOString() } }));
                 refreshIcons();
                 if (refreshBtn) {
                     refreshBtn.disabled = false;
@@ -941,11 +930,12 @@
                 }
             } catch (err) {
                 console.warn('Failed to fetch Onionoo flags', err);
+                document.dispatchEvent(new CustomEvent('shinobi:status', { detail: { state: 'failed' } }));
                 document.querySelectorAll('[data-flags]').forEach(node => {
                     setAgeState(node.closest('.relay-card'), firstSeenStatusChip('First seen unavailable', 'Onionoo lookup failed, so first_seen could not be refreshed.', 'age-unavailable', 'circle-alert'));
                     if (node.closest('[data-coming-soon="true"]')) {
                         setAgeState(node.closest('.relay-card'), '');
-                        setFlagStatus(node, 'Coming soon');
+                        setFlagStatus(node, 'Coming soon', 'planned-chip');
                         return;
                     }
                     setFlagStatus(node, 'Flag lookup unavailable');
@@ -961,8 +951,8 @@
                 const exitEl = document.getElementById('exitCount');
                 if (guardEl) setStatusPill('guardCount', 'shield', '-- Guards');
                 if (middleEl) setStatusPill('middleCount', 'shuffle', '-- Middles');
-                if (bridgeEl) setStatusPill('bridgeCount', 'git-branch', '8 Bridges');
-                if (exitEl) setStatusPill('exitCount', 'door-open', '1 Exit');
+                if (bridgeEl) setStatusPill('bridgeCount', 'git-branch', `${inventoryCounts.bridges} Bridge${inventoryCounts.bridges === 1 ? '' : 's'}`);
+                if (exitEl) setStatusPill('exitCount', 'door-open', `${inventoryCounts.exits} Exit${inventoryCounts.exits === 1 ? '' : 's'}`);
                 refreshIcons();
                 if (refreshBtn) {
                     refreshBtn.disabled = false;
@@ -1000,6 +990,7 @@
                 relays = await loadRelayData();
                 renderRelayCards();
                 syncDerivedCounts();
+                document.dispatchEvent(new CustomEvent('shinobi:inventory', { detail: relays }));
                 updateRegionHealth('loading');
                 fetchRelayFlags();
             } catch (err) {
@@ -1050,14 +1041,29 @@
 
                 try {
                     await navigator.clipboard.writeText(value);
+                    const previous = copyStates.get(button);
+                    if (previous) clearTimeout(previous.timer);
+                    const original = previous?.children || Array.from(button.childNodes).map(child => child.cloneNode(true));
+                    const hasLabel = original.map(child => child.textContent || '').join('').trim().length > 0;
                     button.classList.add('copied');
-                    button.replaceChildren(iconNode('check', 'button-icon'));
+                    button.replaceChildren(iconNode('check', 'button-icon'), ...(hasLabel ? [document.createTextNode('Copied')] : []));
+                    let feedback = document.getElementById('copyFeedback');
+                    if (!feedback) {
+                        feedback = createEl('div', { className: 'copy-feedback', attrs: { id: 'copyFeedback', role: 'status', 'aria-live': 'polite' } });
+                        document.body.append(feedback);
+                    }
+                    feedback.textContent = 'Copied to clipboard';
+                    feedback.classList.add('is-visible');
+                    clearTimeout(copyFeedbackTimer);
+                    copyFeedbackTimer = setTimeout(() => feedback.classList.remove('is-visible'), 1600);
                     refreshIcons();
-                    setTimeout(() => {
+                    const timer = setTimeout(() => {
                         button.classList.remove('copied');
-                        button.replaceChildren(iconNode('copy', 'button-icon'));
+                        button.replaceChildren(...original);
+                        copyStates.delete(button);
                         refreshIcons();
-                    }, 1200);
+                    }, 1600);
+                    copyStates.set(button, { children: original, timer });
                 } catch (err) {
                     console.warn('Clipboard copy failed', err);
                 }
@@ -1126,6 +1132,7 @@
             const sortChips = document.querySelectorAll('[data-sort]');
             let activeFilter = 'all';
             let activeSort = 'region';
+            let sortDirection = 1;
 
             function updateSearchWrapper() {
                 if (searchWrapper) {
@@ -1172,8 +1179,11 @@
                 });
 
                 document.querySelectorAll('#relays .region-section').forEach(section => {
-                    const visibleInSection = section.querySelectorAll('.relay-card:not(.hidden)').length;
-                    section.classList.toggle('hidden', visibleInSection === 0);
+                    const cards = Array.from(section.querySelectorAll('.relay-card'));
+                    cards.forEach(card => card.classList.remove('filtered-orphan'));
+                    const visible = cards.filter(card => !card.classList.contains('hidden'));
+                    if (visible.length % 2 === 1) visible[visible.length - 1].classList.add('filtered-orphan');
+                    section.classList.toggle('hidden', visible.length === 0);
                 });
 
                 let noResults = regionContainer?.querySelector('.no-results');
@@ -1201,6 +1211,10 @@
                             chip.className = 'match-chip';
                             chip.textContent = `Shinobi${card.dataset.relayName || ''}`;
                             chip.addEventListener('click', () => {
+                                if (!document.getElementById('relayTableRegion')?.hidden) {
+                                    document.dispatchEvent(new CustomEvent('shinobi:open-relay', { detail: card.dataset.relayName }));
+                                    return;
+                                }
                                 card.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
                                 card.classList.add('pulse');
                                 setTimeout(() => card.classList.remove('pulse'), 900);
@@ -1209,6 +1223,7 @@
                         });
                     }
                 }
+                document.dispatchEvent(new CustomEvent('shinobi:filter'));
             }
 
             function relayStatusRank(card) {
@@ -1228,16 +1243,21 @@
             function compareRelayCards(a, b) {
                 const nameA = a.dataset.relayName || '';
                 const nameB = b.dataset.relayName || '';
+                let comparison;
                 if (activeSort === 'country') {
-                    return (a.dataset.country || '').localeCompare(b.dataset.country || '') || nameA.localeCompare(nameB);
-                }
-                if (activeSort === 'type') {
-                    return relayTypeRank(a) - relayTypeRank(b) || nameA.localeCompare(nameB);
-                }
-                if (activeSort === 'status') {
-                    return relayStatusRank(a) - relayStatusRank(b) || nameA.localeCompare(nameB);
-                }
-                return Number(a.dataset.relayIndex || 0) - Number(b.dataset.relayIndex || 0);
+                    comparison = (a.dataset.country || '').localeCompare(b.dataset.country || '') || nameA.localeCompare(nameB);
+                } else if (activeSort === 'type') {
+                    comparison = relayTypeRank(a) - relayTypeRank(b) || nameA.localeCompare(nameB);
+                } else if (activeSort === 'status') {
+                    comparison = relayStatusRank(a) - relayStatusRank(b) || nameA.localeCompare(nameB);
+                } else if (activeSort === 'name') {
+                    comparison = nameA.localeCompare(nameB);
+                } else if (activeSort === 'platform' || activeSort === 'asn') {
+                    comparison = (a.dataset[activeSort] || '').localeCompare(b.dataset[activeSort] || '', undefined, { numeric: true }) || nameA.localeCompare(nameB);
+                } else if (activeSort === 'fingerprint') {
+                    comparison = (a.dataset.fp || '').localeCompare(b.dataset.fp || '') || nameA.localeCompare(nameB);
+                } else comparison = Number(a.dataset.relayIndex || 0) - Number(b.dataset.relayIndex || 0);
+                return comparison * sortDirection;
             }
 
             function sortRelayCards() {
@@ -1250,7 +1270,21 @@
             window.applyRelayFilters = () => {
                 sortRelayCards();
                 filterRelays();
+                document.dispatchEvent(new CustomEvent('shinobi:sort-state', { detail: { key: activeSort, direction: sortDirection, compare: compareRelayCards } }));
             };
+
+            document.addEventListener('shinobi:sort', event => {
+                const { key, direction } = event.detail || {};
+                if (!['name', 'country', 'platform', 'asn', 'status', 'fingerprint'].includes(key)) return;
+                activeSort = key;
+                sortDirection = direction === -1 ? -1 : 1;
+                sortChips.forEach(chip => {
+                    const active = chip.dataset.sort === activeSort;
+                    chip.classList.toggle('active', active);
+                    chip.setAttribute('aria-pressed', String(active));
+                });
+                window.applyRelayFilters();
+            });
 
             if (searchInput) {
                 searchInput.addEventListener('input', filterRelays);
@@ -1288,6 +1322,7 @@
                     chip.classList.add('active');
                     chip.setAttribute('aria-pressed', 'true');
                     activeSort = chip.getAttribute('data-sort') || 'region';
+                    sortDirection = 1;
                     window.applyRelayFilters();
                 });
             });
@@ -1302,6 +1337,11 @@
 
         function animateCounter(element) {
             const target = element.getAttribute('data-count');
+            clearInterval(counterTimers.get(element));
+            if (!/^\d+(?:\/\d+)?$/.test(target)) {
+                element.textContent = '--';
+                return;
+            }
             if (prefersReducedMotion()) {
                 element.textContent = target;
                 return;
@@ -1324,6 +1364,7 @@
                         element.textContent = Math.floor(current) + '/' + denominator;
                     }
                 }, 16);
+                counterTimers.set(element, timer);
             } else {
                 const end = parseInt(target);
                 let current = 0;
@@ -1339,6 +1380,7 @@
                         element.textContent = Math.floor(current);
                     }
                 }, 16);
+                counterTimers.set(element, timer);
             }
         }
         const statsObserver = new IntersectionObserver((entries) => {

@@ -30,10 +30,17 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
+      - name: Validate inventory and build site
+        run: |
+          npm run check:js
+          npm run test:stats
+          npm run test:security
+          npm run build
+
       - name: Validate static site
         shell: bash
         env:
-          SITE_ROOT: '.'
+          SITE_ROOT: 'shinobi'
         run: |
           set -euo pipefail
 

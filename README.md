@@ -25,20 +25,11 @@ The site presents operator-owned bridge fingerprints, public relay identities, n
 
 ## Overview
 
-The repository contains a build-free static website. Relay inventory is stored directly in `index.html`, then enriched in the browser with live data from the Tor Project Onionoo API.
+The repository contains a static website. Relay inventory is stored in `src/data/relays.json`, then enriched in the browser with live data from the Tor Project Onionoo API. `npm run build` also generates the no-JavaScript directory from that inventory.
 
-Current inventory represented by the source:
+The [dashboard](https://relays.brokenbotnet.com/) and [no-JavaScript directory](https://relays.brokenbotnet.com/nojs/) calculate fleet totals, countries, platforms, ASNs, and IPv6 coverage from the inventory. These totals include any relays marked as coming soon. Live status and bandwidth exclude those entries.
 
-| Category | Count |
-| --- | ---: |
-| Bridge relays | 8 |
-| Public relays | 16 |
-| Total relay records | 24 |
-| Public relay countries | 15 |
-| Operating-system families | 6 |
-| Autonomous systems | 11 |
-
-The public inventory currently contains one configured exit relay and fifteen non-exit relays. Guard and middle roles are resolved dynamically from the current Onionoo flags, rather than being treated as permanently fixed roles.
+Guard and middle roles are resolved dynamically from the current Onionoo flags, rather than being treated as permanently fixed roles.
 
 ## Features
 
@@ -48,12 +39,19 @@ The public inventory currently contains one configured exit relay and fifteen no
 - First-seen age and last-seen status handling
 - Automatic Guard, Middle, and Exit role classification
 - Regional health summaries
+- Public relay map with responsive location clusters and a static PNG fallback
+- Map zoom, drag and keyboard panning, persistent selection, and an expanded atlas dialog
+- Cards and comparison-table views sharing the same search, role filters, and sorting
+- Sortable table headings, pinned relay names and headers, and a locally remembered view preference
+- Live running and upcoming counts, with Onionoo publication time
+- Published public relay and bridge family IDs with copy controls on the live dashboard
+- Grouped fingerprints with raw-value copying and visible copy confirmation
 - Search by relay name, hostname, country, location, ASN, or fingerprint
 - Sorting by configured region, live status, relay type, or country
 - Copy buttons for fingerprints, addresses, and relay identity lines
 - Responsive relay cards and touch-friendly tooltips
 - Tor circuit flow visualization
-- Tor terminology glossary and FAQ
+- Expandable Tor terminology glossary and FAQ
 - Operator contact, abuse contact, PGP identity, and no-logs statement
 - Public relay ownership proofs under `/.well-known/tor-relay/`
 - Installable web-app manifest and local icon assets
@@ -67,7 +65,7 @@ Browser
   |
   |-- loads static HTML, CSS, JavaScript, icons, and proof files
   |
-  |-- reads configured relay inventory from index.html
+  |-- reads configured relay inventory from src/data/relays.json
   |
   `-- requests live relay data from Onionoo
           |
@@ -76,7 +74,7 @@ Browser
 
 ### Static data
 
-The `relays` array inside `index.html` contains the operator-maintained inventory.
+The array in `src/data/relays.json` contains the operator-maintained inventory. Entries marked `comingSoon` appear in both dashboards and their inventory totals, without live metrics. Set the fingerprint and remove `comingSoon` when the relay is ready. The build and browser use the same inventory summary, so adding or removing an entry updates every overview count without editing page totals.
 
 Public relay records include:
 
@@ -311,10 +309,13 @@ Both the standard dashboard and generated no-JavaScript page use `src/data/relay
     "mobileIpv6": "...::10",
     "location": "City, Country",
     "country": "Country",
+    "coordinates": [35.68, 139.69],
     "os": "🐧 Linux",
     "asn": "AS64500"
 }
 ```
+
+`coordinates` is optional and uses `[latitude, longitude]` for the approximate public relay city. Relays without coordinates remain in the directory and totals. Bridge locations are never mapped. The map artwork is bundled with the site and uses public-domain Natural Earth data; it makes no external tile or geolocation requests.
 
 ### Bridge example
 

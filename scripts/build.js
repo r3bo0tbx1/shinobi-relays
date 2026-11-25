@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { summarizeRelayInventory } = require('../src/js/relay-stats.js');
+const { locationCSS, renderAtlas, renderFamilies } = require('./explorer-build.js');
 
 const root = path.resolve(__dirname, '..');
 const outputDirName = 'shinobi';
@@ -22,6 +24,7 @@ const relayRegions = [
   { id: 'asia-oceania', title: 'Asia-Oceania', icon: '🌏' },
   { id: 'africa', title: 'Africa', icon: '🌍' },
   { id: 'north-america', title: 'North America', icon: '🌎' },
+  { id: 'south-america', title: 'South America', icon: '🌎' },
 ];
 
 function assertInsideRoot(target) {
@@ -106,7 +109,7 @@ function renderDetails(rows) {
 
 function renderRelayCard(relay) {
   const isBridge = relay.kind === 'bridge';
-  const role = isBridge ? 'Hidden bridge' : `Configured ${relay.type || 'middle'}`;
+  const role = relay.comingSoon ? 'Coming soon' : isBridge ? 'Hidden bridge' : `Configured ${relay.type || 'middle'}`;
   const className = isBridge ? 'bridge' : relay.type === 'exit' ? 'exit' : 'middle';
   const title = `Shinobi${relay.name || 'Unknown'} ${relay.emoji || ''}`.trim();
   const kindLabel = isBridge ? 'Bridge' : relay.type === 'exit' ? 'Exit' : 'Middle/Guard';
@@ -124,14 +127,14 @@ function renderRelayCard(relay) {
       ];
   const rows = isBridge
     ? [
-        ['Fingerprint', relay.fingerprint, true],
+        ['Fingerprint', relay.fingerprint || 'Awaiting fingerprint', true],
         ['Distribution', stripLeadingEmoji(relay.distribution)],
         ['Transport', 'Obfs4'],
         ['IPv6', 'Enabled'],
       ]
     : [
         ['Hostname', relay.host, true],
-        ['Fingerprint', relay.fingerprint, true],
+        ['Fingerprint', relay.fingerprint || 'Awaiting fingerprint', true],
         ['IPv4', relay.ipv4, true],
         ['IPv6', relay.ipv6, true],
         ['Location', relay.location],
@@ -145,11 +148,11 @@ function renderRelayCard(relay) {
     : '';
 
   return [
-    `<article class="relay-card ${className}">`,
+    `<article class="relay-card ${className}" id="relay-${relaySlug}">`,
     '<header>',
     '<div class="relay-heading">',
     `<h4>${escapeHTML(title)}</h4>`,
-    `<span class="role">${escapeHTML(role)}</span>`,
+    `<span class="role${relay.comingSoon ? ' is-planned' : ''}">${escapeHTML(role)}</span>`,
     '</div>',
     `<span class="relay-kind">${kindLabel}</span>`,
     '</header>',
@@ -173,23 +176,17 @@ function renderRelayCard(relay) {
 function generateNoJsPage(relays) {
   const file = path.join('nojs', 'index.html');
   const pagePath = assertInsideRoot(path.join(outputDir, file));
-  const activeRelays = relays.filter(relay => !relay.comingSoon);
-  const bridges = activeRelays.filter(relay => relay.kind === 'bridge');
-  const publicRelays = activeRelays.filter(relay => relay.kind === 'public');
-  const exitCount = publicRelays.filter(relay => relay.type === 'exit').length;
-  const middleCount = publicRelays.filter(relay => relay.type === 'middle').length;
-  const countryCount = new Set(publicRelays.map(relay => relay.country).filter(Boolean)).size;
-  const platformCount = new Set(publicRelays.map(relay => stripLeadingEmoji(relay.os)).filter(Boolean)).size;
-  const asnCount = new Set(publicRelays.map(relay => relay.asn).filter(Boolean)).size;
-  const ipv6Count = activeRelays.filter(relay => relay.kind === 'bridge' || relay.ipv6).length;
+  const counts = summarizeRelayInventory(relays);
+  const bridges = relays.filter(relay => relay.kind === 'bridge');
   const bridgeCards = bridges.map(renderRelayCard).join('');
   const publicRegions = relayRegions.map(region => {
-    const regionRelays = publicRelays.filter(relay => relay.region === region.id);
+    const regionRelays = relays.filter(relay => relay.kind === 'public' && relay.region === region.id);
+    const upcomingCount = regionRelays.filter(relay => relay.comingSoon).length;
     return [
       `<section class="region region-${region.id}" id="${region.id}" aria-labelledby="${region.id}-title">`,
       '<div class="region-heading">',
       `<h3 id="${region.id}-title"><span class="region-icon" aria-hidden="true">${region.icon}</span><span>${escapeHTML(region.title)}</span></h3>`,
-      `<span>${regionRelays.length} relay${regionRelays.length === 1 ? '' : 's'}</span>`,
+      `<span>${regionRelays.length} relay${regionRelays.length === 1 ? '' : 's'}${upcomingCount ? ` · ${upcomingCount} coming soon` : ''}</span>`,
       '</div>',
       `<div class="relay-grid">${regionRelays.map(renderRelayCard).join('')}</div>`,
       '</section>',
@@ -198,24 +195,42 @@ function generateNoJsPage(relays) {
 
   let html = fs.readFileSync(pagePath, 'utf8');
   const replacements = {
-    __BRIDGE_COUNT__: bridges.length,
-    __PUBLIC_COUNT__: publicRelays.length,
-    __MIDDLE_COUNT__: middleCount,
-    __EXIT_COUNT__: exitCount,
-    __COUNTRY_COUNT__: countryCount,
-    __PLATFORM_COUNT__: platformCount,
-    __ASN_COUNT__: asnCount,
-    __IPV6_COUNT__: ipv6Count,
-    __TOTAL_COUNT__: activeRelays.length,
+    ...inventoryPlaceholders(counts),
     '<!-- BRIDGE_CARDS -->': bridgeCards,
     '<!-- PUBLIC_REGIONS -->': publicRegions,
   };
 
   for (const [placeholder, value] of Object.entries(replacements)) {
-    html = replaceRequired(html, placeholder, value, file);
+    if (html.includes(placeholder)) html = replaceRequired(html, placeholder, value, file);
   }
 
   fs.writeFileSync(pagePath, html);
+}
+
+function inventoryPlaceholders(counts) {
+  return {
+    __BRIDGE_COUNT__: counts.bridges,
+    __PUBLIC_COUNT__: counts.public,
+    __MIDDLE_COUNT__: counts.middles,
+    __EXIT_COUNT__: counts.exits,
+    __COUNTRY_COUNT__: counts.countries,
+    __PLATFORM_COUNT__: counts.platforms,
+    __ASN_COUNT__: counts.asns,
+    __TYPE_COUNT__: counts.types,
+    __IPV6_COUNT__: counts.ipv6,
+    __TOTAL_COUNT__: counts.total,
+    __UPCOMING_COUNT__: counts.upcoming,
+    __UPCOMING_LABEL__: `${counts.upcoming} upcoming relay${counts.upcoming === 1 ? '' : 's'}`,
+  };
+}
+
+function generateMainCounts(relays) {
+  const file = path.join(outputDir, 'index.html');
+  let html = fs.readFileSync(file, 'utf8');
+  for (const [placeholder, value] of Object.entries(inventoryPlaceholders(summarizeRelayInventory(relays)))) {
+    if (html.includes(placeholder)) html = replaceRequired(html, placeholder, value, 'index.html');
+  }
+  fs.writeFileSync(file, html);
 }
 
 function versionAssets() {
@@ -226,6 +241,11 @@ function versionAssets() {
         __SHINOBI_CSS_VERSION__: contentVersion(path.join('src', 'css', 'shinobi.css')),
         __LUCIDE_JS_VERSION__: contentVersion(path.join('src', 'js', 'lucide.min.js')),
         __SHINOBI_JS_VERSION__: contentVersion(path.join('src', 'js', 'shinobi.js')),
+        __RELAY_STATS_JS_VERSION__: contentVersion(path.join('src', 'js', 'relay-stats.js')),
+        __RELAY_EXPLORER_JS_VERSION__: contentVersion(path.join('src', 'js', 'relay-explorer.js')),
+        __MAP_LAND_VERSION__: contentVersion(path.join('src', 'maps', 'world-land.png')),
+        __EXPLORER_CSS_VERSION__: contentVersion(path.join('src', 'css', 'relay-explorer.css')),
+        __MAP_POSITIONS_VERSION__: contentVersion(path.join(outputDirName, 'src', 'css', 'relay-positions.css')),
         __RELAY_DATA_VERSION__: contentVersion(path.join('src', 'data', 'relays.json')),
         'content="0; url=/shinobi/nojs/"': 'content="0; url=/nojs/"',
       },
@@ -234,6 +254,9 @@ function versionAssets() {
       file: path.join('nojs', 'index.html'),
       versions: {
         __NOJS_CSS_VERSION__: contentVersion(path.join('src', 'css', 'nojs.css')),
+        __MAP_LAND_VERSION__: contentVersion(path.join('src', 'maps', 'world-land.png')),
+        __EXPLORER_CSS_VERSION__: contentVersion(path.join('src', 'css', 'relay-explorer.css')),
+        __MAP_POSITIONS_VERSION__: contentVersion(path.join(outputDirName, 'src', 'css', 'relay-positions.css')),
       },
     },
   ];
@@ -275,12 +298,28 @@ function validateNoJsPage() {
   }
 }
 
+function generateExplorer(relays) {
+  const built = new Date().toISOString();
+  fs.writeFileSync(path.join(outputDir, 'src/css/relay-positions.css'), locationCSS(relays));
+  for (const [relative, interactive] of [['index.html', true], ['nojs/index.html', false]]) {
+    const file = path.join(outputDir, relative);
+    let html = fs.readFileSync(file, 'utf8');
+    html = replaceRequired(html, '<!-- RELAY_ATLAS -->', renderAtlas(relays, interactive), relative);
+    html = replaceRequired(html, '<!-- RELAY_FAMILIES -->', renderFamilies(root, interactive), relative);
+    html = html.replaceAll('__BUILD_TIMESTAMP__', built).replaceAll('__BUILD_DATE__', built.slice(0, 10) + ' UTC');
+    fs.writeFileSync(file, html);
+  }
+}
+
 assertInsideRoot(outputDir);
 fs.rmSync(outputDir, { recursive: true, force: true });
 fs.mkdirSync(outputDir, { recursive: true });
 publicEntries.forEach(copyEntry);
 copyNoJsTemplate();
-generateNoJsPage(readRelayData());
+const relays = readRelayData();
+generateExplorer(relays);
+generateMainCounts(relays);
+generateNoJsPage(relays);
 versionAssets();
 validateNoJsPage();
 
