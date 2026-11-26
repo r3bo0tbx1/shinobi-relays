@@ -39,6 +39,7 @@ Guard and middle roles are resolved dynamically from the current Onionoo flags, 
 - First-seen age and last-seen status handling
 - Automatic Guard, Middle, and Exit role classification
 - Regional health summaries
+- Compact project links and mobile section navigation
 - Public relay map with responsive location clusters and a static PNG fallback
 - Map zoom, drag and keyboard panning, persistent selection, and an expanded atlas dialog
 - Cards and comparison-table views sharing the same search, role filters, and sorting
@@ -49,9 +50,10 @@ Guard and middle roles are resolved dynamically from the current Onionoo flags, 
 - Search by relay name, hostname, country, location, ASN, or fingerprint
 - Sorting by configured region, live status, relay type, or country
 - Copy buttons for fingerprints, addresses, and relay identity lines
+- Expandable secondary flags with live status and role flags kept visible
 - Responsive relay cards and touch-friendly tooltips
-- Tor circuit flow visualization
-- Expandable Tor terminology glossary and FAQ
+- Tor circuit visualization with a compact mobile sequence
+- Accordion Tor terminology glossary and FAQ
 - Operator contact, abuse contact, PGP identity, and no-logs statement
 - Public relay ownership proofs under `/.well-known/tor-relay/`
 - Installable web-app manifest and local icon assets

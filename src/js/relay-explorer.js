@@ -155,7 +155,7 @@
     function renderMapOverview(panel) {
         const publicRelays = inventory.filter(relay => relay.kind === 'public');
         const counts = summarizeRelayInventory(inventory);
-        panel.replaceChildren(node('span', 'PUBLIC RELAY FOOTPRINT', 'explorer-eyebrow'), node('h3', `${publicRelays.length} relays. ${counts.countries} countries.`), node('p', 'Different locations, platforms and networks. Select a marker to explore a relay.'));
+        panel.replaceChildren(node('span', 'PUBLIC RELAY FOOTPRINT', 'explorer-eyebrow'), node('h3', `${publicRelays.length} relays. ${counts.countries} countries.`));
         const regions = new Map();
         for (const relay of publicRelays) regions.set(relay.region, (regions.get(relay.region) || 0) + 1);
         const labels = { 'asia-oceania': 'Asia-Oceania', africa: 'Africa', 'north-america': 'North America', 'south-america': 'South America' };
@@ -324,8 +324,8 @@
                 freshness.append(time, details);
             } else freshness.append(document.createTextNode('time unavailable'));
             const checkedAt = new Date(live.checked);
-            freshness.append(document.createTextNode(` · Checked ${checkedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} · Upcoming excluded`));
-        } else freshness.textContent = live.state === 'failed' ? 'The live lookup failed. Relay details remain available.' : 'Checking live status with Onionoo. Upcoming relays are excluded from live checks.';
+            freshness.append(document.createTextNode(` · Checked ${checkedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`));
+        } else freshness.textContent = live.state === 'failed' ? 'The live lookup failed. Relay details remain available.' : 'Checking live status with Onionoo.';
     }
 
     document.getElementById('relayCardsView')?.addEventListener('click', () => switchView('cards', true));
