@@ -306,19 +306,25 @@ h1 {
     top: 8px;
     z-index: 10;
     display: flex;
-    width: max-content;
+    width: 100%;
     max-width: 100%;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 6px;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 14px auto 32px;
     padding: 6px;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 10px;
     background: rgba(8, 10, 15, 0.94);
+    overflow-x: auto;
 }
 
 .section-nav a {
+    display: inline-flex;
+    flex: 1 0 auto;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
     padding: 6px 10px;
     border-color: transparent;
     background: transparent;
@@ -534,7 +540,7 @@ h1 {
 }
 
 .relay-card.bridge {
-    background: linear-gradient(140deg, var(--blue-soft), transparent 46%), var(--panel);
+    background: var(--panel);
 }
 
 .relay-card.bridge::before {
@@ -542,7 +548,7 @@ h1 {
 }
 
 .relay-card.exit {
-    background: linear-gradient(140deg, var(--red-soft), transparent 46%), var(--panel);
+    background: var(--panel);
 }
 
 .relay-card.exit::before {
@@ -942,7 +948,7 @@ footer .canary-link:hover {
     }
 
     .section-nav a {
-        flex: 1 1 30%;
+        flex: 1 0 auto;
         text-align: center;
     }
 
@@ -978,4 +984,14 @@ footer .canary-link:hover {
     html {
         scroll-behavior: auto;
     }
+}
+
+.static-dashboard:has(#overview:target) .section-nav a[href="#overview"],
+.static-dashboard:has(#relay-atlas:target) .section-nav a[href="#relay-atlas"],
+.static-dashboard:has(#relays:target, .region:target) .section-nav a[href="#relays"],
+.static-dashboard:has(#bridges:target) .section-nav a[href="#bridges"],
+.static-dashboard:has(#contact:target) .section-nav a[href="#contact"] {
+    color: #e4f1fb;
+    border-color: #507797;
+    background: #233445;
 }

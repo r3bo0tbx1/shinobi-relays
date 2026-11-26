@@ -689,12 +689,6 @@
             animation: fadeIn 0.6s ease-out forwards;
         }
 
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.46);
-            border-color: rgba(255, 255, 255, 0.18);
-        }
-
         .card p {
             color: #c9d1d9;
             font-size: 1.02rem;
@@ -895,67 +889,51 @@
         }
 
         .relay-card.bridge {
-            background:
-                linear-gradient(160deg, rgba(22, 65, 91, 0.38), rgba(10, 18, 26, 0.78)),
-                rgba(14, 29, 42, 0.68);
+            background: #111a22;
             border-color: rgba(88, 166, 255, 0.22);
-            box-shadow: inset 0 0 0 1px rgba(88, 166, 255, 0.035);
+            box-shadow: none;
         }
 
         .relay-card.bridge:hover {
-            background:
-                linear-gradient(160deg, rgba(30, 82, 112, 0.48), rgba(12, 22, 32, 0.84)),
-                rgba(18, 36, 52, 0.76);
+            background: #17232e;
             border-color: rgba(88, 166, 255, 0.42);
-            box-shadow: 0 12px 34px rgba(31, 111, 168, 0.18), 0 10px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
         }
 
         #relays .relay-card.live-guard {
-            background:
-                linear-gradient(160deg, rgba(27, 72, 38, 0.26), rgba(18, 26, 22, 0.78)),
-                rgba(26, 34, 28, 0.58);
+            background: #111a22;
             border-color: rgba(86, 211, 100, 0.18);
-            box-shadow: inset 0 0 0 1px rgba(86, 211, 100, 0.025);
+            box-shadow: none;
         }
 
         #relays .relay-card.live-middle {
-            background:
-                linear-gradient(160deg, rgba(74, 49, 112, 0.24), rgba(24, 21, 33, 0.78)),
-                rgba(32, 29, 43, 0.58);
+            background: #111a22;
             border-color: rgba(188, 140, 255, 0.17);
-            box-shadow: inset 0 0 0 1px rgba(188, 140, 255, 0.025);
+            box-shadow: none;
         }
 
         #relays .relay-card.live-exit {
-            background:
-                linear-gradient(160deg, rgba(95, 43, 49, 0.28), rgba(34, 21, 24, 0.8)),
-                rgba(42, 28, 31, 0.6);
+            background: #111a22;
             border-color: rgba(255, 99, 99, 0.18);
-            box-shadow: inset 0 0 0 1px rgba(255, 99, 99, 0.025);
+            box-shadow: none;
         }
 
         #relays .relay-card.live-guard:hover {
-            background:
-                linear-gradient(160deg, rgba(35, 92, 48, 0.34), rgba(18, 31, 23, 0.86)),
-                rgba(30, 42, 33, 0.68);
+            background: #17232e;
             border-color: rgba(86, 211, 100, 0.34);
-            box-shadow: 0 12px 34px rgba(86, 211, 100, 0.14), 0 10px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
         }
 
         #relays .relay-card.live-middle:hover {
-            background:
-                linear-gradient(160deg, rgba(88, 59, 132, 0.34), rgba(28, 24, 40, 0.86)),
-                rgba(38, 33, 52, 0.68);
+            background: #17232e;
             border-color: rgba(188, 140, 255, 0.32);
-            box-shadow: 0 12px 34px rgba(188, 140, 255, 0.14), 0 10px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
         }
 
         #relays .relay-card.live-exit:hover {
-            background:
-                linear-gradient(160deg, rgba(116, 50, 58, 0.38), rgba(42, 24, 28, 0.88)),
-                rgba(50, 31, 35, 0.7);
+            background: #17232e;
             border-color: rgba(255, 99, 99, 0.34);
-            box-shadow: 0 12px 34px rgba(255, 99, 99, 0.14), 0 10px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
         }
 
         .relay-card::before {

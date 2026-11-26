@@ -546,31 +546,27 @@
         }
 
         function updateActiveNav() {
-            const sections = ['header', 'network-flow', 'bridges', 'relays', 'contact', 'glossary', 'faq', 'donate', 'aio-stack'];
-            const navItems = document.querySelectorAll('.scroll-nav-item');
-            let currentSection = 0;
+            const scrollPosition = window.scrollY + 140;
             const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 100);
-
-            if (isAtBottom) {
-                currentSection = sections.length - 1;
-            } else {
-                const scrollPosition = window.scrollY + 250;
-                sections.forEach((id, index) => {
-                    const element = id === 'header' ? document.querySelector('header') : document.getElementById(id);
-                    if (element && element.offsetTop <= scrollPosition) {
-                        currentSection = index;
+            document.querySelectorAll('.scroll-nav, .mobile-section-nav').forEach(nav => {
+                const items = Array.from(nav.querySelectorAll('[data-section]'));
+                let active = items[0];
+                let latestTop = -Infinity;
+                items.forEach(item => {
+                    const section = document.getElementById(item.dataset.section);
+                    if (!section) return;
+                    const top = section.getBoundingClientRect().top + window.scrollY;
+                    if (top <= scrollPosition && top >= latestTop) {
+                        active = item;
+                        latestTop = top;
                     }
                 });
-            }
-
-            navItems.forEach((item, index) => {
-                const isActive = index === currentSection;
-                item.classList.toggle('active', isActive);
-                if (isActive) {
-                    item.setAttribute('aria-current', 'location');
-                } else {
-                    item.removeAttribute('aria-current');
-                }
+                if (isAtBottom) active = items.at(-1);
+                items.forEach(item => {
+                    item.classList.toggle('active', item === active);
+                    if (item === active) item.setAttribute('aria-current', 'location');
+                    else item.removeAttribute('aria-current');
+                });
             });
         }
 
@@ -684,7 +680,15 @@
             if (isRunning && !displayFlags.includes('Running')) displayFlags.unshift('Running');
             const chips = [];
             if (!isRunning) chips.push(statusChip('🔴 Temporarily offline', 'offline-chip', lastSeen));
-            chips.push(...displayFlags.map(flagChip));
+            const prominentFlags = new Set(['Running', 'Guard', 'Exit', 'BadExit', 'StaleDesc']);
+            chips.push(...displayFlags.filter(flag => prominentFlags.has(flag)).map(flagChip));
+            const secondaryFlags = displayFlags.filter(flag => !prominentFlags.has(flag));
+            if (secondaryFlags.length) {
+                chips.push(createEl('details', { className: 'relay-flag-details' },
+                    createEl('summary', { text: `${secondaryFlags.length} more flag${secondaryFlags.length === 1 ? '' : 's'}`, ariaLabel: `More flags for Shinobi${card.dataset.relayName}` }),
+                    createEl('div', { className: 'relay-secondary-flags' }, secondaryFlags.map(flagChip))
+                ));
+            }
             container.replaceChildren(...chips);
             applyRelayBadges(card, flags);
             if (!isRunning) {
@@ -881,7 +885,7 @@
                         minute: '2-digit',
                         hour12: true
                     }).replace(/\s?(am|pm)$/i, match => match.toUpperCase());
-                    timeEl.textContent = `Live data updated ${localTime}`;
+                    timeEl.textContent = `Updated ${localTime}`;
                     const localStamp = now.toLocaleString([], {
                         year: 'numeric',
                         month: 'short',
@@ -961,7 +965,7 @@
             }
         }
         let scrollFrame;
-        window.addEventListener('scroll', () => {
+        function scheduleScrollUpdate() {
             if (scrollFrame) return;
             scrollFrame = requestAnimationFrame(() => {
                 updateActiveNav();
@@ -971,7 +975,9 @@
                 scrollBtn?.classList.toggle('visible', scrollPosition >= bottomThreshold);
                 scrollFrame = null;
             });
-        }, { passive: true });
+        }
+        window.addEventListener('scroll', scheduleScrollUpdate, { passive: true });
+        window.addEventListener('resize', scheduleScrollUpdate, { passive: true });
         document.getElementById('scrollToTop').addEventListener('click', () => {
             const scrollBtn = document.getElementById('scrollToTop');
             if (!prefersReducedMotion()) {
@@ -1030,6 +1036,15 @@
                         setFaqExpanded(item, false);
                     });
                     setFaqExpanded(currentItem, shouldExpand);
+                });
+            });
+
+            document.querySelectorAll('.glossary-group').forEach(group => {
+                group.addEventListener('toggle', () => {
+                    if (!group.open) return;
+                    document.querySelectorAll('.glossary-group').forEach(other => {
+                        if (other !== group) other.open = false;
+                    });
                 });
             });
 

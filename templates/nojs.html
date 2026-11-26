@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/src/css/relay-positions.css?v=__MAP_POSITIONS_VERSION__">
 </head>
 
-<body>
+<body class="static-dashboard">
     <a class="skip-link" href="#fleet">Skip to relay fleet</a>
     <div class="top-anchor" id="top"></div>
     <div class="page-shell">
@@ -57,14 +57,11 @@
             </div>
         </aside>
 
-        <nav class="section-nav" aria-label="Static dashboard sections">
+        <nav class="section-nav" aria-label="Static dashboard sections" tabindex="0">
             <a href="#overview">Overview</a>
-            <a href="#bridges">Bridges</a>
             <a href="#relay-atlas">Map</a>
-            <a href="#asia-oceania">Asia-Oceania</a>
-            <a href="#africa">Africa</a>
-            <a href="#north-america">North America</a>
-            <a href="#south-america">South America</a>
+            <a href="#relays">Relays</a>
+            <a href="#bridges">Bridges</a>
             <a href="#contact">Contact</a>
         </nav>
 
@@ -104,8 +101,19 @@
             </section>
 
             <section class="fleet-section relay-atlas" id="relay-atlas" aria-labelledby="atlas-title">
-                <div class="section-heading"><p class="eyebrow">Public relay locations</p><h2 id="atlas-title">Shinobi around the world</h2><p>__UPCOMING_LABEL__ included. This inventory snapshot was built <time datetime="__BUILD_TIMESTAMP__">__BUILD_DATE__</time>; live running status is available on the standard dashboard.</p></div>
+                <div class="section-heading"><p class="eyebrow">Public relay locations</p><h2 id="atlas-title">Shinobi Relays <span class="gradient-text">around the world</span></h2><p>__UPCOMING_LABEL__ included. This inventory snapshot was built <time datetime="__BUILD_TIMESTAMP__">__BUILD_DATE__</time>; live running status is available on the standard dashboard.</p></div>
                 <!-- RELAY_ATLAS -->
+            </section>
+
+
+
+            <section class="fleet-section" id="relays" aria-labelledby="public-title">
+                <div class="section-heading">
+                    <p class="eyebrow">Public Tor directory</p>
+                    <h2 id="public-title">Primary Relays <span>__PUBLIC_COUNT__</span></h2>
+                    <p>Roles shown here are configured defaults. Live Guard assignment and Running status require Onionoo and are intentionally omitted from this static view.</p>
+                </div>
+                <!-- PUBLIC_REGIONS -->
             </section>
 
             <section class="fleet-section bridge-section" id="bridges" aria-labelledby="bridges-title">
@@ -117,15 +125,6 @@
                 <div class="relay-grid bridge-grid">
                     <!-- BRIDGE_CARDS -->
                 </div>
-            </section>
-
-            <section class="fleet-section" aria-labelledby="public-title">
-                <div class="section-heading">
-                    <p class="eyebrow">Public Tor directory</p>
-                    <h2 id="public-title">Primary Relays <span>__PUBLIC_COUNT__</span></h2>
-                    <p>Roles shown here are configured defaults. Live Guard assignment and Running status require Onionoo and are intentionally omitted from this static view.</p>
-                </div>
-                <!-- PUBLIC_REGIONS -->
             </section>
 
             <section class="support-section" id="contact" aria-labelledby="contact-title">

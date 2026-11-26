@@ -46,18 +46,18 @@
     <link rel="stylesheet" href="src/css/relay-positions.css?v=__MAP_POSITIONS_VERSION__">
 </head>
 
-<body>
+<body class="live-dashboard">
     <a href="#relays" class="skip-link">Skip to relays</a>
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
     <div class="bg-mesh"></div>
     <div class="bg-noise"></div>
     <nav class="scroll-nav" id="scrollNav" aria-label="Page sections">
-        <button type="button" class="scroll-nav-item" data-label="Overview" data-section="header" aria-label="Go to overview"></button>
+        <button type="button" class="scroll-nav-item" data-label="Overview" data-section="overview" aria-label="Go to overview"></button>
         <button type="button" class="scroll-nav-item" data-label="Relay Map" data-section="relay-atlas" aria-label="Go to relay map"></button>
-        <button type="button" class="scroll-nav-item" data-label="Network Flow" data-section="network-flow" aria-label="Go to network flow"></button>
-        <button type="button" class="scroll-nav-item" data-label="Bridges" data-section="bridges" aria-label="Go to bridges"></button>
         <button type="button" class="scroll-nav-item" data-label="Relays" data-section="relays" aria-label="Go to relays"></button>
+        <button type="button" class="scroll-nav-item" data-label="Bridges" data-section="bridges" aria-label="Go to bridges"></button>
+        <button type="button" class="scroll-nav-item" data-label="Network Flow" data-section="network-flow" aria-label="Go to network flow"></button>
         <button type="button" class="scroll-nav-item" data-label="Contact" data-section="contact" aria-label="Go to contact"></button>
         <button type="button" class="scroll-nav-item" data-label="Glossary" data-section="glossary" aria-label="Go to glossary"></button>
         <button type="button" class="scroll-nav-item" data-label="FAQ" data-section="faq" aria-label="Go to FAQ"></button>
@@ -65,7 +65,7 @@
         <button type="button" class="scroll-nav-item" data-label="AIO Stack" data-section="aio-stack" aria-label="Go to AIO stack"></button>
     </nav>
     <div class="container">
-        <header>
+        <header id="header">
             <h1>rE-Bo0t.bx1 <span class="onion">🧅</span>
                 <span class="title-tooltip" data-tooltip="忍び (Shinobi) - Stealth: The art of moving unseen, a master of invisibility and secrecy"><span class="gradient-text"><span class="tooltip-underline">Shinobi</span> Relays</span></span>
             </h1>
@@ -76,34 +76,10 @@
                 <span class="status-pill middle" id="middleCount"><span class="chip-icon"><i data-lucide="shuffle"></i></span>-- Middles</span>
                 <span class="status-pill exit" id="exitCount"><span class="chip-icon"><i data-lucide="door-open"></i></span>__EXIT_COUNT__ Exit</span>
             </div>
-            <div class="hero-actions">
-                <div class="metrics-capsule">
-                    <div class="metrics-title">
-                        <span class="meta-icon"><i data-lucide="bar-chart-3"></i></span> METRICS DASHBOARD
-                    </div>
-                    <a href="https://metrics.1aeo.com/relays.brokenbotnet.com/" target="_blank" rel="noopener noreferrer" class="metrics-link">
-                        <span class="meta-icon"><i data-lucide="zap"></i></span> 1AEO </a>
-                </div>
-                <a class="aio-flare" href="#aio-stack" aria-label="Jump to AIO Stack Docker image">
-                    <span class="aio-flare__label">
-                        <span class="aio-flare__icon"><i data-lucide="package-check" aria-hidden="true"></i></span>
-                        <span>AIO Stack</span>
-                    </span>
-                    <strong>
-                        <span class="aio-flare__value-icon"><i data-lucide="container" aria-hidden="true"></i></span>
-                        <span>Docker</span>
-                    </strong>
-                </a>
-                <a class="donate-flare" href="#donate" aria-label="Jump to donation options">
-                    <span class="donate-flare__label">
-                        <span class="donate-flare__icon"><i data-lucide="hand-heart" aria-hidden="true"></i></span>
-                        <span>Support Relays</span>
-                    </span>
-                    <strong>
-                        <span class="donate-flare__value-icon"><i data-lucide="coins" aria-hidden="true"></i></span>
-                        <span>Donate</span>
-                    </strong>
-                </a>
+            <div class="hero-actions" aria-label="Project links">
+                <a class="hero-action hero-action-metrics" href="https://metrics.1aeo.com/relays.brokenbotnet.com/" target="_blank" rel="noopener noreferrer"><span class="button-icon" aria-hidden="true"><i data-lucide="chart-no-axes-combined"></i></span>Metrics</a>
+                <a class="hero-action hero-action-docker" href="#aio-stack"><span class="button-icon" aria-hidden="true"><i data-lucide="container"></i></span>Docker</a>
+                <a class="hero-action hero-action-support" href="#donate"><span class="button-icon" aria-hidden="true"><i data-lucide="hand-heart"></i></span>Donate</a>
             </div>
             <div class="mode-switch-row">
                 <a class="onion-switch" href="http://relays.brokenbotqk7v7y3xpvr6ik7rofivu2dsr5rpkx6xons45reksaykuad.onion" target="_blank" rel="noopener noreferrer" aria-label="Open the primary Shinobi Relays onion mirror">
@@ -126,7 +102,7 @@
                     <span>Bandwidth:</span>
                     <span class="meta-value" id="totalBandwidth">Loading...</span>
                 </div>
-                <div class="meta-item">
+                <div class="meta-item updated">
                     <span class="meta-icon"><i data-lucide="clock-3"></i></span>
                     <span>Onionoo:</span>
                     <span class="meta-value" id="lastUpdated">--</span>
@@ -136,38 +112,44 @@
                 </div>
             </div>
         </header>
+        <nav class="mobile-section-nav" aria-label="Quick section navigation">
+            <a href="#overview" data-section="overview">Overview</a>
+            <a href="#relay-atlas" data-section="relay-atlas">Map</a>
+            <a href="#relays" data-section="relays">Relays</a>
+            <a href="#contact" data-section="contact">Contact</a>
+        </nav>
         <section class="card" id="overview">
             <h2>
                 <span class="emoji-icon"><i data-lucide="chart-no-axes-combined"></i></span>
                 <span class="gradient-text">Relays Overview</span>
             </h2>
             <div class="fleet-status-strip" aria-label="Live status and upcoming relays">
-                <div><span class="explorer-eyebrow">RUNNING NOW</span><strong id="fleetRunningCount">Checking</strong><span id="fleetRunningDetail">Awaiting Onionoo</span></div>
-                <div><span class="explorer-eyebrow">COMING SOON</span><strong>__UPCOMING_COUNT__</strong><span>Planned relays and bridges</span></div>
+                <div class="fleet-summary fleet-summary-running"><div class="fleet-summary-heading"><span class="fleet-summary-icon" aria-hidden="true"><i data-lucide="activity"></i></span><span class="explorer-eyebrow">RUNNING NOW</span></div><strong id="fleetRunningCount">Checking</strong><span id="fleetRunningDetail">Awaiting Onionoo</span></div>
+                <div class="fleet-summary fleet-summary-upcoming"><div class="fleet-summary-heading"><span class="fleet-summary-icon" aria-hidden="true"><i data-lucide="hourglass"></i></span><span class="explorer-eyebrow">COMING SOON</span></div><strong>__UPCOMING_COUNT__</strong><span>Planned relays and bridges</span></div>
             </div>
-            <div class="fleet-data-note" id="fleetDataFreshness">Live status is checked with Onionoo. Upcoming relays are excluded from live checks.</div>
+            <div class="fleet-data-note" id="fleetDataFreshness">Live status is checked with Onionoo.</div>
             <div class="stats-grid">
-                <div class="stat-box">
+                <div class="stat-box stat-box-types">
                     <span class="stat-icon"><i data-lucide="route"></i></span>
                     <div class="stat-value" id="relayTypeStat" data-count="__TYPE_COUNT__">0</div>
                     <div class="stat-label">Relay Types</div>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box stat-box-platforms">
                     <span class="stat-icon"><i data-lucide="server-cog"></i></span>
                     <div class="stat-value" id="platformStat" data-count="__PLATFORM_COUNT__">0</div>
                     <div class="stat-label">Platforms</div>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box stat-box-asns">
                     <span class="stat-icon"><i data-lucide="waypoints"></i></span>
                     <div class="stat-value" id="asnStat" data-count="__ASN_COUNT__">0</div>
                     <div class="stat-label">ASNs</div>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box stat-box-countries">
                     <span class="stat-icon"><i data-lucide="map"></i></span>
                     <div class="stat-value" id="countryStat" data-count="__COUNTRY_COUNT__">0</div>
                     <div class="stat-label">Countries</div>
                 </div>
-                <div class="stat-box">
+                <div class="stat-box stat-box-ipv6">
                     <span class="stat-icon"><i data-lucide="satellite"></i></span>
                     <div class="stat-value" id="ipv6Stat" data-count="__IPV6_COUNT__/__TOTAL_COUNT__">0/__TOTAL_COUNT__</div>
                     <div class="stat-label">IPv6 Enabled</div>
@@ -175,85 +157,10 @@
             </div>
         </section>
         <section class="card relay-atlas" id="relay-atlas" aria-labelledby="atlas-title">
-            <div class="explorer-section-heading"><div><span class="explorer-eyebrow">GEOGRAPHY &amp; DIVERSITY</span><h2 id="atlas-title"><span class="emoji-icon"><i data-lucide="globe"></i></span><span class="gradient-text">Shinobi around the world</span></h2></div><a class="explorer-link" href="#relays">Browse the relays ↓</a></div>
+            <div class="explorer-section-heading"><div><span class="explorer-eyebrow">GEOGRAPHY &amp; DIVERSITY</span><h2 id="atlas-title"><span class="emoji-icon"><i data-lucide="globe"></i></span><span class="atlas-heading-text">Shinobi Relays <span class="gradient-text">around the world</span></span></h2></div><a class="explorer-link" href="#relays">Browse the relays ↓</a></div>
             <!-- RELAY_ATLAS -->
         </section>
-        <section class="card" id="network-flow">
-            <div class="info-banner">
-                <div class="emoji-icon topology-banner-icon"><i data-lucide="network"></i></div>
-                <div>
-                    <span class="banner-title">Network Topology</span>
-                    <span class="topology-banner-copy"> This diagram illustrates the flow of a Tor circuit. A user connects via a <b>Bridge</b> or <b>Guard</b>, continues through <b>Middle</b> relays, and exits to the public internet. </span>
-                </div>
-            </div>
-            <h2>
-                <span class="emoji-icon"><i data-lucide="workflow"></i></span>
-                <span class="gradient-text">Network Flow</span>
-            </h2>
-            <div class="topology-wrapper">
-                <div class="flow-row">
-                    <div class="node user standard">
-                        <div class="icon-circle"><i data-lucide="user"></i></div>
-                        <div class="node-label">User</div>
-                        <div class="node-sub">Origin</div>
-                    </div>
-                    <div class="line user-flow"></div>
-                    <div class="entry-block">
-                        <svg class="branch-svg svg-desktop" viewBox="0 0 280 300" preserveAspectRatio="none">
-                            <path class="stroke neutral" d="M 15 150 C 60 150, 60 75, 140 75" />
-                            <path class="stroke neutral" d="M 15 150 C 60 150, 60 225, 140 225" />
-                            <path class="stroke bridge" d="M 140 75 C 220 75, 220 150, 265 150" />
-                            <path class="stroke guard" d="M 140 225 C 220 225, 220 150, 265 150" />
-                        </svg>
-                        <svg class="branch-svg svg-mobile" viewBox="0 0 300 240" preserveAspectRatio="none">
-                            <path class="stroke neutral" d="M 150 10 C 150 40, 60 40, 60 80" />
-                            <path class="stroke neutral" d="M 150 10 C 150 40, 240 40, 240 80" />
-                            <path class="stroke bridge" d="M 60 144 C 60 180, 150 180, 150 230" />
-                            <path class="stroke guard" d="M 240 144 C 240 180, 150 180, 150 230" />
-                        </svg>
-                        <div class="flow-dot junction-dot"></div>
-                        <div class="flow-dot merge-dot"></div>
-                        <div class="node bridge active">
-                            <div class="node-label" id="topologyBridgeLabel">Bridge Entry · __BRIDGE_COUNT__</div>
-                            <div class="node-sub">Hidden</div>
-                            <div class="icon-circle"><i data-lucide="git-branch"></i></div>
-                        </div>
-                        <div class="node guard active">
-                            <div class="icon-circle"><i data-lucide="shield"></i></div>
-                            <div class="node-label" id="topologyGuardLabel">Guard Entry</div>
-                            <div class="node-sub">Ingress</div>
-                        </div>
-                    </div>
-                    <div class="line encrypted-flow"></div>
-                    <div class="node middle active standard">
-                        <div class="icon-circle"><i data-lucide="shuffle"></i></div>
-                        <div class="node-label" id="topologyMiddleLabel">Middle Layer</div>
-                        <div class="node-sub">Decoupling</div>
-                    </div>
-                    <div class="line encrypted-flow"></div>
-                    <div class="node exit active standard">
-                        <div class="icon-circle"><i data-lucide="door-open"></i></div>
-                            <div class="node-label" id="topologyExitLabel">Exit · __EXIT_COUNT__</div>
-                        <div class="node-sub">Egress</div>
-                    </div>
-                    <div class="line plain-flow"></div>
-                    <div class="node destination standard">
-                        <div class="icon-circle"><i data-lucide="globe"></i></div>
-                        <div class="node-label">Destination</div>
-                        <div class="node-sub">Target</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="card" id="bridges">
-            <h2>
-                <span class="emoji-icon"><i data-lucide="git-branch"></i></span>
-                <span class="gradient-text">Bridge Relays</span><span class="section-count" id="bridgeSectionCount">__BRIDGE_COUNT__</span>
-            </h2>
-            <p>Bridges are unlisted entry points that do not appear in the public Tor directory. They use <span data-tooltip="Pluggable transport that obfuscates Tor traffic to look like random data"><span class="tooltip-underline">transport obfuscation</span></span> to make traffic blend in and evade censorship. </p>
-            <div class="bridge-summary" id="bridgeDistributionSummary"></div>
-            <div class="relay-grid" id="bridgeGrid"></div>
-        </section><section class="card" id="relays">
+        <section class="card" id="relays">
             <h2>
                 <span class="emoji-icon"><i data-lucide="server"></i></span>
                 <span class="gradient-text">Primary Relays</span><span class="section-count" id="publicRelaySectionCount">__PUBLIC_COUNT__</span>
@@ -296,26 +203,112 @@
                 <p id="relayTableEmpty" hidden>No relays match these filters.</p>
             </div>
         </section>
+        <section class="card" id="bridges">
+            <h2>
+                <span class="emoji-icon"><i data-lucide="git-branch"></i></span>
+                <span class="gradient-text">Bridge Relays</span><span class="section-count" id="bridgeSectionCount">__BRIDGE_COUNT__</span>
+            </h2>
+            <p>Bridges are unlisted entry points that do not appear in the public Tor directory. They use <span data-tooltip="Pluggable transport that obfuscates Tor traffic to look like random data"><span class="tooltip-underline">transport obfuscation</span></span> to make traffic blend in and evade censorship. </p>
+            <div class="bridge-summary" id="bridgeDistributionSummary"></div>
+            <div class="relay-grid" id="bridgeGrid"></div>
+        </section>
+        <section class="card" id="network-flow">
+            <h2>
+                <span class="emoji-icon"><i data-lucide="workflow"></i></span>
+                <span class="gradient-text">Network Flow</span>
+            </h2>
+            <div class="network-flow-content">
+                <div class="topology-info" role="note">
+                    <span class="topology-info-icon" aria-hidden="true"><i data-lucide="network"></i></span>
+                    <div>
+                        <h3 class="flow-title">Network Topology</h3>
+                        <p class="flow-description">This diagram shows a circuit to the public Internet: a user connects through a <strong>Bridge</strong> or <strong>Guard</strong>, continues through a <strong>Middle</strong> relay, and leaves through an <strong>Exit</strong>. Onion services stay within Tor and do not use an Exit.</p>
+                    </div>
+                </div>
+                <ol class="flow-compact" aria-label="Circuit to the public Internet">
+                    <li><span class="flow-step-icon" aria-hidden="true"><i data-lucide="user"></i></span><span><strong>You</strong><small>Tor Browser or another Tor client</small></span></li>
+                    <li><span class="flow-step-icon" aria-hidden="true"><i data-lucide="shield"></i></span><span><strong>Entry</strong><small>A Guard or an unlisted bridge</small></span></li>
+                    <li><span class="flow-step-icon" aria-hidden="true"><i data-lucide="shuffle"></i></span><span><strong>Middle relay</strong><small>Connects the entry and Exit</small></span></li>
+                    <li><span class="flow-step-icon" aria-hidden="true"><i data-lucide="door-open"></i></span><span><strong>Exit relay</strong><small>Connects to the public destination</small></span></li>
+                    <li><span class="flow-step-icon" aria-hidden="true"><i data-lucide="globe"></i></span><span><strong>Destination</strong><small>The website or service</small></span></li>
+                </ol>
+
+                <div class="topology-wrapper">
+                    <div class="flow-row">
+                        <div class="node user standard">
+                            <div class="icon-circle"><i data-lucide="user"></i></div>
+                            <div class="node-label">User</div>
+                            <div class="node-sub">Origin</div>
+                        </div>
+                        <div class="line user-flow"></div>
+                        <div class="entry-block">
+                            <svg class="branch-svg svg-desktop" viewBox="0 0 280 300" preserveAspectRatio="none">
+                                <path class="stroke neutral" d="M 15 150 C 60 150, 60 75, 140 75" />
+                                <path class="stroke neutral" d="M 15 150 C 60 150, 60 225, 140 225" />
+                                <path class="stroke bridge" d="M 140 75 C 220 75, 220 150, 265 150" />
+                                <path class="stroke guard" d="M 140 225 C 220 225, 220 150, 265 150" />
+                            </svg>
+                            <svg class="branch-svg svg-mobile" viewBox="0 0 300 240" preserveAspectRatio="none">
+                                <path class="stroke neutral" d="M 150 10 C 150 40, 60 40, 60 80" />
+                                <path class="stroke neutral" d="M 150 10 C 150 40, 240 40, 240 80" />
+                                <path class="stroke bridge" d="M 60 144 C 60 180, 150 180, 150 230" />
+                                <path class="stroke guard" d="M 240 144 C 240 180, 150 180, 150 230" />
+                            </svg>
+                            <div class="flow-dot junction-dot"></div>
+                            <div class="flow-dot merge-dot"></div>
+                            <div class="node bridge active">
+                                <div class="node-label" id="topologyBridgeLabel">Bridge Entry · __BRIDGE_COUNT__</div>
+                                <div class="node-sub">Hidden</div>
+                                <div class="icon-circle"><i data-lucide="git-branch"></i></div>
+                            </div>
+                            <div class="node guard active">
+                                <div class="icon-circle"><i data-lucide="shield"></i></div>
+                                <div class="node-label" id="topologyGuardLabel">Guard Entry</div>
+                                <div class="node-sub">Ingress</div>
+                            </div>
+                        </div>
+                        <div class="line encrypted-flow"></div>
+                        <div class="node middle active standard">
+                            <div class="icon-circle"><i data-lucide="shuffle"></i></div>
+                            <div class="node-label" id="topologyMiddleLabel">Middle Layer</div>
+                            <div class="node-sub">Decoupling</div>
+                        </div>
+                        <div class="line encrypted-flow"></div>
+                        <div class="node exit active standard">
+                            <div class="icon-circle"><i data-lucide="door-open"></i></div>
+                                <div class="node-label" id="topologyExitLabel">Exit · __EXIT_COUNT__</div>
+                            <div class="node-sub">Egress</div>
+                        </div>
+                        <div class="line plain-flow"></div>
+                        <div class="node destination standard">
+                            <div class="icon-circle"><i data-lucide="globe"></i></div>
+                            <div class="node-label">Destination</div>
+                            <div class="node-sub">Target</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="card" id="contact">
             <h2>
                 <span class="emoji-icon"><i data-lucide="mail"></i></span>
                 <span class="gradient-text">Contact &amp; Abuse Info</span>
             </h2>
-            <p>Maintained by <b>rE-Bo0t.bx1</b>. We operate with a strict <b>No Logs</b> policy and treat this infrastructure as a <b>Common Carrier</b>. </p>
+            <p class="contact-intro">Maintained by <b>rE-Bo0t.bx1</b>. For relay enquiries or abuse reports, use the address below.</p>
             <div class="contact-grid">
-                <div class="contact-box">
+                <div class="contact-box contact-email">
                     <span class="c-label"><span class="row-icon"><i data-lucide="mail"></i></span>Operator Email</span>
                     <!--email_off--><a href="mailto:r3bo0tbx1@brokenbotnet.com" class="c-value">r3bo0tbx1@brokenbotnet.com</a><!--/email_off-->
                 </div>
-                <div class="contact-box">
+                <div class="contact-box contact-key">
                     <span class="c-label"><span class="row-icon"><i data-lucide="key-round"></i></span>PGP Public Key</span>
                     <a href="0xB3BD6196E1CFBFB4.asc" target="_blank" rel="noopener noreferrer" class="c-value">0xB3BD6196E1CFBFB4</a>
                 </div>
-                <div class="contact-box">
+                <div class="contact-box contact-policy">
                     <span class="c-label"><span class="row-icon"><i data-lucide="scroll-text"></i></span>Logs Policy</span>
                     <span class="c-value danger-text">No Logs Stored</span>
                 </div>
-                <div class="contact-box">
+                <div class="contact-box contact-policy">
                     <span class="c-label"><span class="row-icon"><i data-lucide="file-check"></i></span>Network Policy</span>
                     <span class="c-value safe-text">Common Carrier</span>
                 </div>
@@ -340,7 +333,7 @@
             </h2>
             <p class="glossary-intro">Quick reference for Tor network terminology used throughout this dashboard.</p>
             <div class="glossary-sections">
-                <details class="glossary-group">
+                <details class="glossary-group" name="relay-glossary">
                     <summary class="glossary-group-title">Relay Types</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
@@ -373,7 +366,7 @@
                         </div>
                     </div>
                 </details>
-                <details class="glossary-group">
+                <details class="glossary-group" name="relay-glossary">
                     <summary class="glossary-group-title">Bridge Terms</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
@@ -392,7 +385,7 @@
                         </div>
                     </div>
                 </details>
-                <details class="glossary-group">
+                <details class="glossary-group" name="relay-glossary">
                     <summary class="glossary-group-title">Flags</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
@@ -453,7 +446,7 @@
                         </div>
                     </div>
                 </details>
-                <details class="glossary-group">
+                <details class="glossary-group" name="relay-glossary">
                     <summary class="glossary-group-title">Network Data</summary>
                     <div class="glossary-grid">
                         <div class="glossary-item">
